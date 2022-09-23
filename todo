@@ -1,0 +1,26 @@
+# todo
+
+- [X] cookies mechanisme => incremental
+- [X] extract links from the skills => multi steps
+- [X] session experations time
+- [x] role changing IDs => 
+    * multi steps
+    * pressistance cookies
+
+
+
+# frontend 
+- ~~refresh the user token after the new user doc creation~~
+
+
+# future
+- [ ] OPTIMISATION!
+- [ ] saveCustom already Checked!
+
+# problems
+- [X] Redirection logic
+- [X] dealing with tables
+- [X] form submission 
+- [ ] multi steps form submission 
+- [X] stream of options 
+- [ ] empty messages 

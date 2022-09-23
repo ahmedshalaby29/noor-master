@@ -1,0 +1,28 @@
+# Use a node 12 base image
+FROM node
+
+
+WORKDIR /tmp/app
+
+COPY . ./
+
+RUN npm i
+RUN npm run build
+
+RUN ls
+
+
+WORKDIR /user/app
+
+COPY ./package* ./
+COPY server* ./
+
+RUN npm i --production
+
+RUN mv  /tmp/app/public ./ 
+
+RUN rm -r /tmp/app
+
+EXPOSE 5050
+
+CMD ["node","server.js"]

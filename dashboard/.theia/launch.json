@@ -1,0 +1,29 @@
+{
+    "configurations": [
+        {
+            "name": "Cloud Run: Run/Debug Locally",
+            "type": "cloudcode.cloudrun",
+            "request": "launch",
+            "build": {
+                "docker": {
+                    "path": "dockerfile"
+                }
+            },
+            "image": "dashboard",
+            "service": {
+                "name": "dashboard",
+                "containerPort": 5050,
+                "serviceAccountName": "firebase-adminsdk-ailop@formal-ember-345513.iam.gserviceaccount.com",
+                "resources": {
+                    "limits": {
+                        "memory": "256Mi"
+                    }
+                }
+            },
+            "target": {
+                "minikube": {}
+            },
+            "watch": true
+        }
+    ]
+}

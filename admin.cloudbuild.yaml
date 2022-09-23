@@ -1,0 +1,9 @@
+steps:
+  - name: "gcr.io/cloud-builders/gcloud"
+    dir: "dashboard"
+    args:
+      - run 
+      - deploy 
+      - ["dashboard --source . --region=us-central1"]
+    id: 'deploying dashboard'
+

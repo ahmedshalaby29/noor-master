@@ -1,0 +1,30 @@
+steps:
+  - name: "gcr.io/cloud-builders/gsutil"
+    dir: "dashboard"
+    entrypoint: "bash"
+    args: ["-c","gsutil ls gs://formal-ember-345513.appspot.com/builder | sort -r | head -n1 | xargs -i{} gsutil cp {} ./data.html"]
+    id: 'download landing page html & css'
+
+  - name: "node"
+    dir: "dashboard"
+    args: ["build.js"]
+  
+  - name: 'gcr.io/cloud-builders/wget'
+    id: "download firebase"
+    args:
+      - '--quiet'
+      - '-O'
+      - 'firebase'
+      - 'https://firebase.tools/bin/linux/latest'
+
+  - name: "node"
+    args:
+      - "bash"
+      - "-c"
+      - |
+       chmod a+x ./firebase
+       ./firebase deploy --only hosting:orsodnour-landing
+
+       
+options:
+  logging: CLOUD_LOGGING_ONLY

@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /config/{aa} {
+      allow read, write: if false;
+    }
+
+
+    match /users/{userId} {
+      allow write: if false;
+      allow read: if request.auth.uid == userId
+    }
+
+    match /tasks/{taskId} {
+      allow read: if resource.data.user == request.auth.uid
+      allow write: if request.auth.uid != null && int(request.auth.token.try) > request.time.toMillis()
+    }
+
+    match /reports/{reportId} {
+      allow delete,read: if resource.data.user == request.auth.uid
+      allow write: if false 
+    }
+
+  }
+}

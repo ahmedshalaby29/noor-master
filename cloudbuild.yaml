@@ -1,0 +1,49 @@
+steps:
+  - name: "gcr.io/cloud-builders/npm"
+    args:
+      - 'install'
+    id: 'install frontend dependecies'
+
+  - name: "gcr.io/cloud-builders/npm"
+    
+    args:
+      - 'run'
+      - 'build'
+    id: 'building frontend dependecies'
+
+  - name: "gcr.io/cloud-builders/npm"
+    dir: "functions"
+    args:
+      - 'install'
+    id: 'install backend dependecies'
+
+  - name: "gcr.io/cloud-builders/npm"
+    dir: "functions"
+    args:
+      - 'run'
+      - 'build'
+    id: 'building backend dependecies'
+
+
+  - name: 'gcr.io/cloud-builders/wget'
+    id: "download firebase"
+    args:
+      - '--quiet'
+      - '-O'
+      - 'firebase'
+      - 'https://firebase.tools/bin/linux/latest'
+
+  - name: "gcr.io/cloud-builders/npm"
+    id: "install firebase"
+    waitFor:
+      - "download firebase"
+    args:
+      - "i"
+
+  - name: "node"
+    args:
+      - "bash"
+      - "-c"
+      - |
+       chmod a+x ./firebase
+       ./firebase deploy
