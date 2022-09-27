@@ -12,7 +12,6 @@ import { HomeContext } from "../../context/homeContext";
 import { HomeTab } from "../../models/home_model";
 import { getPausedTab, taskTitle } from "../../utils";
 
-
 import LogoImage from "../../assets/logo.png";
 
 const Home: React.FC = ({ children }) => {
@@ -118,7 +117,10 @@ const Home: React.FC = ({ children }) => {
             to={"/" + HomeTab.home}
             className="font-arabic text-2xl  w-full text-center"
           >
-            <img src={LogoImage} className="w-24 mx-auto aspect-square bg-transparent"/>
+            <img
+              src={LogoImage}
+              className="w-24 mx-auto aspect-square bg-transparent"
+            />
             ارصد نور
           </Link>
         </div>

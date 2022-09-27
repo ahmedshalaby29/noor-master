@@ -35,13 +35,11 @@ const SlideTransition: React.FC<SlideTransitionProps> = ({
       as={as as any}
       show={show}
       appear={true}
-
-      {...key}
+      key={key}
       className={`${className}`}
       style={{ direction: isRtl ? "rtl" : "inherit" }}
-      
-      enter={animation?"transition ease-in-out duration-300 transform":""}
-      leave={animation?"transition ease-in-out duration-300 transform":""}
+      enter={animation ? "transition ease-in-out duration-300 transform" : ""}
+      leave={animation ? "transition ease-in-out duration-300 transform" : ""}
       {...anim(animation)}
     >
       {children}

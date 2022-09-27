@@ -1,17 +1,5 @@
 {
   "projects": {
-    "default": "formal-ember-345513"
-  },
-  "targets": {
-    "formal-ember-345513": {
-      "hosting": {
-        "orsodnour-landing": [
-          "dashboard"
-        ],
-        "formal-ember-345513": [
-          "./public"
-        ]
-      }
-    }
+    "default": "moaaz-354323"
   }
 }

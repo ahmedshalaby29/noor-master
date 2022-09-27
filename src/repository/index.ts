@@ -118,6 +118,7 @@ export default class Repository {
     T extends FormSubmitLookup["type"],
     B extends Omit<FormSubmitLookup & { type: T }, "type">
   >(type: T, config: {}) {
+    // @ts-ignore
     const response = await this.call<B["response"]>(type, {
       ...(config as {}),
       ...(this.bouncingData ?? {}),

@@ -4,7 +4,7 @@ import {
   Form,
   FormInput,
   FormSubmit,
-  FormSubmitLookup
+  FormSubmitLookup,
 } from "../types/communication_types";
 
 interface Props {
@@ -12,23 +12,30 @@ interface Props {
   excludedIds?: string[];
   excludedNames?: string[];
   actionName?: string;
-  isPrimary:boolean;
+  isPrimary: boolean;
 }
 
 type SubmitType = <
   T extends FormSubmitLookup["type"],
   B extends Omit<FormSubmitLookup & { type: T }, "type">,
+  // @ts-ignore
   C extends Omit<B["payload"], keyof FormSubmit>,
   D extends FormSubmitLookup & { type: T }
 >(
   type: T,
   payload: C
+  // @ts-ignore
 ) => Promise<D["response"]["payload"]>;
 
 const createPath = (x: {}) => Object.values(x).join("-");
 
 // todo use label to cach data
-export default ({ isPrimary, excludedIds, excludedNames, actionName }: Props) => {
+export default ({
+  isPrimary,
+  excludedIds,
+  excludedNames,
+  actionName,
+}: Props) => {
   const [form, setForm] = useState<Form>();
   const [inputs, setInputs] = useState<FormInput[]>([]);
   const [loadingIndex, setLoadinIndex] = useState(100);
@@ -99,7 +106,6 @@ export default ({ isPrimary, excludedIds, excludedNames, actionName }: Props) =>
       e.name?.includes(actionName ?? "")
     );
 
-   
     setLoadinIndex(-1);
     const action = await Repository.instance.submitForm(type, {
       ...payload, // CHECK should i deconstruct the payload or not
@@ -169,7 +175,7 @@ function formatInputs(inputs: FormInput[]) {
   const last: FormInput[] = [];
   let flip = false;
 
-  formated .forEach((inp) => {
+  formated.forEach((inp) => {
     if (inp.name?.includes("$ddlSpecialty")) {
       return first.push(inp);
     }
