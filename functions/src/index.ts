@@ -14,6 +14,7 @@ import signForm from "./endpoints/callables/signForm";
 import price from "./endpoints/callables/price";
 import paypalCreateOrder from "./endpoints/callables/paypalCreateOrder";
 import paypalHandleOrder from "./endpoints/callables/paypalHandleOrder";
+import addProToUser from "./endpoints/callables/addProToUser";
 
 import failedRequests from "./endpoints/background/failedRequests";
 
@@ -34,4 +35,5 @@ export {
   price,
   paypalCreateOrder,
   paypalHandleOrder,
+  addProToUser,
 };

@@ -7,13 +7,13 @@ import { getPerformance } from "firebase/performance";
 export const emulator = process.env.NODE_ENV == "development" && true;
 
 export const firebaseApp = initializeApp({
-  apiKey: "AIzaSyCgxZUu5IbdkNzKl_aJ0EzhY2tagAbimB8",
-  authDomain: "moaaz-354323.firebaseapp.com",
-  projectId: "moaaz-354323",
-  storageBucket: "moaaz-354323.appspot.com",
-  messagingSenderId: "1048392186820",
-  appId: "1:1048392186820:web:52982b13b5ce42f03f8291",
-  measurementId: "G-2CPHW20WWD",
+  apiKey: "AIzaSyAJv-Cjmz_nzv5KUtRjnJiO5h0imIbSZFw",
+  authDomain: "formal-ember-345513.firebaseapp.com",
+  projectId: "formal-ember-345513",
+  storageBucket: "formal-ember-345513.appspot.com",
+  messagingSenderId: "804272565837",
+  appId: "1:804272565837:web:61b7e1c24552ee748a3604",
+  measurementId: "G-BZ2BGX92YX",
 });
 
 const App = React.lazy(() => import("./app"));

@@ -7,7 +7,6 @@ const pubsub = new PubSub();
 
 export const FailedRequest = pubsub.topic("failed_requests");
 
-
 const app = admin.initializeApp();
 
 export const db = app.firestore();
@@ -35,7 +34,9 @@ export async function isBlocked(
   if (tryPeriod > Date.now()) {
     return false;
   } else {
-    console.warn("unauthorised request from" + context.auth.uid);
+    console.warn("unauthorised request from " + context.auth.uid);
+    console.warn("user tryPeriod: " + tryPeriod);
+
     return true;
   }
 }
