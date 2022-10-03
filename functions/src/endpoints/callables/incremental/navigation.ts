@@ -6,6 +6,7 @@ import Redirect from "../../../core/redirect";
 import { extractHomeData } from "../../../helpers";
 import { IncrementalData } from "../../../types";
 import { extractRoleIds } from "../../../utils";
+import util = require("util");
 
 interface NavigationData extends IncrementalData {
   account: string;
@@ -43,6 +44,21 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
     },
     async (config) => {
       const home = await extractHomeData(config.html);
+
+      console.log(
+        "49 data.account " +
+          data.account +
+          "home.allAccounts " +
+          home.allAccounts
+      );
+      console.log(
+        util.inspect(home.allAccounts, {
+          showHidden: false,
+          depth: null,
+          colors: true,
+        })
+      );
+
       const accountId = home.allAccounts.find(
         (e) => e.text == data.account
       )!.id;
@@ -57,6 +73,18 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
 
   const firstNav = await checkAccount.next(async (config) => {
     const home = await extractHomeData(config.html);
+    console.log(
+      "77 data.nav1 " + data.nav1 + "home.navigation " + home.navigation
+    );
+
+    console.log(
+      util.inspect(home.navigation, {
+        showHidden: false,
+        depth: null,
+        colors: true,
+      })
+    );
+
     const nav1Id = home.navigation.find((e) => e.text == data.nav1)!.id;
 
     console.log("##### YAYYYY first step1s!");
@@ -74,6 +102,9 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
     },
     async (config) => {
       const home = await extractHomeData(config.html);
+      console.log(
+        "106 data.nav1 " + data.nav1 + "home.navigation " + home.navigation
+      );
       const nav1Id = home.navigation.find((e) => e.text == data.nav1)!.id;
 
       console.log("##### YAYYYY [FORCED] first step!");
@@ -87,7 +118,7 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
 
   const secondNav = await ensureFirstNav.next(async (config) => {
     const nav2Ids = await innerNavigation(config.html);
-    console.log(nav2Ids);
+    console.log("121 nav2Ids " + nav2Ids + "data.nav2 " + data.nav2);
     const nav2Id = nav2Ids.find((e) => e.text == data.nav2)?.id ?? [];
 
     console.log("##### YAYYYY second step!");

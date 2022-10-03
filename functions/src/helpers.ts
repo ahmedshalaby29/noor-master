@@ -1,14 +1,10 @@
 import { load as loadHtml } from "cheerio";
 import { extractRoleId, hiddenInputs } from "./utils";
-
-
 export async function extractHomeData(data: string) {
   try {
     const $ = loadHtml(data);
 
     const userName = $(".username").text();
-
-    const currentAccount = $("div.userinfo div.hidden_user_info span").text();
 
     const allAccounts = $("div.userinfo ul.menu.TopUsers a")
       .map((_, e) => ({
@@ -17,6 +13,7 @@ export async function extractHomeData(data: string) {
       }))
       .toArray() as any as { text: string; id: string }[];
 
+    const currentAccount = $("div.userinfo div.hidden_user_info span").text();
     const weirdData = hiddenInputs($);
 
     const navigation = await mainNavigation(data);

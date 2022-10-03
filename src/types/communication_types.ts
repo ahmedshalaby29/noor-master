@@ -15,6 +15,7 @@ export type FormInput = {
 
 export type Form = {
   action: string;
+  systemMessage: string;
   inputs: FormInput[];
   actionButtons: FormInput[];
 };

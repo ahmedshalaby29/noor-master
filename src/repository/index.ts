@@ -89,7 +89,6 @@ export default class Repository {
       ...config,
       ...(this.bouncingData ?? {}),
     });
-
     this.updateBouncingData({
       cookies: response.data.cookies,
       from: response.data.redirected || response.data.from,

@@ -17,7 +17,6 @@ export default functions
     }
 
     const name = user.email.split("@")[0];
-
     try {
       const cookieDoc = await db.collection("cookies").doc(name).get();
       const docData = cookieDoc.data();

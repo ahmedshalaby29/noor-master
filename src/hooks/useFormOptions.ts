@@ -144,6 +144,7 @@ export default ({
     inputs: visibleInputs,
     setForm,
     formAction: form?.action,
+    systemMessage: form?.systemMessage,
     loadingIndex,
     submit,
     isAllChosen,

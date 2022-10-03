@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import CheckBoxs from "../../components/home/checkboxs";
 import SelectBox from "../../components/home/selectBox";
+import SystemMessage from "../../components/home/systemMessage";
+
 import { AppContext } from "../../context/appContext";
 import { HomeContext } from "../../context/homeContext";
 import useFormOptions from "../../hooks/useFormOptions";
@@ -12,7 +14,6 @@ import { NoorExam, NoorSection, TeacherType } from "../../models/home_model";
 import Repository from "../../repository";
 import { FormInput } from "../../types/communication_types";
 import { teacherTypeArabic, wait } from "../../utils";
-
 
 import { trace } from "firebase/performance";
 import { perf } from "../../main";
@@ -31,7 +32,7 @@ export type Module = {
 };
 
 export type Degrees = {
-  ids:string,
+  ids: string;
   studentID: number;
   // todo add userProfileID
   studentName: string;
@@ -51,9 +52,21 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
   const tracePages = useRef(trace(perf, "saveDegree"));
   const { currentRole, teacherType } = useContext(HomeContext);
   const { logout } = useContext(AppContext);
+  const [systemMessageState, setSystemMessageState] = useState("");
 
-
-
+  const {
+    inputs,
+    setForm,
+    submit,
+    systemMessage,
+    formAction,
+    updateInputs,
+    isAllChosen,
+    loadingIndex,
+  } = useFormOptions({
+    actionName: "ibtnSearch",
+    isPrimary: teacherType == TeacherType.primary,
+  });
   useEffect(() => {
     tracePages.current.start();
     tracePages.current.putAttribute(
@@ -65,19 +78,11 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
     return () => tracePages.current.stop();
   }, []);
 
-
-  const {
-    inputs,
-    setForm,
-    submit,
-    formAction,
-    updateInputs,
-    isAllChosen,
-    loadingIndex,
-  } = useFormOptions({
-    actionName: "ibtnSearch",
-    isPrimary:teacherType == TeacherType.primary,
-  });
+  useEffect(() => {
+    if (systemMessage) {
+      setSystemMessageState(systemMessage.replaceAll(".", ""));
+    }
+  }, [systemMessage]);
 
   const [stage, setStage] = useState(0);
   useEffect(() => {
@@ -101,7 +106,10 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
   useEffect(() => {
     wait(async () => {
       await fetch(currentRole!)
-        .then((r) => setForm(r.form))
+        .then((r) => {
+          console.log(r.form);
+          setForm(r.form);
+        })
         .catch(logout);
     }, setLoading);
   }, []);
@@ -137,7 +145,7 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
       action: formAction!,
       inputs,
       degrees: degrees,
-      isPrimary:teacherType == TeacherType.primary,
+      isPrimary: teacherType == TeacherType.primary,
     });
   };
 
@@ -227,7 +235,7 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
   const actions = [
     createAction({
       show: !!inputs.length,
-      enable: isAllChosen && loadingIndex != -1,
+      enable: isAllChosen && loadingIndex != -1 && !systemMessageState,
       buttons: [
         {
           label: "التالي",
@@ -282,9 +290,15 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
     <Page
       title="رصد درجات فصل"
       size={stage > 0 ? "lg" : "sm"}
-      loading={loading  || loadingIndex == -1}
+      loading={loading || loadingIndex == -1}
       actions={actions[Math.max(Math.min(stage, 2), 0)]}
     >
+      {systemMessageState && (
+        <SystemMessage
+          message={systemMessageState + " اطلب من قائد المدرسة منحك الصلاحية"}
+        />
+      )}
+
       <SlideTransition
         className="flex-1 w-full grid md:grid-cols-2  gap-3"
         show={stage == 0}

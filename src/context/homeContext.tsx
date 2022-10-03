@@ -59,6 +59,14 @@ const HomeProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (teacher) {
+      teacher.role = teacher.role.filter((role) => role.includes("معلم"));
+
+      if (!teacher.currentRole.includes("معلم")) {
+        teacher.currentRole = teacher.role.find((role) =>
+          role.includes("معلم")
+        )!;
+      }
+
       dispatch({ type: "setTeacher", payload: teacher });
       dispatch({ type: "setRole", payload: teacher.currentRole });
       const type = getTeacherType(teacher.currentRole);

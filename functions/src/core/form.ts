@@ -95,6 +95,11 @@ export default class Form {
     return inputs;
   }
 
+  private getSystemMessage() {
+    const message = this.$("#ctl00_PlaceHolderMain_lblMarkPrivilege");
+    return message.text();
+  }
+
   protected getFormAction() {
     let action = this.form.attr("action");
     action = action.replace("https://noor.moe.gov.sa/Noor/EduWaveSMS/", "");
@@ -197,7 +202,7 @@ export default class Form {
   }
 
   /**
-   * handle the select and form aciton and basic hidden inputs
+   * handle the select and form action and basic hidden inputs
    */
   protected updateForm(data: string) {
     Form.parseResponse(data, {
@@ -276,12 +281,13 @@ export default class Form {
     const weirdData = this.getWeirdData();
     const inputs = this.getInputs();
     const actionButtons = this.getActionButtons();
-
+    const systemMessage = this.getSystemMessage();
     return {
       action,
       weirdData,
       inputs,
       actionButtons,
+      systemMessage,
     };
   }
 
