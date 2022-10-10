@@ -71,11 +71,16 @@ export default class DB {
   }
 
   async createTask(task: BackgroundTask<any>) {
-    const tasks = collection(this.firestore, "tasks");
-    await addDoc(tasks, {
-      ...task,
-      created:Timestamp.fromDate(task.created)
-    });
+    try {
+       const tasks = collection(this.firestore, "tasks");
+       await addDoc(tasks, {
+         ...task,
+         created: Timestamp.fromDate(task.created),
+       });
+    } catch (error) {
+      console.log(error);
+    }
+   
   }
 
   async getReports(userId: string) {

@@ -94,6 +94,7 @@ export default ({
         name,
         inputs,
         actionButtons: form!.actionButtons,
+        systemMessage:form!.systemMessage
       });
 
       setForm(newForm);
@@ -138,6 +139,8 @@ export default ({
       setInputs(formatInputs(form.inputs));
     }
   }, [form]);
+
+
 
   return {
     updateInputs,

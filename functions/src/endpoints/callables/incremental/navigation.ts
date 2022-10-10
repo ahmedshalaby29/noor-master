@@ -18,14 +18,14 @@ export default functions
   .region("asia-south1")
   .https.onCall(async (data: NavigationData, context) => {
     if (await isBlocked(context)) return null;
-
+   //returns Redirect data instance 
     const homePage = await Redirect.start({
       from:
         data.from ??
         "https://noor.moe.gov.sa/Noor/EduWavek12Portal/HomePage.aspx",
       cookies: data.cookies,
     });
-
+    
     const { secondNav, form } = await navigateToForm(homePage, data);
 
     return secondNav.sendForm(form);
@@ -35,16 +35,21 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
   const checkAccount = await homePage.nextIf(
     async (config) => {
       if (!data.account) return false;
-
       const home = await extractHomeData(config.html);
-      console.log(home.currentAccount);
-      console.log(home.allAccounts);
-      console.log(home.currentAccount == data.account);
-      return home.currentAccount.trim() != data.account.trim();
+      //#region logs
+      console.log("home.currentAccount: " + home.currentAccount);
+      console.log("home.allAccounts: " + home.allAccounts);
+      console.log("data.account " + data.account);
+      console.log(
+        "!home.currentAccount.includes(data.account): " +
+          home.currentAccount.includes(data.account)
+      );
+      //#endregion
+      return !home.currentAccount.includes(data.account);
     },
     async (config) => {
       const home = await extractHomeData(config.html);
-
+      //#region logs
       console.log(
         "49 data.account " +
           data.account +
@@ -58,11 +63,11 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
           colors: true,
         })
       );
-
+//#endregion
       const accountId = home.allAccounts.find(
         (e) => e.text == data.account
       )!.id;
-
+     
       return {
         target: "SwitchUserTypeMenu",
         to: accountId,
@@ -70,13 +75,15 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
       };
     }
   );
-
+  
+  
   const firstNav = await checkAccount.next(async (config) => {
     const home = await extractHomeData(config.html);
+    //#region logs
+    
     console.log(
       "77 data.nav1 " + data.nav1 + "home.navigation " + home.navigation
     );
-
     console.log(
       util.inspect(home.navigation, {
         showHidden: false,
@@ -84,8 +91,10 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
         colors: true,
       })
     );
+    //#endregion
 
-    const nav1Id = home.navigation.find((e) => e.text == data.nav1)!.id;
+    const nav1Id = home.navigation.find((e) => e.text == data.nav1) ?home.navigation.find((e) => e.text == data.nav1).id:
+    "";
 
     console.log("##### YAYYYY first step1s!");
     return {
@@ -95,10 +104,11 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
     };
   });
 
+
   const ensureFirstNav = await firstNav.nextIf(
     async (config) => {
-      const nav2Ids = await innerNavigation(config.html);
-      return nav2Ids.length == 0;
+    //  const nav2Ids = await innerNavigation(config.html);
+      return checkPageTitle(config.html);
     },
     async (config) => {
       const home = await extractHomeData(config.html);
@@ -143,4 +153,12 @@ async function innerNavigation(data: string) {
       id: extractRoleIds($(e).attr("onclick")!),
     }))
     .toArray() as any as { text: string; id: string[] }[];
+}
+
+async function checkPageTitle(data:string) {
+  const $ = load(data)
+  const titleText = $("title").text()
+
+
+  return titleText.trim() == 'EduWave - الخدمة غير متوفرة :: نظام نور'
 }

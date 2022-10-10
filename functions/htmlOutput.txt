@@ -1,0 +1,1073 @@
+responseData : 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="rtl"
+style="height: 99%;">
+<head id="Head1" style="height: 100%;"><title>
+	EduWave - غير مصرح به :: نظام نور  
+</title><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta content="width=device-width, initial-scale=1" name="viewport" /><link href="CSS/scrollbar.css" rel="stylesheet" type="text/css" /><link href="CSS/Bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        function ShowNotificationDialog() {
+            blockScreen();            return false;        }
+        function CancelNotificationDialog() {
+            unBlockScreen();            return false;        }
+        function FileUploadAlerts(MSG) {
+            $.notify(MSG, { globalPosition: "top middle", autoHideDelay: 20000 });        }
+
+    </script>
+    <style>
+        .iframe_hijri_calendar {
+            position: absolute;            width: 320px;            height: 270px;            background: #fff;            border-color: #ccc #ccc #ccc #ccc;            border-width: 1px;            color: #000;            direction: rtl;            z-index: 99999;        }
+
+            .iframe_hijri_calendar body {
+                border-color: #ccc #ccc #ccc #ccc;                border-width: 1px;                color: #000;                background-color: #efebde;                direction: rtl;            }
+    </style>
+
+<noscript><meta http-equiv="Refresh" content="0;URL=http://noor.moe.gov.sa/Noor/CheckJS.aspx" /></noscript><link href="App_Themes/EduWaveThemeRTL/EduWave.css?v=3.0.8298.27796" type="text/css" rel="stylesheet" /><link rel="stylesheet" type="text/css" href="/Noor/CSS/introjs.css?v=3.0.8298.27796" /></head>
+<body style="height: 100%;" onresize="funReSizeWid();">
+    <script type="text/javascript">
+        var NoResultsFound = 'لا يوجد نتائج';
+        function Select() {
+            $(document).ready(function () {
+                $(".control-dropdownlist").select2({
+                    SelectOnClose: true,
+                    CloseOnSelect: true
+                });            });        }
+
+    </script>
+    <script language="javascript" type="text/javascript">
+        function SearchMenu() {
+            var input = document.getElementById('SearchMenu')
+            var filter = input.value.toUpperCase();            //
+            //
+            //
+            //
+            //
+            //
+            var ul = document.getElementById('ulUserMenu')
+            if (ul != null) {
+                var li = ul.getElementsByTagName("li");                var i;                for (i = 0; i < li.length; i++) {
+                    a = li[i].getElementsByTagName("a")[0];                    var txtValue = a.textContent || a.innerText;                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        li[i].style.display = "";                    } else {
+                        li[i].style.display = "none";                    }
+                }
+            }
+        }
+
+        function showNotificationCalculateEquation(CalculateEquationTitle, Message) {
+            var ibtnClose = $("[id*='tdClose']");            var ibtnOkToClose = $("[id*='tdOkToClose']");            var ibtnYesSchedaul = $("[id*='tdYesSchedaul']");            var ibtnNoSchedaul = $("[id*='tdNoSchedaul']");            ibtnOkToClose.html('');            ibtnYesSchedaul.html('');            ibtnNoSchedaul.html('');            var Dimention = "350,120";            ibtnClose.css("visibility", "visible");            var lblNotificationMessage = $("[id*='lblNotificationMessage']");            var lblNotificationTitle = $("[id*='lblNotificationTitle']");            lblNotificationTitle.html(CalculateEquationTitle);            lblNotificationMessage.html(Message);            showNotification(Message
+                , 'lblNotificationMessage'
+                , ibtnClose
+                , 'lblNotificationTitle'
+                , CalculateEquationTitle
+                , Dimention.split(',')[0]
+                , Dimention.split(',')[1]
+                , 'ibtnCloseNotification');            StopTimerEquation();        }
+        function showNotificationExtUserPriorty(Title, Message) {
+            var ibtnClose = $("[id*='tdClose']");            var ibtnOkToClose = $("[id*='tdOkToClose']");            var ibtnYesSchedaul = $("[id*='tdYesSchedaul']");            var ibtnNoSchedaul = $("[id*='tdNoSchedaul']");            ibtnOkToClose.html('');            ibtnYesSchedaul.html('');            ibtnNoSchedaul.html('');            var Dimention = "350,120";            showNotification(Message
+                , 'lblNotificationMessage'
+                , ibtnClose
+                , 'lblNotificationTitle'
+                , Title
+                , Dimention.split(',')[0]
+                , Dimention.split(',')[1]
+                , 'ibtnCloseNotification');        }
+
+
+        function ShowMainMenu() {
+            if ($("body").hasClass("Menuhidden")) {
+                $("body").removeClass("Menuhidden");            }
+        }
+        function HideMainMenu() {
+            ReloadHideMenu(true);
+        }
+        function ReloadHideMenu(bAddMenuhidden) {
+
+            var vHideMenu;		  
+            vHideMenu = $.cookie("HideMenu" + '508744');		    
+
+
+            if ($(window).width() > 1024) {
+                if (bAddMenuhidden || vHideMenu == "HideMenu") {
+                    if (!$("body").hasClass("Menuhidden")) {
+                        $("body").addClass("Menuhidden");                    }
+                }
+                else {
+                    if ($("body").hasClass("Menuhidden")) {
+                        $("body").removeClass("Menuhidden");                    }
+                }
+
+            }
+            else {
+                if ($("body").hasClass("Menuhidden")) {
+                    $("body").removeClass("Menuhidden");                }
+            }
+        }
+
+        function HideMenuContainer() {
+            $(".NewsContainer .news").css("margin-right", "0");            $(".contentContainer").css("margin-right", "0");        }
+    </script>
+    
+    <style>
+        #divUserMenu {
+            width: 0 !important;        }
+
+        #divMenuHamButt, .MenuHamButt hideMenu RollOverMenu {
+            display: none !important;        }
+
+        .contentContainer, .NewsContainer .news {
+            margin-right: 0 !important;        }
+
+        html[dir="ltr"] .contentContainer, .NewsContainer .news {
+            margin-left: 0 !important;        }
+
+        .e31_header .e31_headerinfo .mobileheaderbg {
+            /*  margin: 0 50px 0 0 !important;*/
+        }
+
+        .e31_header .logo {
+            /*right: 45px;*/
+        }
+
+        .mobile_button.rtbtn.glyphicon.glyphicon-user {
+            /* right: 13px;*/
+        }
+
+        .mobile_button.lftbtn.glyphicon.glyphicon-menu-hamburger {
+            display: none !important;        }
+
+        @media screen and (max-width: 1024px) {
+            .mobile_button.lftbtn.glyphicon.glyphicon-menu-home {
+                display: block !important;                position: absolute;                right: 20px;                top: 0;                width: 18px;                height: 100%;            }
+
+                .mobile_button.lftbtn.glyphicon.glyphicon-menu-home:before {
+                    position: absolute;                    font-family: "icomoon";                    color: #fff;                    font-size: 18px;                    top: 13px;                    right: 0;                }
+
+            html[dir="ltr"] .mobile_button.lftbtn.glyphicon.glyphicon-menu-home {
+                right: 0;                left: 20px;            }
+
+                html[dir="ltr"] .mobile_button.lftbtn.glyphicon.glyphicon-menu-home:before {
+                    left: 0;                    right: auto;                }
+        }
+    </style>
+    <form method="post" action="./NotAuthorized.aspx?pnotauthorizedid=2" id="form1" style="height: 100%;">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="S0I6yvCHcn4P9BsLbZ9Us+XQONTR8BG9MrZRfNRHasuh3fxFnlj8GBG6yrnQ9mLOx+OboqaG64w9GYFS1uFIB2LKHsyHIE0trnsSJppc0oN7Csinp41ZqxHLiWpH1oeoj9S8AxTifNum4nKA/NtvSr1WNYMSTFRLNBEUK4+1XbevhJCY9dmjv6mrQ2N1nArEqLVZkpOSBUgsfBo/A4lDAGzSA7HYaWMRi0gIzAYv1bkYu7XpytLn2fyO9hPxs4IvzWPvgazDFbUGL7YR13BcT03opZwXd61Ne9IspuBQK+6I6FvSFrd2nQsD2+tJK0qFnVxuRmPrSfwrq8p5Ah2j5Ehj83YyltAfCvlNcLSj7qzwXChLfff4E1Da6CmGPKg1d4LJy/ka1wHVEguj1oj4f3Hdq5hxYIGVV07uWTSOfQKGvPdj0qSDP7BbDeBbVdsU4sNVOad2/jVbZ/kORnJVWyfGM9c8oHIP7RYhM8+cd5j7Wj1ozdAjfb2zXvHwUh73BUXjK9aA3FXjTlMPAFfKjpUavdohGVGDZJlf2uvS0u7sTgbLqmWimkW9IAu3mxpyPDzzi6Esn1lhSJPEMH+B2AXURARoCoMBQ69QV2pwsZQJCP0BNbeXybWZnYqYOMelpMeJe0lHCnS20Yb/mjglEYijG5CkAJcZy7p/IAkkm6N7uYEOE50eoTAGAwmeQH/RxxBaKZlR80qRqRQWYF5p4Y73pXNTYDkLQob7egCCGYMQvjsudkhSza/ZrpKeRWVaBfhxeaFUGCrDqVN7gB4ndzy1l3k5az2N7kracj3BvSP13Wyfv3gMc6xQdkzIcm+4V25DRKCc6DMlkuKFDWRcqwU4a/DgDJchkxWIp6TTYsIM/I1wkMhBHmuPf+HDHPYzvpZY9BXZTIZPUU6FkpSyKcFQdYHgPs+E7rwTNJNQXLpIj/JI8QHlYjIxrwpdFNuEwiPnszj8wmTFXHDUsHaQr1iXtcDHrclpJmw5cuFIFmWKPc1Ojp31N7OquEbsXP4iMX+qkcbOov9wqGplSM7z0G0d3b5iHG45seQHIJcd0RInKSj08msO7osv7iiuuAw5I7wP6OtYgr37rW4JxfUe4EsYfmbOCGcC9OVSJkcNTjl4C9MYbxxwnZC0YAn5Y1VTtNrcm7wHNcYXGwWh+L2TiX3mvnfHXXVKU3m99SyNX5IH1+A3jBGFupKCVnv8tIf8/EzNzlU9Pyah4++6ocwa2Bn9Rd1cZlvzRJ6YVn7Pvs7i/FZvPIhZ6UWr+keubAhfSQRumHKcCrcyHh/f2wq58oO7+UdepwAbCpHbY+WvrPaP3dKVI2Qe0x+xWharIzvd5YG2rJbZsliTF90l8sTN1+mQJ2MaQU4pu6Ok4LG/A4VFs9QTPquCR8d9BJN94dAKVvhsK7AOx6T0Nz2rDHvqzRTK4dVLc25EgERaSvTL4mZS94Z7punLPx/Zb2o1rpQL9JV0ultuRtE8qGcTn7pmiEUJaTxrSy5mV2OP+tked+0acFug0XBkG9KxjKItZzDFPs6sJx0NY/F5xtohsDlxyFYvh8c2+abBjABgN03b+ajP+ZXSicwF97qhkpv0jEsHTVEWIPDCxYVTr9zBvmi1VQxum3/sxxTqZwzm0LncorbyVKSEHVMSMiLhPm1yJ+orRX8p4G17bEyfzQvrdbhezCMWRQY7xxmT5spVWhm1aPIkDR6fMPGp3m7o+1mYJYw2xqvxNDHOmzof+dlju4Y/3guFRDgf7CmUaKeBHA0QIvOom0/JvcCAP+4gS1rdU87bZZYJ7pOrgE8a3ccPxBD6aTjYZA0rGavswcy7QaCqJnfv0pUQx40xloj8oG7F6UG7+cDQFiu/NDC2gbOF7cKdBQFkqRNuLIr1OCxWQZqTcKSxW+0iaViocgKlURXfUR+AVq8gBmVOW3EUU/rtD8ENgxPaYFtbHrrtbUQIWL+DK4wBMfitoGj3nrdrrftwgCyPjxHBhQihGhXXOXNRWokvhjK0tZEazPm8CRD3cZiEIqSJodPerfSiWXEGwEBBeMJm+YPEJcBYemR54DfRb6BFRxzeT6GMHyglr8O58mnHQ1EqIsP5UWwqboNH9nFnOQyvw2Q8TA==" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/Noor/WebResource.axd?d=pajPWo6OfwjDU8l-7MZpf0selZyK60EvQHfYY3sMGI1XyozXOw1DbZJR3nC0A1LIgGK-MpwsobVWZoxUcGrxesu6JG01&amp;t=637814761746327080" type="text/javascript"></script>
+
+
+<script src="JS/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script src="JS/jquery.scrollTo-min.js?v=3.0.8298.27796" type="text/javascript"></script>
+<script src="JS/bootstrap.min.js" type="text/javascript"></script>
+<script src="JS/General.js?v=3.0.8298.27796" type="text/javascript"></script>
+<script src="JS/jquery.scrollbar.min.js?v=3.0.8298.27796" type="text/javascript"></script>
+<script src="JS/JScript.js?v=3.0.8298.27796" type="text/javascript"></script>
+<script src="JS/select2.js?v=3.0.8298.27796" type="text/javascript"></script>
+<script src="JS/notify.js?v=3.0.8298.27796" type="text/javascript"></script>
+<script src="JS/jquery.mousewheel.min.js" type="text/javascript"></script>
+<script src="JS/intro.js?v=3.0.8298.27796" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=FrUNIYtQ98Dxv0B5U-51f3TK8zevH36ceD8hyJW0e9KHmIo-oJoOUOedvKFkPfyNMsVhvg8JIA4w3r6Znk-KR9a5Tlpru9-MYbLazUY4IrTXYBRwlnSa1p31dtiZytaXphG8SCZ5jNP9oUsNGa4hsofxK1k1&amp;t=49337fe8" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=ig45D-zoHHoYa6b64pjBvEvT2-irwKI9ekLzWlek4A_2vSIMb1-IawFlCvhUToo9PB6epoPaqQI7-BuLFMnnH7ncqmXBgqi1Rme2hyYLiMd32kZ9cmbXxggpGide_VlV3VkIhbfyi4CvkMHAPQwszEbhWlQSEVXRDQIC6QvWaLnv1ohA0&amp;t=49337fe8" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=4KQoAP66hpMajJCaCOIoGUclT9Y67NiBlmSxRPsDK-d3gXUXYag6Ul_viFeRDR5RbR3E0jb-2utvmzBRfW0hRz0XMz8bjDN0DmO5xC5CETQ06YmTtueZkClDcVrzhbuQQiR_DLfqyuviVNc05NoD1WyMHF41&amp;t=233d5073" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=-46bggVZhThEnVovJ29QzyYGwONWTnsN1kBS87R29WODqzApru2vCt1s58yLWvIeUbKliaXerVSPBu6cUGPg7eWN5u6qiQSdkjQO_fMn6DGgs_mRQOyXMu8DZlEwlBzAvXS-tmUhUfuLYOYCyMT8utno2yY1&amp;t=233d5073" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=-DhRdIlTnEne4SLdBOr-m1oXwaUCGA3hh7ugfok9TzPm-Me2TAZxN10L5TplxTRzlIVru0kkw4dRZyx3vFnzTbgG3QYMfH_LLP0J4xUotn4-yn_dO7DM-VwlFJWLnXrP6SZWsFs05TzuuVuBD7Kz5rMI03LPzi6rWeT7PJBI72rLEQj_0&amp;t=233d5073" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=45PQ6RikrYOElV3oyg87hbnaxaOOGBLWviKuF93O6Vzg6o9p3PvBuN8rAYtVeOc1ro5VPAfqt5SSb9teBWUYgVdkF42GYwLxpFxd5ZnFThSPhdJJSnbBPXBRYsKqOi_JzFgRSPXTZ0gi_RSMTomrp13kzlA1&amp;t=233d5073" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=Ag8B_h_7BhOhPCyncYhMTzZG-eOe6mQ1Fvh02rC1-tG03Cp_GlrHRhvelEAY6HImUaajPsNbV0aJ6nfPN5aw9uw5Ey-UhvSiwz91BtSZTXlXk1-QkBW4-uQY921GlG0w6Rb0SEXwNk_8n6979cll_GwnFtY1&amp;t=233d5073" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=GC5ZMiptLDl9PZc1BwQjopuaOqyIL2ftvG_D7J_1Azd2DELi9alfinMWTLomcHMx4gRe6Hpsc2LowtB-Z08otd2mE1L07cpMd2hj310xFpFykqqvRH5PCoIM4cx22FoppwT1UfadFw9NaHWH7j6LPXhrWrQzowCDZAof5kh3Pwv4Up2j0&amp;t=233d5073" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=zZzbe0N_tqp9u4ezwooBqpVc9e08GJEHxQQduZVXpu7ZblaRvoIHdaH9yUrN1oXnGeyXpEdN6djvsAs6oPrk-1TUhUXEWwZLH1n1Wa7jl00W9uLlaDHtqeaG7dFgJG7O9fiiXbIbgM5xG1ChmhRz1zPcjRfduKX0HlFOc53AJcxD98Kg0&amp;t=233d5073" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=_dGycD0XnGlKsf-cT7dcTPtFCl9rh4ZMQd5EI8cM2epadY2I7ho3EFYg-0eXVs5GyKKe7GDttTvCWKhaxFQlLmw7D7Jny_CkPMlXBhx_5rMrTsKrtnzdPwl8leEX6u39ccVPTUxaHO1LURXOfbyF4Zj5D39WqozqpjEV4r84UxnS3DHw0&amp;t=233d5073" type="text/javascript"></script>
+<script src="/Noor/ScriptResource.axd?d=Yb7gzIDG5fz7q9rvLMeQjv91Uk22neOvUSgPbiHpS6rKSQtL7Ac_aUZiIFgxKXeIjfTCpZZs2o0ligpQh6_RQ6TjUpmnfxpwZLD5nID0T7trkwZ6SAZOvBhuuoJld6628TxOhvdE3wB27FIA7VDkdrBDRmQ8SKAU4AQL3eSTIVbqefN-0&amp;t=233d5073" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="30527425" />
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="q+Mv8UymP+JOXmG+K8Y/70Y6NyC/wvo2JUGiHZnBIycLmnOW4aHN3B3tmx7eyo97NV9re33xoheDjN02shQwGkoXnKsCxhlpT4Klf/7Fy8KHmKTbjd1H+eRW8WzUbK07w9Xy2+j4SOHeWSiBC353QPT+h8pkbM8LMlhfm6mVT9iZXdh/FfNOvgKI4B4VHu9mkrBYaFRlwullvLOFH/Q+z7qZvfj6s1q+ApXZ7vaQYxSaiwh0UogvOiIzcx2uXZ6yaK4u1zJArCe8TIYBVSuHE8SRvqnyyNzRGgfhXgxIDSqZOEaEsIH4UvfEDdcPRbwuSmNxrYeeWA9i9cZUFDn02KEUml9rxB+70OIu51jOLZIdseE7k4bJaxf7OgGdyv37vxUXSK2tkb6/dpzVT+HTHRv2KjwMajK6GXWZJwsOiWor4WicBNij7aZIHhtC9GzkwMAAY9ncQdMc/0mbJ+Zs2s1mDPOke0dMXx4466bwxCNtayqiiCEm9AQds1rURm2Z4OAHHG/h5GhZF0n7MvoO82PqGgJPevyLiQm/OYOMKNOgIlPI" />
+</div>
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$oScriptManager', 'form1', [], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+        
+
+        <div id="Loading" style="display: none;" align="center">
+            <div id="divLoadingFlash">
+                <div class="main">
+                    <div id="refresh2"></div>
+                    <img src="/Noor/images/LoadingIogo/3-01.png" id="imgLoadinglogo" class="noor_img" />
+                    <div id="refresh"></div>
+                </div>
+            </div>
+        </div>
+        
+
+        
+
+        <script type="text/javascript">
+
+    function ShowSearchUsersDiv() {
+       
+
+        var dvSearchInput = document.getElementById('oHeader_dvSearchInput')
+      
+         var ul = document.getElementById('oHeader_ulUserExtraProfiles')
+        if (ul != null) {
+            var count = ul.getElementsByTagName("li").length;         
+            if (count <= 5) {
+                dvSearchInput.hidden = true;            }
+            
+        }
+    }
+
+    function SearchUsers() {
+
+
+        var input = document.getElementById('oHeader_SearchInput')
+        var filter = input.value.toUpperCase();;      
+       var ul = document.getElementById('oHeader_ulUserExtraProfiles')
+        if (ul != null) {
+            var li = ul.getElementsByTagName("li");            var count = ul.getElementsByTagName("li").length;            var i;            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];                var txtValue = a.textContent || a.innerText;               if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";                } else {
+                    li[i].style.display = "none";                }
+            }
+        }
+
+$(".showmenu.open .e32_sidebar").css("height", "auto");var n=$("#tab-2").height();if(n>300)
+{
+$(".showmenu.open .e32_sidebar").css({display:"block",height:"300px"})}
+
+        
+    }
+</script><div class="e31_header"><a href="http:\\www.moe.gov.sa" rel="noreferrer" target="_blank" title="وزارة التعليم" class="logo"></a><div class="clientlogo"><img src="/Noor/Images/Logos/NoorLogo.png" id="oHeader_imgLogo" width="36" height="45" alt="نظام نور" /></div><div class="e31_headerinfo"><div id="oHeader_tblLoggedUser" class="userinfo"><span id="oHeader_lblWelcomeUser" class="StandardFont" style="color:White;">أهلا</span><a id="oHeader_lnkLoggedNewUserName" class="username">منصور بن جوحلي</a><div class="hidden_user_name"><span id="oHeader_spanUserName">منصور بن جوحلي</span></div><div id="oHeader_divSwitchUser" class="switchUser"><a href="#" class="switchmenu"></a><div class="showmenu"><div class="e32_sidebar tab-content current  "><div id="oHeader_dvSearchInput" class="search2"><input name="ctl00$oHeader$SearchInput" type="text" id="oHeader_SearchInput" class="input-search2" onkeyup="SearchUsers()" onkeydown="SearchUsers()" placeholder=" ابحث" maxlength="30" /></div><div id="tab-2" class="tab-content current divscrollbar_vertical"><ul id="oHeader_ulUserExtraProfiles" class="menu TopUsers "><li><a href="#" onclick="javascript:__doPostBack('SwitchUserTypeMenu','nis7ObV7FOwNfDD3rY6eTAPFwvpvtaHH0')">معلم - متوسطة السلامه العليا</a></li><li><a href="#" onclick="javascript:__doPostBack('SwitchUserTypeMenu','m5leFqtt3muaMxmBYB0p2Is8ZLfFDQ-00')">معلم - ابتدائية السلامه العليا</a></li><li><a href="#" onclick="javascript:__doPostBack('SwitchUserTypeMenu','MPq9mrf40F5fYloc5FaLVEG0T0Gj1IXF0')">معلم - ثانوية السلامة العليا - مسارات</a></li></ul></div></div></div></div><span id="oHeader_spanUserDesc" class="usersubinfo">ولي أمر</span><div class="hidden_user_info"><span id="oHeader_susersubinfo">ولي أمر</span></div></div><nav id="oHeader_tblQuickMenu" class="topnav"><a class="mobile_button rtbtn glyphicon glyphicon-user closeButt-Menu open"></a><ul><li id="oHeader_liHome" class="home"><a href="javascript:__doPostBack('Home','SG9tZQ==');" id="oHeader_lbtnHomePage"><span id="oHeader_lblHomePage" class="StandardFont">الرئيسية</span></a></li><li id="oHeader_liHelp" class="settings"><a href="#" class="Settingsicon"><span id="oHeader_lblHelp" class="StandardFont">مساعدة</span></a><div class="SettingsList"><ul><li><a href="#" id="oHeader_lbtnFAQs" onclick="return ShowFAQsModal(&#39;AjaxCallBackPage.aspx&#39;);"><span id="oHeader_lblFAQs" class="StandardFont">الأسئلة الشائعة</span></a></li><li id="oHeader_liOnlineHelp" style="display:none;"><a href="#" id="oHeader_lbtnHelp" onclick="return ShowHelpModal(&#39;AjaxCallBackPage.aspx&#39;);"><span id="oHeader_lblHelp1" class="StandardFont">مساعدة</span></a></li></ul></div></li><li id="oHeader_liLogout" class="logout"><a href="javascript:__doPostBack('Logout','TG9nb3V0');" id="oHeader_lbtnLogout"><span id="oHeader_lblLogout" class="StandardFont">خروج</span></a></li></ul></nav><div class="mobileheaderbg"></div></div><a href="javascript:__doPostBack('Home','SG9tZQ==');" id="oHeader_aHomePage" class="mobile_button lftbtn glyphicon glyphicon-menu-home"></a><a class="mobile_button lftbtn glyphicon glyphicon-menu-hamburger"></a><a class="mobile_button rtbtn glyphicon glyphicon-user"></a></div><a id="oHeader_LinkButton1" class="StandardFont" href="javascript:__doPostBack(&#39;ctl00$oHeader$LinkButton1&#39;,&#39;&#39;)" style="display:none;">LinkButton</a>
+        
+
+        
+
+        <div id="divNewsContainer" class="NewsContainer">
+            <div class="news">
+                <div class="newsTitle">
+                    التنبيهات
+                </div>
+                <div class="marquee" data-direction="right">
+                    <marquee id="divHeaderMarquee" class="marquee_section" behavior="scroll" direction="right" onmouseover="this.stop();" onmouseout="this.start();" style="padding-top: 6px;"></marquee>
+                </div>
+                <a href="#" class="close" id="hide"></a>
+            </div>
+        </div>
+        
+
+        
+
+        <style>
+            .search2 {
+                position: relative;                padding: 4px 5px 6px;                border-bottom: 1px solid #d7d7d7;            }
+
+                .search2:before {
+                    font-family: FontAwesome;                    content: "\f002";                    position: absolute;                    font-size: 17px;                    font-weight: normal;                    right: 20px;                    top: 8px;                    color: #c5c5c5;                    background: #f6f6f6;                }
+
+                .search2 .input-search2 {
+                    border: 1px solid #fff;                    box-shadow: none;                    padding: 6px 35px 6px 6px;                    color: #fff;                    border-radius: 100px;                    -webkit-border-radius: 20px;                    width: 100%;                    background: #f6f6f6;                }
+
+                    .search2 .input-search2[placeholder] {
+                        color: #c5c5c5;                        font-size: 13px;                    }
+
+                    .search2 .input-search2::-webkit-input-placeholder {
+                        color: #c5c5c5;                        font-size: 13px;                    }
+
+                    .search2 .input-search2::-moz-placeholder {
+                        color: #898989;                        font-size: 13px;                    }
+
+                    .search2 .input-search2:-ms-input-placeholder {
+                        color: #898989;                        font-size: 13px;                    }
+
+                    .search2 .input-search2:-moz-placeholder {
+                        color: #55555585;                        font-size: 13px;                    }
+        </style>
+        
+        
+
+        
+
+        <script>
+            $(document).ready(function () {
+                $("#divViewBookMarksdropdown").attr("title", "عرض روابط الوصول السريع");                $("#divAddBookMarksdropdown").attr("title", "إضافة رابط الوصول السريع");                $('.dropdown-menu:not(.dropdown-menu *)').click(function (e) {
+                    e.stopPropagation();                });                $('.dropdown-menu .dropdown-header .fa-close').click(function (e) {
+                    $(this).closest(".dropdown").removeClass("open");                });            });            function ConvertToBoolean(bool) { if (bool == true || bool.toString().toLowerCase() == "true") { return true } else if (bool == false || bool.toString().toLowerCase() == "false") { return false } }
+            function heightscrollbookmarks() {
+                var vnodatabookmarks = "";                if ($('span.nodatabookmarks.ValidationClass')[0] != undefined) {
+                    vnodatabookmarks = $('span.nodatabookmarks.ValidationClass')[0].innerText;                }
+                $(".view-bookmark-container.divscrollbar_vertical").css("height", "35px");                if (vnodatabookmarks != 'لا يوجد البيانات .') {
+                    var vheight = $("#ulViewBookMarkPage").height();                    if (vheight <= 35) {
+                        $(".view-bookmark-container.divscrollbar_vertical").css("height", "35px");                    }
+                    else {
+                        $(".view-bookmark-container.divscrollbar_vertical").css("height", "");                    }
+                }
+            }
+            var functionsBookmarks = {
+                showAddBookMarksdropdown: function () {
+                    $("#divAddBookMarksdropdown").trigger("click");                    $(".introjs-button.introjs-skipbutton").trigger("click");                    $("#divAddBookMarksdropdown").removeAttr("data-intro");                    $("#divAddBookMarksdropdown").removeAttr("data-step-hide");                    $("#divAddBookMarksdropdown").removeAttr("data-function-name");                    $("#divAddBookMarksdropdown").removeAttr("data-position");                    ShowInfoBookMarks(false);                },
+                funViewButton_ShowIntroView: function () {
+                    $("#divAddBookMarksdropdown").closest(".dropdown").removeClass("open");                    $("#divViewBookMarksdropdown").closest(".dropdown").removeClass("open");                    var vValueShowIntroView = false;              
+                    vValueShowIntroView = $.cookie("ShowIntroViewButton" + '508744');                    
+                    var ShowBookMarksIntroViewButton = 'false';                    if (ConvertToBoolean(ShowBookMarksIntroViewButton)) {
+                        if (vValueShowIntroView == null || vValueShowIntroView == undefined || vValueShowIntroView == "undefined") {
+                            vValueShowIntroView = ShowBookMarksIntroViewButton;                        }
+                    }
+                    else {
+                        vValueShowIntroView = false;                    }
+                    return vValueShowIntroView;                },
+                funShowIntroViewButton: function () {
+                    $("#divAddBookMarksdropdown").attr("data-intro", 'إضافة رابط الوصول السريع');                    $("#divAddBookMarksdropdown").attr("data-step-hide", "true");                    $("#divAddBookMarksdropdown").attr("data-function-name", "showAddBookMarksdropdown");                    $("#divAddBookMarksdropdown").attr("data-position", "right");                    $("#btnSaveBookMarks").attr("style", "display: none;");                    $("#divNameBookmarkInfo").attr("style", "display: none;");                    $("#divSelectFolderInfo").attr("style", "display: none;");                    $("#divItemsSelectedInfo").attr("style", "display: none;");                    $(".add-folder-input").attr("style", "display: none;");                    ShowInfoBookMarks(true);                },
+                checkedBoxMessageAgain: function () {
+                    var vChecked = false;                    if (!$("#cbMessageAgainIntro").is(":checked")) {
+                        vChecked = true;                    }
+                
+                    $.cookie("ShowIntroViewButton" + '508744', vChecked, { path: '/', secure: UseSSL, HTTPOnly: UseSSL });                
+                }
+            };            function ShowInfoBookMarks(bEnabledDivCheckAgain) {
+                var vShowIntroViewButton = false;                if (bEnabledDivCheckAgain) {
+                
+                    vShowIntroViewButton = $.cookie("ShowIntroViewButton" + '508744');                
+                    var ShowBookMarksIntroViewButton = 'false';                    if (ConvertToBoolean(ShowBookMarksIntroViewButton)) {
+                        if (vShowIntroViewButton == null || vShowIntroViewButton == undefined || vShowIntroViewButton == "undefined") {
+                            vShowIntroViewButton = ShowBookMarksIntroViewButton;                        }
+                    }
+                    else {
+                        vShowIntroViewButton = false;                    }
+                }
+                vShowIntroViewButton = ConvertToBoolean(vShowIntroViewButton);                introJs().setOptions({
+                    'nextLabel': "التالي",
+                    'prevLabel': "السابق",
+                    'skipLabel': "إلغاء",
+                    'doneLabel': "إغلاق",
+                    'followUpLabel': "المتابعة",
+                    'messageAgainLabel': "عدم إظهار هذه الرسالة مرة إخرى .",
+                    'showCheckBoxFollowUp': vShowIntroViewButton
+                }).start();                $('.introjs-tooltipReferenceLayer').click(function (e) {
+                    e.stopPropagation();                });            }
+            function ShowIntroBookMarkInstructionHP() {
+                $("#divSearchBookmarks").attr("data-intro", "يمكنك البحث عن نص معين بإدخاله في الحقل المخصص، تظهر النتائج كل في مكانه المخصص .");                $("#divViewAllBookMarks").attr("data-intro", "<ul><li>يمكنك الوصول الى رابط الوصول السريع الذي تريد بنقر الرابط الذي يمثل إسمه .</li><li>يمكنك تعديل او حذف  رابط الوصول السريع الذي تريد بنقر الإيقونة المخصصة المجاورة له .</li><li>يمكنك حفظ التعديل الذي قمت بإدخاله على اسم رابط الوصول السريع او إلغاء العملية بنقر الإيقونة المخصصة لكل منهما .</li></ul>");                $("#divSaveNewNameFolder").attr("data-intro", "يمكنك إضافة مجلد جديد بإدخال إسمه في الحقل المخصص ثم نقر إيقونة حفظ المجاورة له .");                $("#divViewAllFolders").attr("data-intro", "<ul><li> يمكنك تعديل او حذف المجلد الذي تريد بنقر الإيقونة المخصصة المجاورة له .</li><li>يمكنك حفظ التعديل الذي قمت بإدخاله على اسم المجلد او إلغاء العملية بنقر الإيقونة المخصصة لكل منهما .</li></ul>");                if (!$('#divManageBookMarks').hasClass('hide-item')) {
+                    if ($('.col-xs-12.logger-info-search').css('display') === 'none') {
+                        $("#divViewAllBookMarks").attr("data-step", "1");                        $("#btnQuickAccess").attr("data-step", "2");                    }
+                }
+                else {
+                    $("#btnQuickAccess").attr("data-step", "3");                }
+                ShowInfoBookMarks(false);            }
+            function GetBookmarksLinks() {
+                $("#btnSaveBookMarks").attr("style", "display: none;");                $("#divNameBookmarkInfo").attr("style", "display: none;");                $("#divSelectFolderInfo").attr("style", "display: none;");                $("#divItemsSelectedInfo").attr("style", "display: none;");                var vPageID = $("#hdPageIDBookMarks")[0].value.trim();                $('.nodatabookmarks')[0].innerText = "";                $('#ulViewBookMarkPage').empty();                $.ajax({
+                    type: "POST",
+                    url: 'AjaxCallBackBookMarks.aspx/sGetBookMarksLinks',
+                    data: '{"sPageID": "' + vPageID + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var vData = data.d;                        if (vData != "") {
+                            $('#ulViewBookMarkPage').append(vData);                            heightscrollbookmarks();                        }
+                        else {
+                            $('.nodatabookmarks')[0].innerText = 'لا يوجد البيانات .';                            heightscrollbookmarks();                        }
+                    }
+                });            }
+            function DeleteLinkBookMark(sBookMarkID) {
+                $("div.notifyjs-wrapper.notifyjs-hidable").remove();                $.ajax({
+                    type: "POST",
+                    url: 'AjaxCallBackBookMarks.aspx/nDeleteBookMark',
+                    data: '{"sBookMarkID": "' + sBookMarkID + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        GetBookmarksLinks();                        ShowNotifyBookMarks(data.d, ".view-bookmark-container");                        heightscrollbookmarks();                    }
+                });            }
+            function SaveNameLinkBookMark(sBookMarkID, tbLinkBookMark) {
+                $("div.notifyjs-wrapper.notifyjs-hidable").remove();                var vtbLinkBookMark = $('#' + tbLinkBookMark)[0].value.trim();                if (vtbLinkBookMark != "" && funCheckCharchters(vtbLinkBookMark)) {
+                    var vLink_Text = $('#' + tbLinkBookMark).parent().parent().find("a:not(.fa.fa-edit, .fa.fa-trash-o, .fa.fa-save, .fa.fa-close)")[0].innerText;                    if ((vLink_Text != "" && vLink_Text.length <= 150) && vLink_Text == vtbLinkBookMark) {
+                        ShowNotifyBookMarks(-4, ".view-bookmark-container");                        GetBookmarksLinks();                        heightscrollbookmarks();                    }
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: 'AjaxCallBackBookMarks.aspx/nSaveNameBookMark',
+                            data: '{"sBookMarkID": "' + sBookMarkID + '", "sNameBookMark":"' + vtbLinkBookMark + '"}',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                GetBookmarksLinks();                                ShowNotifyBookMarks(data.d, ".view-bookmark-container");                                heightscrollbookmarks();                            }
+                        });                    }
+                }
+                else {
+                    $('.view-bookmark-container').notify((vtbLinkBookMark == "") ? 'إدخل الاسم' : 'إدخل الاسم بالشكل الصحيح', { position: "top center", className: "error", autoHideDelay: 5000 });                    heightscrollbookmarks();                    return false;                }
+            }
+            function EditeAndCloseLinkBookMarks(IConID) {
+                $("div.notifyjs-wrapper.notifyjs-hidable").remove();                var vDatali = IConID.closest("li");                $(vDatali).find(".logger-info-body-link").toggleClass("hide-item");                var vText_Link = $(vDatali).find(".logger-info-body-link").find("a:not(.fa.fa-edit, .fa.fa-trash-o, .fa.fa-save, .fa.fa-close)")[0].innerText;                $(vDatali).find(".logger-info-body-link").find("input[class='form-control']")[0].value = vText_Link;                heightscrollbookmarks();                return false;            }
+            function AddBookMarks() {
+                $("#divAddBookMarksdropdown").removeAttr("data-intro");                $("#divAddBookMarksdropdown").removeAttr("data-step-hide");                $("#divAddBookMarksdropdown").removeAttr("data-function-name");                $("#divAddBookMarksdropdown").removeAttr("data-position");                $("#divNameBookmarkInfo").attr("data-intro", "يمكنك من خلال هذا الحقل إدخال اسم رابط الوصول السريع .");                $("#divSelectFolderInfo").attr("data-intro", "يمكنك إختيار مجلد موجود مسبقاً من القائمة او إضافة مجلد جديد بنقر الإيقونة المخصصة .");                $("#divItemsSelectedInfo").attr("data-intro", "يعرض هذا الصندوق البيانات التي قمت بتحديدها مسبقاً .");                $(".add-folder-input").attr("data-intro", "يمكنك إدخال اسم المجلد وحفظه او إلغاء العملية .");                $("#divItemsSelectedInfo").attr("data-step", "3");                $("#btnSaveBookMarks").attr("data-step", "4");                $("#btnSaveBookMarks").removeAttr("style");                $("#divNameBookmarkInfo").removeAttr("style");                $("#divSelectFolderInfo").removeAttr("style");                $("#divItemsSelectedInfo").removeAttr("style");                CancelAddFolder();                $("#spanErrorAddNameBookMark")[0].innerText = "";                $("div.notifyjs-wrapper.notifyjs-hidable").remove();                $('#tbNameBookMarks').val($('#lblPageTitle')[0].innerText.trim());                $('#tbNameBookMarks').focus();                $('#tbNameBookMarks').on('focus', function (e) {
+                    $(this)
+                        .one('mouseup', function () {
+                            $(this).select();                            return false;                        })
+                        .select();                });                GetFolders();                var dataHtml = "";                $('#divItemsSelectd').empty();                var vData = $("#hdPageControlsBookMarks")[0].value.trim();                if (vData != "" && vData != undefined) {
+                    var vDataJson = $.parseJSON(vData);                    for (i in vDataJson.Controls) {
+                        dataHtml += "<div class='item-selected'><span class='span-item-selected'>" + vDataJson.Controls[i].name + "</span><span>";                        if (vDataJson.Controls[i].type == 'select') {
+                            dataHtml += $('select[id*=' + vDataJson.Controls[i].id + '] option:selected').text();                        }
+                        dataHtml += "</span></div>"
+                        "</div>";                    }
+                    $('#divItemsSelectd').append(dataHtml);                }
+                heightscrollbookmarks();            }
+            function GetFolders() {
+                var vddlFolders = $('#ddlFolders');                $.ajax({
+                    type: "POST",
+                    url: 'AjaxCallBackBookMarks.aspx/oArrGetFoldersBookMarks',
+                    data: '',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        vddlFolders.empty();                        data = data.d;                        var vUnspecified = '-- غير محدد --';                        $.each(data, function (key, value) {
+                            vddlFolders.append($("<option></option>").val
+                                (value.FolderID).html((value.FolderID == "-99" ? vUnspecified : value.FolderDesc)));                        });                        $("#ddlFolders option[value='-99']").attr('selected', 'selected');                        heightscrollbookmarks();                    }
+                });            }
+            function AddFolders() {
+                $(".introjs-button.introjs-skipbutton").trigger("click");                $("#spanErrorAddNameFolder")[0].innerText = "";                $("div.notifyjs-wrapper.notifyjs-hidable").remove();                $("#tbAddFolder")[0].value = "";                $("#ddlFolders").attr("disabled", true);                $("#btnPlusAddFolder").addClass("hide-item");                $("#ddlFolders").parent().removeClass("col-md-8").addClass("col-md-9");                $(".add-folder-input").removeClass("hide-item");                $(".add-folder-input").removeAttr("style");                $("#btnSaveBookMarks").addClass("hide-item");                $("#btnSaveBookMarks").attr("style", "display: none;");                $("#divSelectFolderInfo").attr("data-intro", "لا يمكنك إختيار مجلد موجود مسبقاً في حال قمت باستخدام طريقة إضافة مجلد جديد .");                $("#divItemsSelectedInfo").attr("data-step", "4");                heightscrollbookmarks();            }
+            function CancelAddFolder() {
+                $(".introjs-button.introjs-skipbutton").trigger("click");                $("#spanErrorAddNameFolder")[0].innerText = "";                $("#ddlFolders").attr("disabled", false);                $("#btnPlusAddFolder").removeClass("hide-item");                $("#ddlFolders").parent().removeClass("col-md-9").addClass("col-md-8");                $(".add-folder-input").addClass("hide-item");                $(".add-folder-input").attr("style", "display: none;");                $("#btnSaveBookMarks").removeClass("hide-item");                $("#btnSaveBookMarks").removeAttr("style");                $("#divSelectFolderInfo").attr("data-intro", "يمكنك إختيار مجلد موجود مسبقاً من القائمة او إضافة مجلد جديد بنقر الإيقونة المخصصة .");                $("#divItemsSelectedInfo").attr("data-step", "3");                heightscrollbookmarks();            }
+            function SaveFolder() {
+                $(".introjs-button.introjs-skipbutton").trigger("click");                $("#spanErrorAddNameFolder")[0].innerText = "";                $("div.notifyjs-wrapper.notifyjs-hidable").remove();                var vtbAddFolder = $('#tbAddFolder')[0].value.trim();                if (vtbAddFolder != "" && funCheckCharchters(vtbAddFolder)) {
+                    var vddlFolders = $('#ddlFolders');                    $.ajax({
+                        type: "POST",
+                        url: 'AjaxCallBackBookMarks.aspx/nSaveFoldersBookMarks',
+                        data: '{"sFolderName": "' + vtbAddFolder + '"}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            GetFolders();                            CancelAddFolder();                            ShowNotifyBookMarks(data.d, ".dropdown-body.dropdownaddbookmarks");                            setTimeout(function () {
+                                $("#ddlFolders option").each(function () {
+                                    if ($(this).text() == vtbAddFolder) {
+                                        $(this).attr('selected', 'selected');                                        return false;                                    }
+                                    return true;                                });                            }, 100);                            heightscrollbookmarks();                        }
+                    });                }
+                else {
+                    $("#spanErrorAddNameFolder")[0].innerText = (vtbAddFolder == "") ? 'إدخل اسم المجلد' : 'إدخل اسم المجلد بالشكل الصحيح';                    heightscrollbookmarks();                }
+            }
+            function SaveBookMarks() {
+                $("#spanErrorAddNameBookMark")[0].innerText = "";                $("div.notifyjs-wrapper.notifyjs-hidable").remove();                var vNameValue = $('#tbNameBookMarks')[0].value.trim();                if (vNameValue != "" && funCheckCharchters(vNameValue)) {
+                    if ($(".add-folder-input.clearfix").hasClass("hide-item")) {
+                        var vFolderID = $("#ddlFolders option:selected")[0].value.trim();                        $("#hdFolderIDBookMarks")[0].value = vFolderID;                        heightscrollbookmarks();                        return true;                    }
+                    else {
+                        CancelAddFolder();                        heightscrollbookmarks();                        return false;                    }
+                }
+                else {
+                    $("#spanErrorAddNameBookMark")[0].innerText = (vNameValue == "") ? 'إدخل الاسم' : 'إدخل الاسم بالشكل الصحيح';                    heightscrollbookmarks();                    return false;                }
+            }
+            function ShowNotifyBookMarks(result, id) {
+                var vResult = 'حدث خطإ إثناء تنفيذ العملية';                var vclassName = "error";                var vposition = "top center";                var vautoHideDelay = 5000;                if (result > 0) {
+                    vResult = 'تم تنفيذ العملية بنجاح';                    vclassName = "success";                }
+                else if (result == -1 || result == -2) {
+                    vResult = 'لا يمكن الإضافة لقد وصلت الحد الإقصى المسموح بة .';                }
+                else if (result == -3) {
+                    vResult = 'لا يمكن حفظ الاسم موجود مسبقاً .';                }
+                else if (result == -4) {
+                    vclassName = "info";                    vResult = 'لم يتم إجراء أية تعديلات';                }
+                if (result == -4) {
+                    $(id).notify(vResult, { position: vposition, className: vclassName, autoHideDelay: vautoHideDelay });                }
+                else if (id == ".sectionHeaderTools") {
+                    vposition = "bottom left";                    setTimeout(function () { $(id).notify(vResult, { position: vposition, className: vclassName, autoHideDelay: vautoHideDelay }); }, 800);                }
+                else if (id == "#divSaveNewNameFolder") {
+                    $(id).notify(vResult, { position: "left middle", className: vclassName, autoHideDelay: vautoHideDelay });                }
+                else {
+                    $(id).notify(vResult, { position: vposition, className: vclassName, autoHideDelay: vautoHideDelay });                }
+            }
+
+
+            var EnableReportingSessionOptimization = 'True';            if (EnableReportingSessionOptimization) {
+                $(document).ready(function () {
+
+                    var elems = $("div[id$='_NonReportContent']");                    if (elems != null && elems[0] != null) {
+
+                        if (elems[0].innerText.trim() == "ASP.NET session has expired or could not be found") {
+
+                            window.location.reload();                            elems[0].innerHTML = "يرجى إعادة عرض التقرير من جديد  وذلك لانتهاء فترة الصلاحية الممنوحة لصفحة التقرير";                        }
+                    }
+
+                });
+                var pageRequestManager = Sys.WebForms.PageRequestManager.getInstance();                pageRequestManager.add_endRequest(checkReportSession);                function checkReportSession() {
+
+                    var elems = $("div[id$='_NonReportContent']");                    if (elems != null && elems[0] != null) {
+
+                        if (elems[0].innerText.trim() == "ASP.NET session has expired or could not be found") {
+
+                            elems[0].innerHTML = "يرجى إعادة عرض التقرير من جديد  وذلك لانتهاء فترة الصلاحية الممنوحة لصفحة التقرير";
+                        }
+                    }
+                }
+            }
+            function funCheckCharchters(value) {
+                value = value.trim();                if (value != "" && value.match("^[ء-يa-zA-Z\\-\\_]+([ء-يa-zA-Z\\-\\_'\\.\\s\\(\)\ ])*$") != null) {
+                    return true;                }
+                return false;            }
+
+
+        </script>
+        <div class="contentContainer">
+            
+            <div id="content" class="content">
+                <div id="divPageHeader" class="page-header">
+                    <div style="display: block;">
+                    </div>
+                    
+                </div>
+                <div class="pagesection">
+                    <div id="divPageSectionHeader" class="pagesectionheader clearfix">
+                        <div id="divSectionHeaderTitle" class="sectionHeaderTitle">
+                            <span id="lblPageTitle" class="StandardFont">غير مصرح به</span>
+                        </div>
+                        
+                    </div>
+                    <div class="pagesectioncontent">
+                        <div>
+                            <script>
+        $(document).ready(function () {
+            history.pushState(null, document.title, location.href);            window.addEventListener('popstate', function (event) {
+                history.pushState(null, document.title, location.href);            });        });    </script><br /><br /><div class="form-operation-message"><span id="PlaceHolderMain_lblMessage" class="StandardFont">لا تملك صلاحية لعرض هذه الصفحة</span></div><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div id="footerContainer" class="row"><div id="footer" align="center"><div class="col-xs-12"><span id="Footer1_spanTopLine" class="footer_line1">نظام نور للإدارة التربوية&nbsp;<a href="http:\\www.moe.gov.sa" rel="noreferrer" target="_blank" >وزارة التعليم – المملكة العربية السعودية</a>&nbsp;جميع الحقوق محفوظة</span><br /><span id="Footer1_spanDownLine" class="footer_line2" dir="ltr">EduWave® v3.0 (EMIS Edition) © 2001-2022
+جميع الحقوق محفوظة&nbsp;<a  href="http://www.itgsolutions.com" rel="noreferrer" target="_blank" >المجموعة المتكاملة للتكنولوجيا</a></span><div class="E_Footer"><br></div></div></div></div>
+            
+
+        </div>
+        
+
+        <div id="divScheduleError" style="left: 0px; top: -21px; display: none" onselectstart="return false">
+        </div>
+        <div id="NotificationBox" onselectstart="return false">
+            <div class="ConfirmBox">
+                <div id="NotificationTitle" class="ConfirmBox-header">
+                    <span id="lblNotificationTitle" class="StandardFont"></span>
+                    <button onclick="ClearCache(this); StopTimerOperationCaching(); ClearCacheAccreditNumberOfTransfers(this); ClearCacheExtUserPriorty(this); __doPostBack('ctl00$ibtnCloseNotification','')" id="ibtnCloseNotification" class="ConfirmXButton" tooltip="إغلاق">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="ConfirmBox-body">
+                    <span id="lblNotificationMessage" class="StandardFont"></span>
+                </div>
+                <div class="ConfirmBox-footer">
+                    <div class="form-actions">
+                        <ul>
+                            <li id="tdOkToClose">
+                                <input type="submit" name="ctl00$ibtnOkToClose" value="موافق" onclick=" return ClearCache(this);" id="ibtnOkToClose" title="موافق" class="btnstyle" />
+                            </li>
+                            <li id="tdYesSchedaul">
+                                <input type="submit" name="ctl00$ibtnYesSchedaul" value="نعم" id="ibtnYesSchedaul" title="نعم" class="btnstyle" />
+                            </li>
+                            <li id="tdNoSchedaul">
+                                <input type="submit" name="ctl00$ibtnNoSchedaul" value="لا" onclick=" return ClearCache(this);" id="ibtnNoSchedaul" title="لا" class="btnstyle" />
+                            </li>
+                            <li id="tdClose">
+                                <input type="submit" name="ctl00$ibtnCloseEquation" value="إغلاق" onclick="StopTimerOperationCaching(); ClearCacheAccreditNumberOfTransfers(this);" id="ibtnCloseEquation" title="إغلاق" class="btnstyle" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div id="ConfirmBox" onselectstart="return false">
+            <div class="ConfirmBox">
+                <div id="ConfirmTitle" class="ConfirmBox-header">
+                    <button id="ibtnClose" class="ConfirmXButton" tooltip="إغلاق"><i class="fa fa-times"></i></button>
+                    <span id="lblConfirmTitleText" class="StandardFont"></span>
+                </div>
+                <div class="ConfirmBox-body">
+                    <span id="lblMSG" class="StandardFont"></span>
+                </div>
+                <div class="ConfirmBox-footer">
+                    <div class="form-actions">
+                        <ul>
+                            <li>
+                                <input type="submit" name="ctl00$ibtnYes" value="نعم" id="ibtnYes" title="نعم" class="btnstyle" />
+                            </li>
+                            <li>
+                                <input type="submit" name="ctl00$ibtnYesFrmUC" value="نعم" id="ibtnYesFrmUC" title="نعم" class="btnstyle" style="display: none;" />
+                            </li>
+                            <li>
+                                <input type="submit" name="ctl00$ibtnNo" value="لا" id="ibtnNo" title="لا" class="btnstyle" />
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+
+        
+
+        <div id="MessageBox" onselectstart="return false">
+            <div class="ConfirmBox">
+                <div id="MessageBoxTitle" class="ConfirmBox-header">
+                    <span id="lblMessageBoxTitleText" class="StandardFont"></span>
+                    <button id="ibtnMessageBoxClose" class="ConfirmXButton" tooltip="إغلاق">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="ConfirmBox-body">
+                    <span id="lblMessageBoxMSG" class="StandardFont"></span>
+                </div>
+            </div>
+        </div>
+        
+
+        <div id="InstructionBox" style="border: 3px solid #2280BE; background-color: White; display: none;"
+            class="Instructions">
+            <div style="background-color: #f1f1f1; border-bottom: 2px #ccc solid; padding: 5px 8px; text-align: center;"
+                class="InstructionsPopupTitle">
+                <span id="lblInstrctionTitle"></span>
+            </div>
+            <div id="divInstructionData" style="padding: 10px;">
+                <table id="tblInstructionContainer" width="100%">
+                </table>
+                <div>
+                    &nbsp;                </div>
+                <div style="margin: 0 auto; width: 80px;">
+                    <input type="submit" name="ctl00$ibtnCloseInstructionBox" value="إغلاق" id="ibtnCloseInstructionBox" title="إغلاق" class="btnstyle" />
+                </div>
+            </div>
+        </div>
+        
+
+        <div id="LoadBackGround">
+        </div>
+        <div id="ConfirmBackGround">
+        </div>
+        <div id="MessageBoxBackGround">
+        </div>
+        <div id="InstructionBackGround">
+        </div>
+        <input type="hidden" name="ctl00$hdnData_Data" id="hdnData_Data" />
+        <input type="hidden" name="ctl00$hdnData_Operation" id="hdnData_Operation" />
+        <input type="hidden" name="ctl00$hdnPageName" id="hdnPageName" value="Tm90QXV0aG9yaXplZC5hc3B4P3Bub3RhdXRob3JpemVkaWQ9Mg==" />
+        <div id="divFAQs" class="ModalPopupExtender" style="display: none;">
+            <div class="form-ModalPopup" style="max-height: 85vh !important;">
+                <div class="form-ModalPopup-header">
+                    <button id="btnCancelMaster" class="btnCloseModalPopup"><i class="fa fa-times"></i></button>
+                </div>
+                <div id="divMain" class="form-ModalPopup-body">
+                    <div class="form-controls">
+                        <div class="form-controls-body divscrollbar-horizontal">
+                            <div style="text-align: center; display: none" id="divNoFAQs">
+                                <span id="lblNoFAQs" class="ValidationClass">لا يوجد اسئلة شائعة مدخلة.</span>
+                            </div>
+                            <div id="accordionFAQs">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-ModalPopup-footer">
+                    <div class="form-actions">
+                        <ul>
+                            <li>
+                                <input type="submit" name="ctl00$ibtnCancelMaster" value="إغلاق" onclick="return CancelFAQsModel();" id="ibtnCancelMaster" title="إغلاق" class="btnstyle" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        <div id="divOnlineHelp" style="padding: 10px; border: thin solid #000000; background-color: White; display: none">
+            <div style="width: 1300px; height: 500px;" id="div2">
+                <div id="divOnHelp">
+                    <iframe style="width: 1300px; height: 500px;" id="ifOnHelp" src=""></iframe>
+                </div>
+            </div>
+            <div style="text-align: center">
+                <br />
+                <input type="submit" name="ctl00$ibtnCloseHelp" value="إغلاق" id="ibtnCloseHelp" title="إغلاق" class="btnstyle" />
+            </div>
+        </div>
+        
+        <div style="display: none;">
+            <input type="submit" name="ctl00$btnEdit" value="Edit" id="btnEdit" class="btnstyle" style="display: none" />
+            <input id="btnDone" value="Done" type="button" />
+            <input id="btnCancel" value="Cancel" type="button" />
+        </div>
+        <!-- *** Text Generated by ITG Refresh trap control *** -->
+<input type=hidden id="REF_SYNC_TOKEN_SALHI" name="REF_SYNC_TOKEN_SALHI" value="">
+<!-- *** End of Text Generated by ITG Refresh trap control *** -->
+
+        <input type="hidden" name="ctl00$hdnStopInterval" id="hdnStopInterval" value="True" />
+        <input type="hidden" name="ctl00$hdPageIDBookMarks" id="hdPageIDBookMarks" />
+        <input type="hidden" name="ctl00$hdPageControlsBookMarks" id="hdPageControlsBookMarks" />
+        <input type="hidden" name="ctl00$hdFolderIDBookMarks" id="hdFolderIDBookMarks" />
+        
+
+        
+        <div id="divInstructionMain" class="ModalPopupExtender" style="display: none;">
+            <div class="form-ModalPopup">
+                <div class="form-ModalPopup-header">
+                    <button id="btnInstructionsMainCancel" class="btnCloseModalPopup"><i class="fa fa-times"></i></button>
+                    <span id="lblInstructionsMain" class="StandardFont">الإرشادات</span>
+                </div>
+                <div class="form-ModalPopup-body divscrollbar-horizontal">
+                    <div id="divInstructionsMainContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+<script type="text/javascript">
+//<![CDATA[
+FunctionPrint();Select();ShowSearchUsersDiv();Sys.Application.add_init(function() {
+    $create(AjaxControlToolkit.ModalPopupBehavior, {"BackgroundCssClass":"form-ModalPopup-Background","CancelControlID":"btnCancelMaster","OkControlID":"btnDone","OnCancelScript":"CancelFAQsModel();","PopupControlID":"divFAQs","dynamicServicePath":"/Noor/NotAuthorized.aspx","id":"ModalPopupFAQs"}, null, null, $get("btnEdit"));
+});
+Sys.Application.add_init(function() {
+    $create(AjaxControlToolkit.ModalPopupBehavior, {"CancelControlID":"ibtnCloseHelp","OnCancelScript":"CancelHelpModel();","PopupControlID":"divOnlineHelp","dynamicServicePath":"/Noor/NotAuthorized.aspx","id":"ModalPopupHelp"}, null, null, $get("btnEdit"));
+});
+//]]>
+</script>
+</form>
+
+    <script type="text/javascript" language="javascript">
+        $(document).on('click', '.box-faq-title', function (e) {
+            var $this = $(this);            $('.box-faq-title').not(this).addClass('panel-collapsed');            $('.box-faq-body').not(this).attr('style', 'display: none; ');            if (!$this.hasClass('panel-collapsed')) {
+                $this.parents('.box-faq').find('.box-faq-body').slideUp("slow");                $this.addClass('panel-collapsed');            } else {
+                $this.parents('.box-faq').find('.box-faq-body').slideDown("slow");                $this.removeClass('panel-collapsed');            }
+        });
+        //
+        var UseSSL = 'True';        Language = '1';  //
+        UseSSL = (UseSSL.toLowerCase() === 'true');        //
+        //
+        function ShowFAQsModal(sURL) {
+            $.get(sURL, { "operation": "SetDivFAQs" },
+                function (response) {
+                    if (response == "-99") {//
+                        $("#accordionFAQs").html("");                        $("#divNoFAQs").css({
+                            "display": "block"
+                        });                        $("#divMain").css({
+                            "height": "50px",
+                            "width": "400px",
+                            "overflow-y": "hidden"
+                        });                    }
+                    else {
+                        $("#divNoFAQs").css({
+                            "display": "none"
+                        });                        $("#divMain").css({
+                            "height": "300px",
+                            "width": "1000px",
+                            "overflow-y": "scroll"
+                        });                        //
+                        //
+                        //
+                        $("#accordionFAQs").html(response);                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                    } //
+                    blockScreen(CancelFAQsModel);                    $find('ModalPopupFAQs').show();                } //
+            );              //
+            return false;        }
+        function CancelHelpModel() {
+            unBlockScreen();            $find('ModalPopupHelp').hide();            return false;        }
+        function CancelFAQsModel() {
+            unBlockScreen();            //
+            $find('ModalPopupFAQs').hide();            return false;        }
+        //
+
+        //
+        function ShowHelpModal(sURL) {
+            $('#divOnlineHelp iframe').attr('src', sURL + "?" + "operation=ShowHelp&PageName=" + $('#' + 'hdnPageName').val());            //
+            //
+            //
+            //
+            //
+            //
+            blockScreen(CancelHelpModel);            $find('ModalPopupHelp').show();            return false;        }
+
+        if (top.location.href != self.location.href) {
+            if (top.onbeforeunload) {
+                top.onbeforeunload = function () { };            }
+            if (parent.frames.length) {
+                document.body.style.display = 'none';            }
+
+            top.location.href = self.location.href;
+        }
+        function vLogOut() {
+            window.location = "../Logout.aspx";            return false;        }
+        function PostRequestToServer() {
+            var ibtnClose = document.getElementById('tdClose');            var ibtnOkToClose = document.getElementById('tdOkToClose');            var ibtnYesSchedaul = document.getElementById('tdYesSchedaul');            var ibtnNoSchedaul = document.getElementById('tdNoSchedaul');            ibtnClose.innerHTML = '';            ibtnYesSchedaul.style.visibility = 'collapse';            ibtnNoSchedaul.style.visibility = 'collapse';            var ProgressIntervalID = 0;            $.post('AjaxCallBackPage.aspx', { "Operation": "IsOperationCompleted" },
+                function (Result) {
+                    if (Result.indexOf("<!DOCTYPE") > -1) {  //
+                        //
+                        return vLogOut();                    }
+                    else {
+                        if (Result != "") {
+                            var Dimention = '350,170';                            var sTitle = "";
+                            //
+                            if (Result.split(',')[1] == "3") {
+                                sTitle = 'إنشاء جداول دراسية';
+                                if (Result.split(',').length = 3) {
+                                    if (Result.split(',')[2] == "Hide") {//
+
+                                        var value = jQuery("#progressbarid").width();                                        ibtnOkToClose.style.visibility = 'hidden';                                        ibtnYesSchedaul.style.visibility = 'hidden';                                        ibtnNoSchedaul.style.visibility = 'hidden';                                    }
+                                    else {//
+                                        ibtnOkToClose.innerHTML = '';                                        ibtnYesSchedaul.style.visibility = 'visible';                                        ibtnNoSchedaul.style.visibility = 'visible';                                        jQuery("#progressbarid").attr('style', 'width:100%');                                        jQuery(".progress-label").text("100 %");                                    }
+                                }
+                            }
+                            else if (Result.includes('=')) {
+                                var ID = Result.split('=')[0];                                var vValues = Result.split('=')[1];                                var vValueNew = parseInt(vValues.split('|')[0]);                                var vValueOld = parseInt(vValues.split('|')[1]);                                jQuery("#progressbarid").attr('style', 'width:' + vValueOld + '%');                                jQuery(".progress-label").text(vValueOld + " %");                                ProgressIntervalID = setInterval(updateProgress, 600);                                function updateProgress() {
+                                    var StopInterval = document.getElementById('hdnStopInterval').value;                                    if (StopInterval == "True") {
+                                        var value = jQuery("#progressbarid").width();                                        value = parseInt(value);                                        if (value < vValueNew) {
+                                            var result_value = value + 1;                                            jQuery("#progressbarid").attr('style', 'width:' + result_value + '%');                                            jQuery(".progress-label").text(result_value + " %");                                            document.cookie = "ProgressBarValueNow" + ID + "=" + result_value + ";expires=";                                        }
+                                    }
+                                    else {
+                                        window.clearInterval(ProgressIntervalID);                                        ProgressIntervalID = null;                                    }
+                                }
+                            }
+                            //
+                            else {
+                                sTitle = 'إجراء حركة النقل الداخلي'
+                            }
+                            if (!Result.includes('=')) {
+                                showNotification(Result.split(',')[0]
+                                    , 'lblNotificationMessage'
+                                    , 'ibtnOkToClose'
+                                    , 'lblNotificationTitle'
+                                    , sTitle
+                                    , Dimention.split(',')[0]
+                                    , Dimention.split(',')[1]
+                                    , 'ibtnCloseNotification');                                StopTimer();
+                                var cookie = document.cookie.split(';');                                for (var i = 0; i < cookie.length; i++) {
+
+                                    var chip = cookie[i];                                    var entry = chip.split("=");                                    var name = entry[0];
+                                    document.cookie = name + '=; expires=';                                }
+                                document.getElementById('hdnStopInterval').value = "False";                            }
+                        }
+                    }
+                });            return false;        }
+
+        function ClearCache(vall) {
+
+            $.post('AjaxCallBackPage.aspx', { "Operation": "ClearCache", "PagePath": $("#aspnetForm").attr("action") },
+                function (Result) {
+                    if (Result.indexOf("<!DOCTYPE") > -1) {  //
+                        //
+                        return vLogOut();                    }
+                    else {
+                        hideNotificationDialog();                        StopTimer();                        if (Result.toString().toLowerCase().includes("coursesschedulingoperation.aspx", 0) || Result.toString().toLowerCase().includes("schoolschedulelist.aspx", 0)) {
+                            if (vall != "ToReports") {
+                                window.location = "../EduWaveSchedule/" + Result;                            }
+                            return true;                        }
+                        else if (Result.toString().toLowerCase().includes("transfertransactionhead.aspx", 0)) {
+                            window.location = "../EduWaveTeacherAffairs/" + Result;                            return true;                        }
+                    }
+                });            return false;        }
+
+        //
+        //
+        function replaceAll(find, replace, str) {
+            return str.replace(new RegExp(find, 'g'), replace);        }
+        //
+
+
+        //
+        function viewScheduleErrors(ohdnGridData) {
+            var sDivHTML = ohdnGridData.value;            var sTitle = 'لا يمكن حفظ التعديلات بسبب وجود التعارضات التالية';            var ibtnCloseID = 'ibtnCloseInstructionBox';            var lblTitleID = 'lblInstrctionTitle';            var nWidth = '1000,0'.split(',')[0];            var nHieght = '1000,0'.split(',')[1];            ohdnGridData.value = "";            var sDivHTML = replaceAll(" @@@@@ ", "</", sDivHTML);            var sDivHTML = replaceAll(" ------ ", "<", sDivHTML);            var sDivHTML = replaceAll(" %%%%% ", ">", sDivHTML);
+            showInstruction(sDivHTML, ibtnCloseID, lblTitleID, sTitle, nWidth, nHieght);        }
+        function PostRequestToServerCalculateEquation() {
+
+            var ibtnClose = document.getElementById('tdClose');            var ibtnOkToClose = document.getElementById('tdOkToClose');            var ibtnYesSchedaul = document.getElementById('tdYesSchedaul');            var ibtnNoSchedaul = document.getElementById('tdNoSchedaul');            ibtnOkToClose.innerHTML = '';            ibtnYesSchedaul.innerHTML = '';            ibtnNoSchedaul.innerHTML = '';            $.post('AjaxCallBackPage.aspx', { "Operation": "CalculateEquation" },
+                function (Result) {
+                    if (Result.indexOf("<!DOCTYPE") > -1) {  //
+                        //
+                        return vLogOut();                    }
+                    else {
+                        if (Result != "") {
+                            var Dimention = '350,170';                            var sTitle = "";                            sTitle = 'إحتساب الإحتياج';                            if (Result.split(',')[1] == "Hide") {
+                                ibtnClose.style.visibility = 'hidden';                            }
+                            else {//
+                                ibtnClose.style.visibility = 'visible';                                showNotification(Result.split(',')[0]
+                                    , 'lblNotificationMessage'
+                                    , 'ibtnClose'
+                                    , 'lblNotificationTitle'
+                                    , sTitle
+                                    , Dimention.split(',')[0]
+                                    , Dimention.split(',')[1]
+                                    , 'ibtnCloseNotification');                                StopTimerEquation();
+                            }
+                        }
+
+                    }
+                });        }
+        function ClearCacheEquation(vall) {
+            $.post('AjaxCallBackPage.aspx', { "Operation": "ClearCacheEquation", "PagePath": $("#aspnetForm").attr("action") },
+                function (Result) {
+
+                    if (Result.indexOf("<!DOCTYPE") > -1) {  //
+                        //
+                        return vLogOut();                    }
+                    else {
+
+                        hideNotificationDialog();                        StopTimerEquation();                        if (Result.toString().toLowerCase().includes("eduwaveteacheraffairsneedsmenu.aspx", 0)) {
+                            window.location = "../EduWaveTeacherAffairs/" + Result;                            return true;                        }
+                        else if (Result.toString().toLowerCase().includes("ministryneed.aspx", 0)) {
+                            window.location = "../EduWaveTeacherAffairs/" + Result;                            return true;                        }
+                    }
+                });            return false;        }
+        function PostRequestToServerExtUserPriorty() {
+            var ibtnClose = document.getElementById('tdClose');            var ibtnOkToClose = document.getElementById('tdOkToClose');            var ibtnYesSchedaul = document.getElementById('tdYesSchedaul');            var ibtnNoSchedaul = document.getElementById('tdNoSchedaul');            ibtnOkToClose.innerHTML = '';            ibtnYesSchedaul.innerHTML = '';            ibtnNoSchedaul.innerHTML = '';            $.post('AjaxCallBackPage.aspx', { "Operation": "ExtUserPriorty" },
+                function (Result) {
+                    if (Result.indexOf("<!DOCTYPE") > -1) {  //
+                        //
+                        return vLogOut();                    }
+                    else {
+                        if (Result != "") {
+                            var Dimention = '350,170';                            var sTitle = "";                            sTitle = ' إحتساب الغياب وخدمة 20 سنه';                            if (Result.split(',')[1] == "Hide") {
+                                ibtnClose.style.visibility = 'hidden';                            }
+                            else {//
+                                ibtnClose.style.visibility = 'visible';                                showNotification(Result.split(',')[0]
+                                    , 'lblNotificationMessage'
+                                    , 'ibtnClose'
+                                    , 'lblNotificationTitle'
+                                    , sTitle
+                                    , Dimention.split(',')[0]
+                                    , Dimention.split(',')[1]
+                                    , 'ibtnCloseNotification');                                StopTimerExtUserPriorty();
+                            }
+                        }
+
+                    }
+                });        }
+        function ClearCacheExtUserPriorty(vall) {
+            $.post('AjaxCallBackPage.aspx', { "Operation": "ClearCacheExtUserPriorty", "PagePath": $("#aspnetForm").attr("action") },
+                function (Result) {
+                    if (Result.indexOf("<!DOCTYPE") > -1) {  //
+                        //
+                        return vLogOut();                    }
+                    else {
+                        hideNotificationDialog();                        StopTimerExtUserPriorty();                        if (Result.toString().toLowerCase().includes("nst_getextuserpriority.aspx", 0)) {
+                            window.location = "../EduWaveTeacherAffairs/" + Result;                            return true;                        }
+                    }
+                });            return false;        }
+        function PostRequestToServerAccreditNumberOfTransfers() {
+
+            var ibtnClose = document.getElementById('tdClose');            var ibtnOkToClose = document.getElementById('tdOkToClose');            var ibtnYesSchedaul = document.getElementById('tdYesSchedaul');            var ibtnNoSchedaul = document.getElementById('tdNoSchedaul');            ibtnOkToClose.innerHTML = '';            ibtnYesSchedaul.innerHTML = '';            ibtnNoSchedaul.innerHTML = '';            $.post('AjaxCallBackPage.aspx', { "Operation": "AccreditNumberOfTransfers" },
+                function (Result) {
+                    if (Result.indexOf("<!DOCTYPE") > -1) {  //
+                        //
+                        return vLogOut();                    }
+                    else {
+                        if (Result != "") {
+                            var Dimention = '350,170';                            var sTitle = "";                            sTitle = 'إعتماد أعداد المنقولين والعائدي';                            if (Result.split(',')[1] == "Hide") {
+                                ibtnClose.style.visibility = 'hidden';                            }
+                            else {//
+                                ibtnClose.style.visibility = 'visible';                                showNotification(Result.split(',')[0]
+                                    , 'lblNotificationMessage'
+                                    , 'ibtnClose'
+                                    , 'lblNotificationTitle'
+                                    , sTitle
+                                    , Dimention.split(',')[0]
+                                    , Dimention.split(',')[1]
+                                    , 'ibtnCloseNotification');                                StopTimerAccreditNumberOfTransfers();
+                            }
+                        }
+
+                    }
+                });        }
+
+
+        function ClearCacheAccreditNumberOfTransfers(vall) {
+            $.post('AjaxCallBackPage.aspx', { "Operation": "ClearCacheAccreditNumberOfTransfers", "PagePath": $("#aspnetForm").attr("action") },
+                function (Result) {
+                    if (Result.indexOf("<!DOCTYPE") > -1) {  //
+                        //
+                        return vLogOut();                    }
+                    else {
+                        hideNotificationDialog();                        StopTimerAccreditNumberOfTransfers();                        if (Result.toString().toLowerCase().includes("SchoolNeedTrans.aspx", 0)) {
+                            window.location = "../EduWaveTeacherAffairs/" + Result;                            return true;                        }
+                    }
+                });            return false;        }
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        function PostRequestToServerCaching() {
+            var ibtnClose = document.getElementById('tdClose');            var ibtnOkToClose = document.getElementById('tdOkToClose');            var ibtnYesSchedaul = document.getElementById('tdYesSchedaul');            var ibtnNoSchedaul = document.getElementById('tdNoSchedaul');            ibtnOkToClose.innerHTML = '';            ibtnYesSchedaul.innerHTML = '';            ibtnNoSchedaul.innerHTML = '';            $.post('AjaxCallBackPage.aspx', { "Operation": "RequestOperationCaching" },
+                function (Result) {
+                    if (Result.indexOf("<!DOCTYPE") > -1) {  //
+                        //
+                        return vLogOut();                    }
+                    else {
+                        if (Result != "") {
+                            var Dimention = '350,170';                            if (Result.split(',')[1] == "Hide") {
+                                ibtnClose.style.visibility = 'hidden';                            }
+                            else {//
+                                ibtnClose.style.visibility = 'visible';                                showNotification(Result.split(',')[0]  //
+                                    , 'lblNotificationMessage'
+                                    , 'ibtnClose'
+                                    , 'lblNotificationTitle'
+                                    , Result.split(',')[1] //
+                                    , Dimention.split(',')[0]
+                                    , Dimention.split(',')[1]
+                                    , 'ibtnCloseNotification');                                StopTimerPostRequestToServerCaching();
+                            }
+                        }
+
+                    }
+                });        }
+        function StopTimerOperationCaching() {
+            hideNotificationDialog();            StopTimerPostRequestToServerCaching();            return true;        }
+
+        //
+        function funReSizeWid() {
+            $(".introjs-button.introjs-skipbutton").trigger("click");            if ($(".calendar") != null || $(".calendar") != undefined) {
+                $(".calendar").hide();            }
+            ReloadHideMenu(false);        }
+
+        $(document).ready(function () {
+            $(".MenuHamButt").click(function () {
+                var $this = $(this);        
+                if (!$this.hasClass("hideMenu")) {
+                    $.cookie("HideMenu" + '508744', "HideMenu", { path: '/', expires: returnTodaysDate(), secure: UseSSL, HTTPOnly: UseSSL });                }
+                else {
+                    $.cookie("HideMenu" + '508744', null, { path: '/' });                }
+                             
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -38,6 +38,7 @@ export interface FormOptions {
   inputs: FormInput[];
   actionButtons: FormInput[];
   name: string;
+  systemMessage:string;
 }
 
 export interface FormSubmit {

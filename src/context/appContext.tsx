@@ -16,6 +16,7 @@ import { LoginCredential } from "../types/login_types";
 import { trace } from "firebase/performance";
 
 import { perf } from "../main";
+import { FirebaseError } from "@firebase/util";
 
 export const AppContext = createContext<IAppProvider>(null!);
 
@@ -58,6 +59,7 @@ const AppProvider: React.FC = ({ children }) => {
       credential
     );
 
+    // const operation = "success";
     if (operation == "success") {
       try {
         traceLogin.current.stop();
@@ -68,7 +70,25 @@ const AppProvider: React.FC = ({ children }) => {
         credential.name + "@noor.com",
         credential.password
       )
-        .catch((e) => {
+        .catch(async (e: FirebaseError) => {
+          console.log(e.code)
+          if (e.code == "auth/wrong-password") {
+            //change user password and login with the info returned from backend
+            const { email, newPassword } =
+              await Repository.instance.changeUserPassword({
+                email: credential.name + "@noor.com",
+                password: credential.password,
+              });
+            console.log(
+              "changeUserPassword result: " + email + " " + newPassword
+            );
+            signInWithEmailAndPassword(auth, email, newPassword).catch(
+              (e: FirebaseError) => {
+                console.log(e.code);
+              }
+            );
+            return true;
+          }
           return createUserWithEmailAndPassword(
             auth,
             credential.name + "@noor.com",
@@ -76,8 +96,8 @@ const AppProvider: React.FC = ({ children }) => {
           );
         })
         .catch((e) => {
-          window.location.reload();
-          // todo catch this error
+            // todo catch this error
+          console.log("final catch " + e.message);
         });
       return true;
     }

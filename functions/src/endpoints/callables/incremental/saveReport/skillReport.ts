@@ -69,6 +69,7 @@ export default functions
             action,
             actionButtons: [],
             name,
+          
           },
           homePage
         );

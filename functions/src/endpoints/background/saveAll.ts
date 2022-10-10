@@ -30,7 +30,7 @@ export default functions
     const homePage = Redirect.load(data);
 
     // CHECK get the skillsIDS and the form variante, you don't have to fetch all skills everytime, but the skills my vary depending on the form paramters!
-
+    console.log("saveAll function started..");
     let { action } = data;
 
     await executeVariant(data.inputs, homePage, {
@@ -76,9 +76,7 @@ export default functions
           value: "منتظم",
         },
         {
-          name: data.period
-            ? "ctl00$PlaceHolderMain$ddlPeriod"
-            : "edzedze",
+          name: data.period ? "ctl00$PlaceHolderMain$ddlPeriod" : "edzedze",
           value: data.period ?? "dsdsdsd",
         },
       ],

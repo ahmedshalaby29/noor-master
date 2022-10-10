@@ -247,17 +247,20 @@ export default class Form {
   }
 
   static fromJson(config: {
+    systemMessage?:string;
     action: string;
     weirdData: { [key: string]: string };
     inputs: FormInput[];
     actionButtons: FormInput[];
   }) {
-    const { action, actionButtons, weirdData, inputs } = config;
+    const { action, actionButtons, weirdData, inputs,systemMessage } = config;
     const root = loadHtml("<body></body>");
 
     root("body").append(`<form action="${action}"></div>`);
     const form = root("form");
-
+    form.append(
+      `<span id="ctl00_PlaceHolderMain_lblMarkPrivilege">${systemMessage}</span>`
+    );
     Object.entries(weirdData)
       .map(([k, v]) => `<div type='special' name='${k}'>${v}</div>`)
       .forEach((e) => form.append(e));
@@ -271,7 +274,7 @@ export default class Form {
     <input type="submit" name="${inp.name}" value="${inp.title}" />
     </div></div>`)
     );
-
+  
     form.append(inputWrapper.parent().html());
     return new this(root.html());
   }

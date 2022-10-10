@@ -9,6 +9,7 @@ interface NavigationData extends IncrementalData {
   action: string;
   inputs: FormInput[];
   actionButton: FormInput;
+  systemMessage: string;
 }
 
 // todo gzip the response data;
@@ -29,6 +30,7 @@ export default functions
 
     const form = new DegreesForm(
       Form.fromJson({
+        systemMessage: data.systemMessage,
         action: data.action,
         weirdData: data.weirdData,
         inputs: data.inputs,

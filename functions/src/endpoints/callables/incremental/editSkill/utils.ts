@@ -151,6 +151,7 @@ export class SkillsForm extends Form {
     weirdData: { [key: string]: string };
     inputs: FormInput[];
     actionButtons: FormInput[];
+    systemMessage?:string;
   }) {
     return new SkillsForm(Form.fromJson(config).html);
   }

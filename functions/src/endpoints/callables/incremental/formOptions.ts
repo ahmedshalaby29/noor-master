@@ -10,6 +10,7 @@ interface NavigationData extends IncrementalData {
   inputs: FormInput[];
   actionButtons: FormInput[];
   name: string;
+  systemMessage?:string;
 }
 
 export default functions.region("asia-south1").https.onCall(async (data: NavigationData, context) => {
@@ -33,6 +34,7 @@ export default functions.region("asia-south1").https.onCall(async (data: Navigat
 
 export async function fetchOptions(data: NavigationData, homePage: Redirect) {
   const form = Form.fromJson({
+    systemMessage:data.systemMessage!,
     action: data.action,
     weirdData: data.weirdData,
     inputs: data.inputs,

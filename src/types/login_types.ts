@@ -5,6 +5,11 @@ export type LoginCredential = {
   captcha: number;
 };
 
+export type ChangeUserPasswordResponse = {
+  email: string;
+  newPassword: string;
+};
+
 export type LoginFormParamsResponse = {
   __VIEWSTATEGENERATOR: string;
   __VIEWSTATEENCRYPTED: string;

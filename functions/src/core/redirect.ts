@@ -3,6 +3,8 @@ import { load as loadHtml } from "cheerio";
 import * as FormData from "form-data";
 import { stringify as QueryEncode } from "querystring";
 import { IncrementalData, weird } from "../types";
+    import fs = require("fs");
+
 import {
   defaultHeader,
   hiddenInputs,
@@ -148,6 +150,7 @@ export default class Redirect {
     return this;
   }
 
+  //sets up instance params for the do method to make the request
   async next(
     treat: (config: RedirectionResponse) => Promise<RedirectionNavigationParams>
   ) {
@@ -165,7 +168,7 @@ export default class Redirect {
 
     this.weirdData = navigation.weirdData || this.weirdData;
 
-    return this.do();
+    return await this.do();
   }
 
   stop(): RedirectionResponse {
@@ -253,7 +256,21 @@ export default class Redirect {
 
     replaceNullValues(requestData, "");
 
-    const {
+    
+     const myConsole = new console.Console(
+     fs.createWriteStream("./output.txt"));
+      myConsole.log("from : " + from);
+       myConsole.log("requestData : " + JSON.stringify(requestData));
+       myConsole.log("headers : " + JSON.stringify({
+        ...defaultHeader(cookies),
+        Referer: from,
+        "Content-Type": "application/x-www-form-urlencoded",
+      }));
+
+      console.log("The file was saved!");
+    
+
+    var {
       data: responseData,
       headers,
       request,
@@ -265,6 +282,15 @@ export default class Redirect {
       },
     });
 
+  
+       const htmlConsole = new console.Console(
+         fs.createWriteStream("./htmlOutput.txt")
+       );
+       htmlConsole.log("responseData : " + responseData);
+    
+        
+     
+   
     return this.create({
       html: responseData,
       weirdData: hiddenInputs(loadHtml(responseData)),
@@ -300,4 +326,6 @@ export default class Redirect {
       },
     };
   }
+  
+  
 }

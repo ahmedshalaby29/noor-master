@@ -70,6 +70,7 @@ const SaveAll: React.FC<SaveAllProps> = () => {
   }, []);
 
   const save = async () => {
+    console.log("saving task...")
     const task: SaveAllTask = {
       payload: {
         ...letMeHandleIt(),
@@ -83,6 +84,7 @@ const SaveAll: React.FC<SaveAllProps> = () => {
     };
 
     wait(() => DB.instance.createTask(task), setLoading);
+    
   };
 
   const title = pageTitle(teacherType!);

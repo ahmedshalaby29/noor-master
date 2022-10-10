@@ -52,7 +52,6 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
   const tracePages = useRef(trace(perf, "saveDegree"));
   const { currentRole, teacherType } = useContext(HomeContext);
   const { logout } = useContext(AppContext);
-  const [systemMessageState, setSystemMessageState] = useState("");
 
   const {
     inputs,
@@ -78,11 +77,7 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
     return () => tracePages.current.stop();
   }, []);
 
-  useEffect(() => {
-    if (systemMessage) {
-      setSystemMessageState(systemMessage.replaceAll(".", ""));
-    }
-  }, [systemMessage]);
+ 
 
   const [stage, setStage] = useState(0);
   useEffect(() => {
@@ -235,7 +230,7 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
   const actions = [
     createAction({
       show: !!inputs.length,
-      enable: isAllChosen && loadingIndex != -1 && !systemMessageState,
+      enable: isAllChosen && loadingIndex != -1 && !systemMessage,
       buttons: [
         {
           label: "التالي",
@@ -293,9 +288,9 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
       loading={loading || loadingIndex == -1}
       actions={actions[Math.max(Math.min(stage, 2), 0)]}
     >
-      {systemMessageState && (
+      {systemMessage && (
         <SystemMessage
-          message={systemMessageState + " اطلب من قائد المدرسة منحك الصلاحية"}
+          message={systemMessage + " اطلب من قائد المدرسة منحك الصلاحية"}
         />
       )}
 

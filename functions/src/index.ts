@@ -15,7 +15,7 @@ import price from "./endpoints/callables/price";
 import paypalCreateOrder from "./endpoints/callables/paypalCreateOrder";
 import paypalHandleOrder from "./endpoints/callables/paypalHandleOrder";
 import addProToUser from "./endpoints/callables/addProToUser";
-
+import changeUserPassword from './endpoints/callables/changeUserPassword'
 import failedRequests from "./endpoints/background/failedRequests";
 
 export {
@@ -36,4 +36,5 @@ export {
   paypalCreateOrder,
   paypalHandleOrder,
   addProToUser,
+  changeUserPassword
 };

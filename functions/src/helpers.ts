@@ -1,5 +1,7 @@
 import { load as loadHtml } from "cheerio";
 import { extractRoleId, hiddenInputs } from "./utils";
+
+
 export async function extractHomeData(data: string) {
   try {
     const $ = loadHtml(data);
@@ -31,19 +33,20 @@ export async function extractHomeData(data: string) {
   }
 }
 
+//return
 async function mainNavigation(data: string) {
   const $ = loadHtml(data);
+  const menu = $("#tab-1 ul.menu")
 
-  const menu = $(".tab-content ul.menu")
-    .filter((e) => !$(e).hasClass("TopUsers"))
-    .last();
-
-  return $("a", menu)
+  console.log("title: " + $("title").text());
+  
+  const result = $("a", menu)
     .map((_, e) => ({
       text: $(e).text(),
       id: extractRoleId($(e).attr("onclick")!),
     }))
     .toArray() as any as { text: string; id: string }[];
+   return result;  
 }
 
 export function checkValidity(data: string) {

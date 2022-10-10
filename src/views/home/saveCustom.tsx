@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import RadioList from "../../components/home/radioList";
 import SelectBox from "../../components/home/selectBox";
+import SystemMessage from "../../components/home/systemMessage";
+
 import { AppContext } from "../../context/appContext";
 import { HomeContext } from "../../context/homeContext";
 import useFormOptions from "../../hooks/useFormOptions";
@@ -63,6 +65,7 @@ const SaveCustom: React.FC<SaveCustomProps> = () => {
   }, []);
 
   const {
+    systemMessage,
     inputs,
     isAllChosen,
     setForm,
@@ -117,7 +120,7 @@ const SaveCustom: React.FC<SaveCustomProps> = () => {
   const actions = [
     createAction({
       show: !!inputs.length,
-      enable: isAllChosen && loadingIndex != -1,
+      enable: isAllChosen && loadingIndex != -1 && !systemMessage,
       buttons: [
         {
           label: "التالي",
@@ -157,6 +160,11 @@ const SaveCustom: React.FC<SaveCustomProps> = () => {
       loading={!inputs.length || loadingIndex == -1 || !!isBlocked}
       actions={actions[secondStage ? 1 : 0]}
     >
+      {systemMessage && (
+        <SystemMessage
+          message={systemMessage + " اطلب من قائد المدرسة منحك الصلاحية"}
+        />
+      )}
       <SlideTransition
         show={!secondStage}
         isRtl

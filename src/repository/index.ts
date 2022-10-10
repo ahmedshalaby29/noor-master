@@ -15,7 +15,7 @@ import {
   FormSubmitLookup,
   NavigateTo,
 } from "../types/communication_types";
-import { LoginFormParams, LoginSubmissionResponse } from "../types/login_types";
+import { LoginFormParams, LoginSubmissionResponse,ChangeUserPasswordResponse } from "../types/login_types";
 import { mergeCookies } from "../utils";
 
 export default class Repository {
@@ -81,6 +81,14 @@ export default class Repository {
     if (response.data.operation == "success") {
       this.updateBouncingData({ cookies: response.data.data });
     }
+    return response.data;
+  }
+
+  async changeUserPassword(info: { email: string; password: string }) {
+    const response = await this.call<ChangeUserPasswordResponse>(
+      "changeUserPassword",
+      { ...info }
+    );
     return response.data;
   }
 
