@@ -15,7 +15,11 @@ import {
   FormSubmitLookup,
   NavigateTo,
 } from "../types/communication_types";
-import { LoginFormParams, LoginSubmissionResponse,ChangeUserPasswordResponse } from "../types/login_types";
+import {
+  LoginFormParams,
+  LoginSubmissionResponse,
+  ChangeUserPasswordResponse,
+} from "../types/login_types";
 import { mergeCookies } from "../utils";
 
 export default class Repository {
@@ -107,6 +111,7 @@ export default class Repository {
   }
 
   async formFetchOption(config: FormOptions) {
+    console.log("formFetchOption");
     const response = await this.call<FormNavigateResponse>("formOption", {
       ...config,
       ...(this.bouncingData ?? {}),

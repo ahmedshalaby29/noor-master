@@ -18,14 +18,14 @@ export default functions
   .region("asia-south1")
   .https.onCall(async (data: NavigationData, context) => {
     if (await isBlocked(context)) return null;
-   //returns Redirect data instance 
+    //returns Redirect data instance
     const homePage = await Redirect.start({
       from:
         data.from ??
         "https://noor.moe.gov.sa/Noor/EduWavek12Portal/HomePage.aspx",
       cookies: data.cookies,
     });
-    
+
     const { secondNav, form } = await navigateToForm(homePage, data);
 
     return secondNav.sendForm(form);
@@ -63,11 +63,11 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
           colors: true,
         })
       );
-//#endregion
+      //#endregion
       const accountId = home.allAccounts.find(
         (e) => e.text == data.account
       )!.id;
-     
+
       return {
         target: "SwitchUserTypeMenu",
         to: accountId,
@@ -75,12 +75,55 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
       };
     }
   );
-  
-  
-  const firstNav = await checkAccount.next(async (config) => {
+  const ensurecheckAccount = await checkAccount.nextIf(
+    async (config) => {
+      if (!data.account) return false;
+      const home = await extractHomeData(config.html);
+      //#region logs
+      console.log("home.currentAccount: " + home.currentAccount);
+      console.log("home.allAccounts: " + home.allAccounts);
+      console.log("data.account " + data.account);
+      console.log(
+        "!home.currentAccount.includes(data.account): " +
+          home.currentAccount.includes(data.account)
+      );
+      //#endregion
+      return !home.currentAccount.includes(data.account);
+    },
+    async (config) => {
+      const home = await extractHomeData(config.html);
+      console.log("Ensuring check account!");
+      //#region logs
+      console.log(
+        "49 data.account " +
+          data.account +
+          "home.allAccounts " +
+          home.allAccounts
+      );
+      console.log(
+        util.inspect(home.allAccounts, {
+          showHidden: false,
+          depth: null,
+          colors: true,
+        })
+      );
+      //#endregion
+      const accountId = home.allAccounts.find(
+        (e) => e.text == data.account
+      )!.id;
+
+      return {
+        target: "SwitchUserTypeMenu",
+        to: accountId,
+        weirdData: home.weirdData,
+      };
+    }
+  );
+
+  const firstNav = await ensurecheckAccount.next(async (config) => {
     const home = await extractHomeData(config.html);
     //#region logs
-    
+
     console.log(
       "77 data.nav1 " + data.nav1 + "home.navigation " + home.navigation
     );
@@ -93,8 +136,9 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
     );
     //#endregion
 
-    const nav1Id = home.navigation.find((e) => e.text == data.nav1) ?home.navigation.find((e) => e.text == data.nav1).id:
-    "";
+    const nav1Id = home.navigation.find((e) => e.text == data.nav1)
+      ? home.navigation.find((e) => e.text == data.nav1).id
+      : "";
 
     console.log("##### YAYYYY first step1s!");
     return {
@@ -104,10 +148,9 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
     };
   });
 
-
   const ensureFirstNav = await firstNav.nextIf(
     async (config) => {
-    //  const nav2Ids = await innerNavigation(config.html);
+      //  const nav2Ids = await innerNavigation(config.html);
       return checkPageTitle(config.html);
     },
     async (config) => {
@@ -155,10 +198,10 @@ async function innerNavigation(data: string) {
     .toArray() as any as { text: string; id: string[] }[];
 }
 
-async function checkPageTitle(data:string) {
-  const $ = load(data)
-  const titleText = $("title").text()
+async function checkPageTitle(data: string) {
+  const $ = load(data);
+  const titleText = $("title").text();
 
-
-  return titleText.trim() == 'EduWave - الخدمة غير متوفرة :: نظام نور'
+  console.log("titleText: " + titleText.trim());
+  return titleText.trim() == "EduWave - الخدمة غير متوفرة :: نظام نور";
 }

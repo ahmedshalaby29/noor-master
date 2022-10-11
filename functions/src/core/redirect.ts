@@ -3,7 +3,7 @@ import { load as loadHtml } from "cheerio";
 import * as FormData from "form-data";
 import { stringify as QueryEncode } from "querystring";
 import { IncrementalData, weird } from "../types";
-    import fs = require("fs");
+//import fs = require("fs");
 
 import {
   defaultHeader,
@@ -256,7 +256,7 @@ export default class Redirect {
 
     replaceNullValues(requestData, "");
 
-    
+    /*
      const myConsole = new console.Console(
      fs.createWriteStream("./output.txt"));
       myConsole.log("from : " + from);
@@ -268,7 +268,7 @@ export default class Redirect {
       }));
 
       console.log("The file was saved!");
-    
+    */
 
     var {
       data: responseData,
@@ -281,16 +281,12 @@ export default class Redirect {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
-
-  
-       const htmlConsole = new console.Console(
-         fs.createWriteStream("./htmlOutput.txt")
-       );
-       htmlConsole.log("responseData : " + responseData);
-    
-        
-     
-   
+    /*
+    const htmlConsole = new console.Console(
+      fs.createWriteStream("./htmlOutput.txt")
+    );
+    htmlConsole.log("responseData : " + responseData);
+   */
     return this.create({
       html: responseData,
       weirdData: hiddenInputs(loadHtml(responseData)),
@@ -326,6 +322,4 @@ export default class Redirect {
       },
     };
   }
-  
-  
 }

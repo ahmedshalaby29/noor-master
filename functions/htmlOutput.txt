@@ -106,54 +106,11 @@ style="height: 99%;">
         function HideMenuContainer() {
             $(".NewsContainer .news").css("margin-right", "0");            $(".contentContainer").css("margin-right", "0");        }
     </script>
-    
-    <style>
-        #divUserMenu {
-            width: 0 !important;        }
-
-        #divMenuHamButt, .MenuHamButt hideMenu RollOverMenu {
-            display: none !important;        }
-
-        .contentContainer, .NewsContainer .news {
-            margin-right: 0 !important;        }
-
-        html[dir="ltr"] .contentContainer, .NewsContainer .news {
-            margin-left: 0 !important;        }
-
-        .e31_header .e31_headerinfo .mobileheaderbg {
-            /*  margin: 0 50px 0 0 !important;*/
-        }
-
-        .e31_header .logo {
-            /*right: 45px;*/
-        }
-
-        .mobile_button.rtbtn.glyphicon.glyphicon-user {
-            /* right: 13px;*/
-        }
-
-        .mobile_button.lftbtn.glyphicon.glyphicon-menu-hamburger {
-            display: none !important;        }
-
-        @media screen and (max-width: 1024px) {
-            .mobile_button.lftbtn.glyphicon.glyphicon-menu-home {
-                display: block !important;                position: absolute;                right: 20px;                top: 0;                width: 18px;                height: 100%;            }
-
-                .mobile_button.lftbtn.glyphicon.glyphicon-menu-home:before {
-                    position: absolute;                    font-family: "icomoon";                    color: #fff;                    font-size: 18px;                    top: 13px;                    right: 0;                }
-
-            html[dir="ltr"] .mobile_button.lftbtn.glyphicon.glyphicon-menu-home {
-                right: 0;                left: 20px;            }
-
-                html[dir="ltr"] .mobile_button.lftbtn.glyphicon.glyphicon-menu-home:before {
-                    left: 0;                    right: auto;                }
-        }
-    </style>
     <form method="post" action="./NotAuthorized.aspx?pnotauthorizedid=2" id="form1" style="height: 100%;">
 <div class="aspNetHidden">
 <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
 <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
-<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
 </div>
 
 <script type="text/javascript">
@@ -201,7 +158,7 @@ function __doPostBack(eventTarget, eventArgument) {
 
 	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="30527425" />
 	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
-	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="q+Mv8UymP+JOXmG+K8Y/70Y6NyC/wvo2JUGiHZnBIycLmnOW4aHN3B3tmx7eyo97NV9re33xoheDjN02shQwGkoXnKsCxhlpT4Klf/7Fy8KHmKTbjd1H+eRW8WzUbK07w9Xy2+j4SOHeWSiBC353QPT+h8pkbM8LMlhfm6mVT9iZXdh/FfNOvgKI4B4VHu9mkrBYaFRlwullvLOFH/Q+z7qZvfj6s1q+ApXZ7vaQYxSaiwh0UogvOiIzcx2uXZ6yaK4u1zJArCe8TIYBVSuHE8SRvqnyyNzRGgfhXgxIDSqZOEaEsIH4UvfEDdcPRbwuSmNxrYeeWA9i9cZUFDn02KEUml9rxB+70OIu51jOLZIdseE7k4bJaxf7OgGdyv37vxUXSK2tkb6/dpzVT+HTHRv2KjwMajK6GXWZJwsOiWor4WicBNij7aZIHhtC9GzkwMAAY9ncQdMc/0mbJ+Zs2s1mDPOke0dMXx4466bwxCNtayqiiCEm9AQds1rURm2Z4OAHHG/h5GhZF0n7MvoO82PqGgJPevyLiQm/OYOMKNOgIlPI" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="m38ScpTFvqXywtiXd7Cr6PpRmUFWxlPjdyjJHpEPwwfUqYO9Cwxmw6YZM061JPraA3XE3FnQW/47unHL1UVlv/xWWLDqQAiEJous6ypisw5Pdu3DjE216Qes6mR6X3q52y78iXCQfySTzLfQb2Wnwy5P/tGZ1ZyxpFYvzT+f1MxBXEYZsy+6Eiz6+uv4n4wLf82FBwECTU7sat3gVKzvks7HuX3CreFueCkNVj6qpWG+WTop9B7zuYeFsYAUmF8UEW5vk1hdQB1EshnT+QHSPR2/FNd1dVhaVIZn7cq48eE7PkEDtK4ZkIq3geC8BvkPOOH6twUoGYzIjsrhNMgk3JQHwoUC4A/VwkFkcgJYGnUiSFLCvnoCeA9N9M9RT1P5SP14IwFcpU9BHF4P2H0Fmm6CcY9CmZcALVWbHdWa8laVaN4O9K1jQSkXJA23lMITuyvSi0I0be/HPuLmiU315ktFbiZQh2aNhh1mo2p9HSSSv6nxUZVGlLyks5cwSf9+ngXoT3JuM7ScMV8zwrGlfIDQAlnRcGP3Ham24kvQteA+jpr0+gOQCe5GfJR3WZTgBZekMA==" />
 </div>
         <script type="text/javascript">
 //<![CDATA[
@@ -260,7 +217,7 @@ $(".showmenu.open .e32_sidebar").css({display:"block",height:"300px"})}
 
         
     }
-</script><div class="e31_header"><a href="http:\\www.moe.gov.sa" rel="noreferrer" target="_blank" title="وزارة التعليم" class="logo"></a><div class="clientlogo"><img src="/Noor/Images/Logos/NoorLogo.png" id="oHeader_imgLogo" width="36" height="45" alt="نظام نور" /></div><div class="e31_headerinfo"><div id="oHeader_tblLoggedUser" class="userinfo"><span id="oHeader_lblWelcomeUser" class="StandardFont" style="color:White;">أهلا</span><a id="oHeader_lnkLoggedNewUserName" class="username">منصور بن جوحلي</a><div class="hidden_user_name"><span id="oHeader_spanUserName">منصور بن جوحلي</span></div><div id="oHeader_divSwitchUser" class="switchUser"><a href="#" class="switchmenu"></a><div class="showmenu"><div class="e32_sidebar tab-content current  "><div id="oHeader_dvSearchInput" class="search2"><input name="ctl00$oHeader$SearchInput" type="text" id="oHeader_SearchInput" class="input-search2" onkeyup="SearchUsers()" onkeydown="SearchUsers()" placeholder=" ابحث" maxlength="30" /></div><div id="tab-2" class="tab-content current divscrollbar_vertical"><ul id="oHeader_ulUserExtraProfiles" class="menu TopUsers "><li><a href="#" onclick="javascript:__doPostBack('SwitchUserTypeMenu','nis7ObV7FOwNfDD3rY6eTAPFwvpvtaHH0')">معلم - متوسطة السلامه العليا</a></li><li><a href="#" onclick="javascript:__doPostBack('SwitchUserTypeMenu','m5leFqtt3muaMxmBYB0p2Is8ZLfFDQ-00')">معلم - ابتدائية السلامه العليا</a></li><li><a href="#" onclick="javascript:__doPostBack('SwitchUserTypeMenu','MPq9mrf40F5fYloc5FaLVEG0T0Gj1IXF0')">معلم - ثانوية السلامة العليا - مسارات</a></li></ul></div></div></div></div><span id="oHeader_spanUserDesc" class="usersubinfo">ولي أمر</span><div class="hidden_user_info"><span id="oHeader_susersubinfo">ولي أمر</span></div></div><nav id="oHeader_tblQuickMenu" class="topnav"><a class="mobile_button rtbtn glyphicon glyphicon-user closeButt-Menu open"></a><ul><li id="oHeader_liHome" class="home"><a href="javascript:__doPostBack('Home','SG9tZQ==');" id="oHeader_lbtnHomePage"><span id="oHeader_lblHomePage" class="StandardFont">الرئيسية</span></a></li><li id="oHeader_liHelp" class="settings"><a href="#" class="Settingsicon"><span id="oHeader_lblHelp" class="StandardFont">مساعدة</span></a><div class="SettingsList"><ul><li><a href="#" id="oHeader_lbtnFAQs" onclick="return ShowFAQsModal(&#39;AjaxCallBackPage.aspx&#39;);"><span id="oHeader_lblFAQs" class="StandardFont">الأسئلة الشائعة</span></a></li><li id="oHeader_liOnlineHelp" style="display:none;"><a href="#" id="oHeader_lbtnHelp" onclick="return ShowHelpModal(&#39;AjaxCallBackPage.aspx&#39;);"><span id="oHeader_lblHelp1" class="StandardFont">مساعدة</span></a></li></ul></div></li><li id="oHeader_liLogout" class="logout"><a href="javascript:__doPostBack('Logout','TG9nb3V0');" id="oHeader_lbtnLogout"><span id="oHeader_lblLogout" class="StandardFont">خروج</span></a></li></ul></nav><div class="mobileheaderbg"></div></div><a href="javascript:__doPostBack('Home','SG9tZQ==');" id="oHeader_aHomePage" class="mobile_button lftbtn glyphicon glyphicon-menu-home"></a><a class="mobile_button lftbtn glyphicon glyphicon-menu-hamburger"></a><a class="mobile_button rtbtn glyphicon glyphicon-user"></a></div><a id="oHeader_LinkButton1" class="StandardFont" href="javascript:__doPostBack(&#39;ctl00$oHeader$LinkButton1&#39;,&#39;&#39;)" style="display:none;">LinkButton</a>
+</script><div class="e31_header"><a href="http:\\www.moe.gov.sa" rel="noreferrer" target="_blank" title="وزارة التعليم" class="logo"></a><div class="clientlogo"><img src="/Noor/Images/Logos/NoorLogo.png" id="oHeader_imgLogo" width="36" height="45" alt="نظام نور" /></div><div class="e31_headerinfo"><div id="oHeader_tblLoggedUser" class="userinfo"><span id="oHeader_lblWelcomeUser" class="StandardFont" style="color:White;">أهلا</span><a id="oHeader_lnkLoggedNewUserName" class="username">منصور بن جوحلي</a><div class="hidden_user_name"><span id="oHeader_spanUserName">منصور بن جوحلي</span></div><div id="oHeader_divSwitchUser" class="switchUser"><a href="#" class="switchmenu"></a><div class="showmenu"><div class="e32_sidebar tab-content current  "><div id="oHeader_dvSearchInput" class="search2"><input name="ctl00$oHeader$SearchInput" type="text" id="oHeader_SearchInput" class="input-search2" onkeyup="SearchUsers()" onkeydown="SearchUsers()" placeholder=" ابحث" maxlength="30" /></div><div id="tab-2" class="tab-content current divscrollbar_vertical"><ul id="oHeader_ulUserExtraProfiles" class="menu TopUsers "><li><a href="#" onclick="javascript:__doPostBack('SwitchUserTypeMenu','m5leFqtt3mty76GM8H4xTcYUz2mzqXPY0')">معلم - ابتدائية السلامه العليا</a></li><li><a href="#" onclick="javascript:__doPostBack('SwitchUserTypeMenu','MPq9mrf40F4vDjNoL4CVACfnD61Fk3tb0')">معلم - ثانوية السلامة العليا - مسارات</a></li><li><a href="#" onclick="javascript:__doPostBack('SwitchUserTypeMenu','eSyqqwfTeCfrqnhstA0Pwl--0QWSAQP20')">ولي أمر </a></li></ul></div></div></div></div><span id="oHeader_spanUserDesc" class="usersubinfo">معلم - متوسطة السلامه العليا - إدارة التعليم بمحافظة صبيا  - (بنين)</span><div class="hidden_user_info"><span id="oHeader_susersubinfo">معلم - متوسطة السلامه العليا - إدارة التعليم بمحافظة صبيا  - (بنين)</span></div></div><nav id="oHeader_tblQuickMenu" class="topnav"><a class="mobile_button rtbtn glyphicon glyphicon-user closeButt-Menu open"></a><ul><li id="oHeader_liHome" class="home"><a href="javascript:__doPostBack('Home','SG9tZQ==');" id="oHeader_lbtnHomePage"><span id="oHeader_lblHomePage" class="StandardFont">الرئيسية</span></a></li><li id="oHeader_liHelp" class="settings"><a href="#" class="Settingsicon"><span id="oHeader_lblHelp" class="StandardFont">مساعدة</span></a><div class="SettingsList"><ul><li><a href="#" id="oHeader_lbtnFAQs" onclick="return ShowFAQsModal(&#39;AjaxCallBackPage.aspx&#39;);"><span id="oHeader_lblFAQs" class="StandardFont">الأسئلة الشائعة</span></a></li><li id="oHeader_liOnlineHelp" style="display:none;"><a href="#" id="oHeader_lbtnHelp" onclick="return ShowHelpModal(&#39;AjaxCallBackPage.aspx&#39;);"><span id="oHeader_lblHelp1" class="StandardFont">مساعدة</span></a></li></ul></div></li><li id="oHeader_liLogout" class="logout"><a href="javascript:__doPostBack('Logout','TG9nb3V0');" id="oHeader_lbtnLogout"><span id="oHeader_lblLogout" class="StandardFont">خروج</span></a></li></ul></nav><div class="mobileheaderbg"></div></div><a href="javascript:__doPostBack('Home','SG9tZQ==');" id="oHeader_aHomePage" class="mobile_button lftbtn glyphicon glyphicon-menu-home"></a><a class="mobile_button lftbtn glyphicon glyphicon-menu-hamburger"></a><a class="mobile_button rtbtn glyphicon glyphicon-user"></a></div><a id="oHeader_LinkButton1" class="StandardFont" href="javascript:__doPostBack(&#39;ctl00$oHeader$LinkButton1&#39;,&#39;&#39;)" style="display:none;">LinkButton</a>
         
 
         
@@ -271,7 +228,7 @@ $(".showmenu.open .e32_sidebar").css({display:"block",height:"300px"})}
                     التنبيهات
                 </div>
                 <div class="marquee" data-direction="right">
-                    <marquee id="divHeaderMarquee" class="marquee_section" behavior="scroll" direction="right" onmouseover="this.stop();" onmouseout="this.start();" style="padding-top: 6px;"></marquee>
+                    <marquee id="divHeaderMarquee" class="marquee_section" behavior="scroll" direction="right" onmouseover="this.stop();" onmouseout="this.start();" style="padding-top: 6px;">استبيان الارتباط المهني لمنسوبي الوزارة لعام 1439هــ/ 2017م .</marquee>
                 </div>
                 <a href="#" class="close" id="hide"></a>
             </div>
@@ -305,7 +262,14 @@ $(".showmenu.open .e32_sidebar").css({display:"block",height:"300px"})}
                     .search2 .input-search2:-moz-placeholder {
                         color: #55555585;                        font-size: 13px;                    }
         </style>
-        
+        <div id="divUserMenu" class="e31_sidebar">
+            <div class="search2">
+                <input name="ctl00$SearchMenu" type="text" id="SearchMenu" class="input-search2" onkeyup="SearchMenu()" placeholder=" ابحث" maxlength="30" />
+            </div>
+            <div id="tab-1" class="tab-content current divscrollbar_vertical">
+                <ul id="ulUserMenu" class="menu"><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','UsersManagement/UserInfoManagement.aspx');">بياناتي الشخصية</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWavek12Portal/TeacherReportsMenu.aspx');">التقارير</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveTeacherAffairs/TeacherAffairsPrivilegeMnue.aspx?EKME-sZ-qgdJhYZtXdsecQ2=kj_qd7f6HUI1');">خدمات شؤون المعلمين</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveLearningResources/LearningResourcesMainMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=ZWnujXUqLPA1');">مصادر التعلم</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveLabsManagement/LabsManagementMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=SjvQZNe7deM1');">المختبرات</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWavek12Portal/SMSMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=g0kfCljrpxw1');">الرسائل</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveLearningDifficulties/LearningDiffcultiesMainMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=yfYN9NMAnAI1');">التربية الخاصة</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveCouncilBoard/EduWaveCouncilBoardMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=wIZiwtsh7Fo1');">مجلس الأمناء</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveStudentActivity/StudentActivityMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=271Vv696n4M1');">النشاط الطلابي</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveSMS/ManageAttendanceMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=a5kWtEQBxeA1');">السلوك والمواظبة</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveSMS/LecturesViolations.aspx?EKME-sZ-qgdJhYZtXdsecQ2=0uk6_ie3Atw1');">التأخير والغياب</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','UsersManagement/TeacherStudentsMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=eZzJiuLtRDk1');">الطلاب</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveExamsSystem/MarksMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=DjygbnLNTWs1');">الإختبارات</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveSMS/ExamsScheduleView.aspx?EKME-sZ-qgdJhYZtXdsecQ2=OTsHzuq1tBc1');">جدول الاختبارات</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveStudentsTalented/StudentsTalentedMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=LyOhF8syVxo1');">الموهوبون</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveSchedule/ReportPages/GetAllScheduleReports.aspx?EKME-sZ-qgdJhYZtXdsecQ2=x9d-_F6QBxY1');">الجدول المدرسي</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveSchoolHealth/SchoolHealthMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=CXvrINF6nTg1');">الشؤون الصحية المدرسية</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','EduWaveScholarships/ScholarshipsMainMenu.aspx?EKME-sZ-qgdJhYZtXdsecQ2=U7PMLGbK7mI1');">الايفاد للتدريس في الخارج</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','Admission/ApplicantLogin.aspx');">تسجيل الأبناء</a></li><li><a href='#' onclick="javascript:__doPostBack('MenuItemRedirect','logout.aspx');">خروج</a></li></ul>
+            </div>
+        </div>
         
 
         
@@ -526,7 +490,9 @@ $(".showmenu.open .e32_sidebar").css({display:"block",height:"300px"})}
 
         </script>
         <div class="contentContainer">
-            
+            <div id="divMenuHamButt" class="MenuHamButt hideMenu RollOverMenu">
+                <a class="HamButt"></a>
+            </div>
             <div id="content" class="content">
                 <div id="divPageHeader" class="page-header">
                     <div style="display: block;">
