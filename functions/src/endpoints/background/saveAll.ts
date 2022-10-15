@@ -24,13 +24,16 @@ export default functions
   .firestore.document("tasks/{taskId}")
   .onCreate(async (snapshot) => {
     const docData = snapshot.data();
+    //gets nav data from the document created by the frontend
     const data = docData.payload as NavigationData;
+    //checks if the teacher is a primary teacher for some reason
     const { isPrimary } = docData;
-
+    //creates a redirect object with the sent cookies and from and weirdData
     const homePage = Redirect.load(data);
 
     // CHECK get the skillsIDS and the form variante, you don't have to fetch all skills everytime, but the skills my vary depending on the form paramters!
     console.log("saveAll function started..");
+    //gets the action url from the nav data sent by the frontend
     let { action } = data;
 
     await executeVariant(data.inputs, homePage, {
@@ -82,6 +85,8 @@ export default functions
       ],
     });
 
+    //updates the task refrence in the db when everything is complete
+    //and removes the task payload object
     await snapshot.ref.update({ completed: true, payload: {} });
 
     console.log("############################################");

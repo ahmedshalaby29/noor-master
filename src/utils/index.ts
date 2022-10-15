@@ -66,7 +66,9 @@ export function mergeCookies(...cookies: string[][]) {
 }
 
 export function taskTitle(taskType: BackgroundTaskType) {
+  console.log(taskType);
   if (taskType == BackgroundTaskType.saveAll) return "تحصيل الكل";
+  else if (taskType == BackgroundTaskType.savePeriod) return "تحصيل الكل";
   else if (taskType == BackgroundTaskType.saveCustom)
     return "تحصيل وحدة ومهارة";
 }

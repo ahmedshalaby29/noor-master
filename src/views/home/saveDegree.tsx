@@ -77,8 +77,6 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
     return () => tracePages.current.stop();
   }, []);
 
- 
-
   const [stage, setStage] = useState(0);
   useEffect(() => {
     tracePages.current.incrementMetric("stage", stage);
@@ -107,7 +105,7 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
         })
         .catch(logout);
     }, setLoading);
-  }, []);
+  }, [currentRole]);
 
   const savelAll = async () => {
     saveDegrees(

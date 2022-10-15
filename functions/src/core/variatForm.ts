@@ -77,7 +77,7 @@ export async function executeVariant(
   const isTarget = config.customSelect.find((e) => e.name == current.name);
   if (isTarget) {
     current.options = selectOpt(options, isTarget.value);
-    
+
     // fetch the previous one
     if (i > 1) {
       await config.fetchOptions(inputs, inputs[i - 1].name, redirect);
@@ -95,8 +95,8 @@ export async function executeVariant(
       return await executeVariant(inputs, redirect, config, i + 1);
     }
   }
-  // select all if this option exists
 
+  // select all if this option exists
   if (!getSelected(options) && containExactOpt(options, "الكل")) {
     current.options = selectOpt(options, "الكل");
     return await executeVariant(inputs, redirect, config, i + 1);
