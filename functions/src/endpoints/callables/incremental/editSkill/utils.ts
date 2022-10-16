@@ -62,7 +62,7 @@ export class SkillsForm extends Form {
           ctl00$hdnData_Data: "",
           ctl00$hdnData_Operation: "Save",
         },
-        undefined,
+        undefined
       )
       .then(() => console.log((Date.now() - start) / 1000));
   }
@@ -151,7 +151,7 @@ export class SkillsForm extends Form {
     weirdData: { [key: string]: string };
     inputs: FormInput[];
     actionButtons: FormInput[];
-    systemMessage?:string;
+    systemMessage?: string;
   }) {
     return new SkillsForm(Form.fromJson(config).html);
   }
@@ -213,6 +213,8 @@ export class PrimarySkillForm extends SkillsForm {
   }
 
   static fromJson(config: {
+    systemMessage?: string;
+
     action: string;
     weirdData: { [key: string]: string };
     inputs: FormInput[];

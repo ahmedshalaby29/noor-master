@@ -1,7 +1,9 @@
 import { trace } from "firebase/performance";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Buffering from "../../components/buffering";
 import RadioList from "../../components/home/radioList";
+import SystemMessage from "../../components/home/systemMessage";
 import { AppContext } from "../../context/appContext";
 import { HomeContext } from "../../context/homeContext";
 import useFormOptions from "../../hooks/useFormOptions";
@@ -38,12 +40,12 @@ const SaveAll: React.FC<SaveAllProps> = () => {
   const tracePages = useRef(trace(perf, "saveAll"));
 
   const navigate = useNavigate();
-  const { teacherType, currentRole } = useContext(HomeContext);
+  const { tasks, teacherType, currentRole } = useContext(HomeContext);
   const { logout, user } = useContext(AppContext);
   const [selected, select] = useState<Rating>();
   const [loading, setLoading] = useState(false);
 
-  const { setForm, letMeHandleIt,inputs } = useFormOptions({
+  const { systemMessage, setForm, letMeHandleIt, inputs } = useFormOptions({
     actionName: "ibtnSearch",
     isPrimary: teacherType == TeacherType.primary,
   });
@@ -70,7 +72,7 @@ const SaveAll: React.FC<SaveAllProps> = () => {
   }, []);
 
   const save = async () => {
-    console.log("saving task...")
+    console.log("saving task...");
     const task: SaveAllTask = {
       payload: {
         ...letMeHandleIt(),
@@ -84,7 +86,6 @@ const SaveAll: React.FC<SaveAllProps> = () => {
     };
 
     wait(() => DB.instance.createTask(task), setLoading);
-    
   };
 
   const title = pageTitle(teacherType!);
@@ -108,12 +109,23 @@ const SaveAll: React.FC<SaveAllProps> = () => {
 
   return (
     <Page title={title} actions={actions} loading={loading}>
-      <RadioList
-        disabled={loading}
-        title={title}
-        onSelect={(e) => select(e as any)}
-        items={rates(teacherType!)}
-      />
+      {!!tasks.length ? (
+        <Buffering />
+      ) : (
+        <>
+          {systemMessage && (
+            <SystemMessage
+              message={systemMessage + " اطلب من قائد المدرسة منحك الصلاحية"}
+            />
+          )}
+          <RadioList
+            disabled={loading}
+            title={title}
+            onSelect={(e) => select(e as any)}
+            items={rates(teacherType!)}
+          />
+        </>
+      )}
     </Page>
   );
 };

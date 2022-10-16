@@ -1,6 +1,8 @@
 import { trace } from "firebase/performance";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import Buffering from "../../components/buffering";
 import RadioList from "../../components/home/radioList";
+import SystemMessage from "../../components/home/systemMessage";
 import { AppContext } from "../../context/appContext";
 import { HomeContext } from "../../context/homeContext";
 import useFormOptions from "../../hooks/useFormOptions";
@@ -38,13 +40,13 @@ function pageTitle(type: TeacherType) {
 const SavePeriod: React.FC<SavePeriodProps> = () => {
   const tracePages = useRef(trace(perf, "savePeriod"));
 
-  const { teacherType, currentRole } = useContext(HomeContext);
+  const { tasks, teacherType, currentRole } = useContext(HomeContext);
   const { logout, user } = useContext(AppContext);
   const [selected, select] = useState<Rating>();
   const [loading, setLoading] = useState(false);
   const [secondStage, setSecondStage] = useState(false);
 
-  const { setForm, inputs, letMeHandleIt } = useFormOptions({
+  const { systemMessage, setForm, inputs, letMeHandleIt } = useFormOptions({
     actionName: "ibtnS10",
     isPrimary: teacherType == TeacherType.primary,
   });
@@ -105,11 +107,11 @@ const SavePeriod: React.FC<SavePeriodProps> = () => {
   };
 
   const title = pageTitle(teacherType!);
-
   const actions = createAction({
     loading: loading,
     enable:
-      (selected !== undefined && secondStage) || (!secondStage && !!period),
+      (selected !== undefined && secondStage && !systemMessage) ||
+      (!secondStage && !!period && !systemMessage),
     buttons: [
       {
         label: "التالي",
@@ -125,33 +127,44 @@ const SavePeriod: React.FC<SavePeriodProps> = () => {
       },
     ],
   });
-
+  console.log(`System Message: ${systemMessage}`);
   console.log(`periods: ${periods}`);
   return (
     <Page title={title} actions={actions} loading={!inputs.length}>
-      <SlideTransition show={!secondStage}>
-        {periods && (
-          <RadioList
-            disabled={loading}
-            title={title}
-            onSelect={(e) => setPeriod(e.toString())}
-            items={periods!.map((p) => ({
-              id: p.text,
-              name: p.text,
-              description: "",
-            }))}
-          />
-        )}
-      </SlideTransition>
+      {!!tasks.length ? (
+        <Buffering />
+      ) : (
+        <>
+          {systemMessage && (
+            <SystemMessage
+              message={systemMessage + " اطلب من قائد المدرسة منحك الصلاحية"}
+            />
+          )}
+          <SlideTransition show={!secondStage}>
+            {periods && (
+              <RadioList
+                disabled={loading}
+                title={title}
+                onSelect={(e) => setPeriod(e.toString())}
+                items={periods!.map((p) => ({
+                  id: p.text,
+                  name: p.text,
+                  description: "",
+                }))}
+              />
+            )}
+          </SlideTransition>
 
-      <SlideTransition show={secondStage}>
-        <RadioList
-          disabled={loading}
-          title={title}
-          onSelect={(e) => select(e as any)}
-          items={rates(teacherType!)}
-        />
-      </SlideTransition>
+          <SlideTransition show={secondStage}>
+            <RadioList
+              disabled={loading}
+              title={title}
+              onSelect={(e) => select(e as any)}
+              items={rates(teacherType!)}
+            />
+          </SlideTransition>
+        </>
+      )}
     </Page>
   );
 };

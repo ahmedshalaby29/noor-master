@@ -150,4 +150,5 @@ export interface IHomeProvider extends HomeState {
   selectTab(tab: HomeTab): void;
   selectRole(role: string): void;
   closeSuccess(): void;
+  setShowSuccess(value: boolean): void;
 }

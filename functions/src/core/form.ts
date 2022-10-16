@@ -97,7 +97,8 @@ export default class Form {
 
   private getSystemMessage() {
     const message = this.$("#ctl00_PlaceHolderMain_lblMarkPrivilege");
-    return message.text();
+    if (message.text() !== "undefined") return message.text();
+    else return "";
   }
 
   protected getFormAction() {
@@ -247,13 +248,13 @@ export default class Form {
   }
 
   static fromJson(config: {
-    systemMessage?:string;
+    systemMessage?: string;
     action: string;
     weirdData: { [key: string]: string };
     inputs: FormInput[];
     actionButtons: FormInput[];
   }) {
-    const { action, actionButtons, weirdData, inputs,systemMessage } = config;
+    const { action, actionButtons, weirdData, inputs, systemMessage } = config;
     const root = loadHtml("<body></body>");
 
     root("body").append(`<form action="${action}"></div>`);
@@ -274,7 +275,7 @@ export default class Form {
     <input type="submit" name="${inp.name}" value="${inp.title}" />
     </div></div>`)
     );
-  
+
     form.append(inputWrapper.parent().html());
     return new this(root.html());
   }

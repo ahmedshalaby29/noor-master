@@ -6,9 +6,13 @@ import Menu from "../../components/home/navigation/menu";
 import NameLabel from "../../components/home/navigation/nameLabel";
 import PhoneMenu from "../../components/home/navigation/phoneMenu";
 import SelectRole from "../../components/home/navigation/selectRole";
+import Buffering from "../../components/buffering";
+
 import Noti from "../../components/home/noti";
 import Success from "../../components/home/success";
 import { HomeContext } from "../../context/homeContext";
+import LoaderImage from "../../assets/loading.gif";
+
 import { HomeTab } from "../../models/home_model";
 import { getPausedTab, taskTitle } from "../../utils";
 
@@ -97,12 +101,6 @@ const Home: React.FC = ({ children }) => {
         </div>
 
         <div className="w-full overflow-hidden  flex-1 p-4">
-          {!!tasks.length && (
-            <Noti
-              text={` جاري تنفيذ العملية ${taskTitle(tasks[0].type)}`}
-              color="yellow"
-            />
-          )}
           {teacher && teacher.isPro !== false && <Outlet />}
 
           {teacher?.isPro === false && <BuyMessage />}

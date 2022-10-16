@@ -24,6 +24,7 @@ import { teacherTypeArabic, wait } from "../../utils";
 import { trace } from "firebase/performance";
 import { perf } from "../../main";
 import { useNavigate } from "react-router-dom";
+import Buffering from "../../components/buffering";
 
 interface SaveCustomProps {}
 
@@ -160,40 +161,45 @@ const SaveCustom: React.FC<SaveCustomProps> = () => {
       loading={!inputs.length || loadingIndex == -1 || !!isBlocked}
       actions={actions[secondStage ? 1 : 0]}
     >
-      {systemMessage && (
-        <SystemMessage
-          message={systemMessage + " اطلب من قائد المدرسة منحك الصلاحية"}
-        />
-      )}
-      <SlideTransition
-        show={!secondStage}
-        isRtl
-        className="flex-1  w-full grid md:grid-cols-2 h-full gap-3 "
-      >
-        {inputs.map((input, i) => (
-          <div key={input.id}>
-            <SelectBox
-              loading={i > loadingIndex}
-              select={(e) => updateInputs(input.name!, e)}
-              label={input.title}
-              options={input.options.map((e) => ({
-                id: e.value,
-                name: e.text,
-                selected: e.selected,
-              }))}
+      {!!tasks.length ? (
+        <Buffering />
+      ) : (
+        <>
+          {systemMessage && (
+            <SystemMessage
+              message={systemMessage + " اطلب من قائد المدرسة منحك الصلاحية"}
             />
-          </div>
-        ))}
-      </SlideTransition>
-
-      <SlideTransition show={secondStage}>
-        <RadioList
-          disabled={loading}
-          title={title}
-          onSelect={(e) => setRating(e as any)}
-          items={rates(teacherType!)}
-        />
-      </SlideTransition>
+          )}
+          <SlideTransition
+            show={!secondStage}
+            isRtl
+            className="flex-1  w-full grid md:grid-cols-2 h-full gap-3 "
+          >
+            {inputs.map((input, i) => (
+              <div key={input.id}>
+                <SelectBox
+                  loading={i > loadingIndex}
+                  select={(e) => updateInputs(input.name!, e)}
+                  label={input.title}
+                  options={input.options.map((e) => ({
+                    id: e.value,
+                    name: e.text,
+                    selected: e.selected,
+                  }))}
+                />
+              </div>
+            ))}
+          </SlideTransition>
+          <SlideTransition show={secondStage}>
+            <RadioList
+              disabled={loading}
+              title={title}
+              onSelect={(e) => setRating(e as any)}
+              items={rates(teacherType!)}
+            />
+          </SlideTransition>
+        </>
+      )}
     </Page>
   );
 };

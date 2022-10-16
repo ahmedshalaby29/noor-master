@@ -136,6 +136,7 @@ const HomeProvider: React.FC = ({ children }) => {
 
   const values: IHomeProvider = {
     ...state,
+    setShowSuccess,
     selectRole,
     selectTab,
     closeSuccess: () => setShowSuccess(false),

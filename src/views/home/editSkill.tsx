@@ -22,6 +22,7 @@ import { trace } from "firebase/performance";
 import { perf } from "../../main";
 import PageTitle from "../../components/home/pageTitle";
 import Card from "../../components/home/card";
+import SystemMessage from "../../components/home/systemMessage";
 
 interface EditSkillProps {}
 
@@ -34,7 +35,7 @@ export type Skill = {
 
 function pageTitle(type: TeacherType) {
   return type == TeacherType.kindergarten
-    ? "تعديل مهارات الطفل"
+    ? "تعديل مهارات طفل"
     : `تعديل مهارات طالب`;
 }
 
@@ -53,7 +54,7 @@ function fetch(account: string, type: TeacherType) {
 
 const EditSkill: React.FC<EditSkillProps> = () => {
   const tracePages = useRef(trace(perf, "EditSkill"));
-  const { teacherType, currentRole } = useContext(HomeContext);
+  const { setShowSuccess, teacherType, currentRole } = useContext(HomeContext);
   const { logout } = useContext(AppContext);
 
   useEffect(() => {
@@ -71,6 +72,7 @@ const EditSkill: React.FC<EditSkillProps> = () => {
     teacherType == TeacherType.kindergarten ? KinderRating : PrimaryRating;
 
   const {
+    systemMessage,
     inputs,
     setForm,
     formAction,
@@ -164,13 +166,13 @@ const EditSkill: React.FC<EditSkillProps> = () => {
         actionButtons: prevForm?.actionButtons ?? [],
       }));
       setStage(0);
+      setShowSuccess(true);
     }, setLoading);
-
 
   const title = pageTitle(teacherType!);
 
   const actions = createAction({
-    enable: isAllChosen,
+    enable: isAllChosen && !systemMessage,
     show: stage == 0 && !!inputs.length,
     buttons: [
       {
@@ -181,7 +183,7 @@ const EditSkill: React.FC<EditSkillProps> = () => {
   });
 
   const saveAction = createAction({
-    enable: isAllChosen,
+    enable: isAllChosen && !systemMessage,
     show: !!skills.length,
     buttons: [
       {
@@ -190,7 +192,7 @@ const EditSkill: React.FC<EditSkillProps> = () => {
       },
     ],
   });
-
+  console.log(systemMessage);
   return (
     <div className="flex flex-1 h-full flex-col">
       <PageTitle title={title!} />
@@ -199,6 +201,11 @@ const EditSkill: React.FC<EditSkillProps> = () => {
         className={`mt-4 h-full flex flex-col max-w-lg mx-auto w-full overflow-hidden rounded-md
       `}
       >
+        {systemMessage && (
+          <SystemMessage
+            message={systemMessage + " اطلب من قائد المدرسة منحك الصلاحية"}
+          />
+        )}
         <Card loading={!inputs.length || loading || loadingIndex == -1}>
           <div
             className=" grid grid-cols-2 gap-2 gap-y-2"

@@ -15,6 +15,7 @@ import { teacherTypeArabic, wait } from "../../utils";
 import SlideTransition from "../../layout/home/slideTransition";
 import { createAction } from "../../layout/home/actionBar";
 import useIfIffect from "../../hooks/useIfEffect";
+import SystemMessage from "../../components/home/systemMessage";
 
 interface DidntGetProps {}
 
@@ -61,13 +62,20 @@ const DidntGet: React.FC<DidntGetProps> = () => {
     return () => tracePages.current.stop();
   }, []);
 
-  const { inputs, setForm, submit, isAllChosen, updateInputs, loadingIndex } =
-    useFormOptions({
-      label: "DidntGet" + teacherType,
-      actionName: "ibtnSearch",
-      excludedNames: ["ddlStudySystem", "ddlSection"],
-      isPrimary: teacherType == TeacherType.primary,
-    });
+  const {
+    systemMessage,
+    inputs,
+    setForm,
+    submit,
+    isAllChosen,
+    updateInputs,
+    loadingIndex,
+  } = useFormOptions({
+    label: "DidntGet" + teacherType,
+    actionName: "ibtnSearch",
+    excludedNames: ["ddlStudySystem", "ddlSection"],
+    isPrimary: teacherType == TeacherType.primary,
+  });
 
   const [notyType, setNotyType] = useState<NotyType>();
 
@@ -105,7 +113,7 @@ const DidntGet: React.FC<DidntGetProps> = () => {
 
   const actions = [
     createAction({
-      enable: isAllChosen,
+      enable: isAllChosen && !systemMessage,
       buttons: [
         {
           label: "استعراض",
@@ -122,6 +130,11 @@ const DidntGet: React.FC<DidntGetProps> = () => {
       actions={actions[stage]}
       loading={loadingIndex == -1 || !inputs.length || loading}
     >
+      {systemMessage && (
+        <SystemMessage
+          message={systemMessage + " اطلب من قائد المدرسة منحك الصلاحية"}
+        />
+      )}
       {notyType == NotyType.empty && <Noti text="لا يوجد" color="red" />}
 
       <SlideTransition className="flex-1" show={stage == 0}>
