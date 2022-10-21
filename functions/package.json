@@ -1,6 +1,7 @@
 {
   "name": "functions",
   "scripts": {
+    "test-pdf": "tsc && node test.js",
     "test": "tsc && firebase emulators:start",
     "build": "tsc",
     "serve": "npm run build && firebase emulators:start --only functions",

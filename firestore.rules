@@ -18,7 +18,7 @@ service cloud.firestore {
     }
 
     match /reports/{reportId} {
-      allow delete,read: if resource.data.user == request.auth.uid
+      allow delete,read: if true
       allow write: if false 
     }
 

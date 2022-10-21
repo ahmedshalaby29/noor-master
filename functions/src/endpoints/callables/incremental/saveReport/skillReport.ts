@@ -69,7 +69,6 @@ export default functions
             action,
             actionButtons: [],
             name,
-          
           },
           homePage
         );
@@ -105,6 +104,9 @@ export default functions
       data.isEmpty,
       data.isPrimary
     );
+    data.inputs.forEach((i) => console.log(i.options));
+    console.log(data.isEmpty);
+    console.log(data.isPrimary);
 
     const config = (filePath: string) => ({
       metadata: {

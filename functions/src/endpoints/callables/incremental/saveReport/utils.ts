@@ -5,7 +5,7 @@ import * as html_to_pdf from "html-pdf-node";
 import { FormInput } from "../../../../core/form";
 import Table from "../../../../core/table";
 import { Degrees } from "../saveDegree/utils";
-
+import logoImg from "./logoImg";
 export type skill = {
   id: string;
   value: string;
@@ -211,6 +211,7 @@ export async function createSKillsPDF(
         value: formInputValue(inputs, "ctl00$PlaceHolderMain$ddlUnit"),
       },
     ];
+    console.log(details);
   } else {
     details = [
       {
@@ -265,10 +266,12 @@ export async function createSKillsPDF(
   let file = { content: template };
 
   const tempFilePath = path.join(os.tmpdir(), fileName + ".pdf");
+  fs.writeFileSync("testHtml.html", file.content);
 
+  //please don't forget to revert testPDF.pdf to tempFilePath!!
   await new Promise<void>((res) => {
     html_to_pdf.generatePdf(file, options).then((pdfBuffer) => {
-      fs.writeFileSync(tempFilePath, pdfBuffer);
+      fs.writeFileSync("testPDF.pdf", pdfBuffer);
       res();
     });
   });
@@ -300,15 +303,14 @@ function createPDFTemplate(config: {
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>${config.title}</title>
-      
+  
 
     </head>
     <body>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;500;900&display=swap" rel="stylesheet">
-
-      <div style=" padding: 5px 3em;font-family: 'Tajawal', sans-serif;">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+      <div style=" padding: 5px 3em;font-family: 'Cairo', sans-serif;">
         <div
           style="
             display: flex;
@@ -316,8 +318,13 @@ function createPDFTemplate(config: {
             justify-content: space-between;
           "
         >
-         <div style="width:100px;height:100px;overflow:hidden">
-         <img src="https://my.orsodnour.com/assets/logo.d660a6cd.png" style="width:100%;height:100%"/>
+         <div style="width:150px;height:150px;overflow:hidden">
+
+  <img
+      src="${logoImg}"
+      alt="test"
+      style="width:100%;height:100%"
+    />
          </div>
           <div>
             <div style="display: flex; flex-direction: column; align-items:
@@ -330,7 +337,7 @@ function createPDFTemplate(config: {
         ${createPDFHead(config.details)}
       </div>
       </div>
-  
+
       ${
         config.isMulti
           ? createMultiPDFTables(config.head, config.items)
@@ -351,11 +358,12 @@ function createPDFTable(head: string[], items: string[][]) {
       <thead>
 
 
-          <tr style=" text-align:center; background-color: rgb(199, 199, 199); margin: -2px;">
+          <tr text-rotate="90" style=" text-align:center; background-color: rgb(199, 199, 199); margin: -2px;">
 ${head
   .map(
     (h, i) => `
-<th style="padding: 6px 0;${i == 0 ? "text-align:center" : ""}">${h}</th>
+<th style="padding: 6px 0;  height:100px; -webkit-transform: rotate(90deg);
+  ${i == 0 ? "text-align:center" : ""}">${h}</th>
 
 `
   )

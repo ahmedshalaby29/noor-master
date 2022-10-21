@@ -28,6 +28,7 @@ const CheckTable: React.FC<Props> = ({
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   useEffect(() => {
+    console.log(selectedItems)
     onSelecte(selectedItems);
   }, [selectedItems]);
 
@@ -40,9 +41,11 @@ const CheckTable: React.FC<Props> = ({
   }, [selectedItems]);
 
   function toggleAll() {
+
     setSelectedItems(checked || indeterminate ? [] : items.map((e) => e.id));
     setChecked(!checked && !indeterminate);
     setIndeterminate(false);
+
   }
 
   return (

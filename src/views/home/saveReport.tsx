@@ -113,7 +113,7 @@ const SaveReport: React.FC<SaveReportProps> = ({ type1 }) => {
   }
 
   const actions = createAction({
-    // enable: isAllChosen && loadingIndex != -1,
+     enable: isAllChosen && loadingIndex != -1,
     buttons: [
       {
         label: "انشاء فارغ",

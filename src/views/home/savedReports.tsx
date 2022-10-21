@@ -1,3 +1,4 @@
+import path from "path/posix";
 import React, { useContext, useEffect, useState } from "react";
 import CheckTable from "../../components/home/checkTable";
 import SelectBox from "../../components/home/selectBox";
@@ -12,7 +13,7 @@ import { FormInput } from "../../types/communication_types";
 interface SavedReportsProps {}
 
 function getTableHeader(type: TeacherType) {
-  if (type == TeacherType.kindergarten) return ["الموستوى", "الوحدة", ""];
+  if (type == TeacherType.kindergarten) return ["المستوى", "الوحدة", "النوع"];
   return [];
 }
 
@@ -31,16 +32,15 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
 
   const [reports, setReports] = useState<Report[]>([]);
 
-  const [visibleReports, setVisibleReports] = useState<VisibleReports[]>([]);  
+  const [visibleReports, setVisibleReports] = useState<VisibleReports[]>([]);
   const [selection, setSelection] = useState<Selection[]>([]);
 
   const [selected, onSelected] = useState<string[]>([]);
-  
+
   const tableHead = getTableHeader(teacherType!);
 
   useEffect(() => createSelectionBoxes(), [reports]);
   function createSelectionBoxes() {
-    if (!reports.length) return;
     const navIds = ["ddlClass", "ddlUnit"];
     const navs = [] as FormInput["options"][];
 
@@ -53,7 +53,7 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
         });
       });
     });
-
+    console.log(reports);
     const all = {
       value: "",
       text: "الكل",
@@ -117,9 +117,11 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
   }, []);
 
   function remove() {
+    let filteredReports = reports;
     selected.forEach((id) => {
       DB.instance.deleteReport(id);
-      setReports(reports.filter((a) => a.id != id));
+      filteredReports = filteredReports.filter((a) => a.id != id);
+      setReports(filteredReports);
     });
   }
 
@@ -128,12 +130,16 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
     const paths = reports
       .filter((i) => ids.includes(i.id))
       .map((e) => e.files.pdf);
+
     try {
-      const links = await Promise.all(
-        paths.map(Storage.instance.getDownloadURL)
+      paths.forEach((path) =>
+        Storage.instance.getDownloadURL(path).then((url) => {
+          console.log(url);
+          window.open(url);
+        })
       );
-      links.forEach((l) => window.open(l));
     } catch (e) {
+      console.log(e);
       console.error("unable to get the urls");
     }
   }
@@ -141,7 +147,7 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
   const actions = {
     buttons: [
       {
-        label: "حدف",
+        label: "حذف",
         onClick: () => remove(),
         secondary: true,
       },
