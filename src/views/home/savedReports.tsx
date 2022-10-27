@@ -14,6 +14,9 @@ interface SavedReportsProps {}
 
 function getTableHeader(type: TeacherType) {
   if (type == TeacherType.kindergarten) return ["المستوى", "الوحدة", "النوع"];
+  if (type == TeacherType.primary)
+    return ["الصف", "الفصل", "الماده", "الفتره", "النوع"];
+
   return [];
 }
 
@@ -38,10 +41,17 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
   const [selected, onSelected] = useState<string[]>([]);
 
   const tableHead = getTableHeader(teacherType!);
+  const navIds = [
+    "ctl00$PlaceHolderMain$oDistributionUC$ddlClass",
+    "ctl00$PlaceHolderMain$oDistributionUC$ddlSection",
+    "ctl00$PlaceHolderMain$ddlClass",
+    "ctl00$PlaceHolderMain$ddlCourse",
 
+    "ctl00$PlaceHolderMain$ddlPeriod",
+    "ctl00$PlaceHolderMain$ddlUnit",
+  ];
   useEffect(() => createSelectionBoxes(), [reports]);
   function createSelectionBoxes() {
-    const navIds = ["ddlClass", "ddlUnit"];
     const navs = [] as FormInput["options"][];
 
     reports.flat().forEach(({ params }) => {
@@ -53,7 +63,11 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
         });
       });
     });
+    console.log("reports");
     console.log(reports);
+    console.log("navs");
+    console.log(navs);
+
     const all = {
       value: "",
       text: "الكل",
@@ -70,6 +84,9 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
 
   useEffect(() => createVisibleReports(), [selection]);
   function createVisibleReports() {
+    console.log("selection");
+    console.log(selection);
+
     const visible = reports.filter(({ params }) => {
       return selection.every((s) => {
         const active = s.options.find((e) => e.selected)!;
@@ -80,19 +97,28 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
         });
       });
     });
+    const visibleReports = visible.map(({ id, params, isEmpty }) => {
+      const childs = Object.entries(params)
+        .filter(([k]) => {
+          return selection.some((s) => k.includes(s.id));
+        })
+        .filter(([_, v]) => v.text != "الكل")
+        .sort((a, b) => {
+          if (navIds.indexOf(a[0]) > navIds.indexOf(b[0])) return 1;
+          else if (navIds.indexOf(a[0]) < navIds.indexOf(b[0])) return -1;
+          else return 0;
+        })
+        .map(([_, v]) => v.text);
+      console.log("childs");
 
-    setVisibleReports(
-      visible.map(({ id, params, isEmpty }) => {
-        const childs = Object.entries(params)
-          .filter(([k]) => {
-            return selection.some((s) => k.includes(s.id));
-          })
-          .filter(([_, v]) => v.text != "الكل")
-          .map(([_, v]) => v.text);
+      console.log(childs);
+      return { id, childs: [...childs, isEmpty ? "فارغ" : "مرصود"] };
+    });
 
-        return { id, childs: [...childs, isEmpty ? "فارغ" : "مرصود"] };
-      })
-    );
+    console.log("visibleReports");
+    console.log(visibleReports);
+
+    setVisibleReports(visibleReports);
   }
 
   const select = (navId: string, value: string) => {

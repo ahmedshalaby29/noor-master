@@ -22,6 +22,7 @@ export default functions
   .region("asia-south1")
   .runWith({
     memory: "512MB",
+    
   })
   .https.onCall(async (data: NavigationData, context) => {
     if (await isBlocked(context)) return null;
@@ -97,8 +98,15 @@ export default functions
 
     const fileName = randomString();
 
+    const userData = (
+      await db.collection("users").doc(context.auth.uid).get()
+    ).data();
+
+    console.log("Userdata: " + userData);
     const pdf = await createSKillsPDF(
       items,
+      userData.name,
+
       fileName,
       data.inputs,
       data.isEmpty,

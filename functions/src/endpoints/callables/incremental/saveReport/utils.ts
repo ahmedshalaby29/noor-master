@@ -6,6 +6,8 @@ import { FormInput } from "../../../../core/form";
 import Table from "../../../../core/table";
 import { Degrees } from "../saveDegree/utils";
 import logoImg from "./logoImg";
+import puppeteer = require("puppeteer");
+
 export type skill = {
   id: string;
   value: string;
@@ -142,6 +144,7 @@ export async function createDegreesPDF(
 
 export async function createSKillsPDF(
   items: Item[],
+  teacherName: string,
   fileName: string,
   inputs: FormInput[],
   isEmpty = false,
@@ -210,6 +213,14 @@ export async function createSKillsPDF(
         title: "الوحدة الدراسية",
         value: formInputValue(inputs, "ctl00$PlaceHolderMain$ddlUnit"),
       },
+      {
+        title: "اسم المعلم",
+        value: teacherName,
+      },
+      {
+        title: "عدد المهارات",
+        value: items.length,
+      },
     ];
     console.log(details);
   } else {
@@ -254,7 +265,7 @@ export async function createSKillsPDF(
     details,
     isMulti: isEmpty,
   });
-
+  /*
   let options = {
     printBackground: true,
     format: "A3",
@@ -262,19 +273,44 @@ export async function createSKillsPDF(
       top: "20px",
     },
   };
-
+*/
   let file = { content: template };
 
   const tempFilePath = path.join(os.tmpdir(), fileName + ".pdf");
-  fs.writeFileSync("testHtml.html", file.content);
 
-  //please don't forget to revert testPDF.pdf to tempFilePath!!
-  await new Promise<void>((res) => {
-    html_to_pdf.generatePdf(file, options).then((pdfBuffer) => {
-      fs.writeFileSync("testPDF.pdf", pdfBuffer);
-      res();
-    });
+  let puppeteerOptions: puppeteer.PDFOptions = {
+    landscape: true,
+    path: tempFilePath,
+    margin: { top: "20px", right: "50px", bottom: "100px", left: "50px" },
+    printBackground: true,
+    format: "A3",
+  };
+  const browser = await puppeteer.launch({
+    headless: true,
+    timeout: 20000,
+    ignoreHTTPSErrors: true,
+    slowMo: 0,
+    args: [
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-first-run",
+      "--no-sandbox",
+      "--no-zygote",
+      "--window-size=1280,720",
+    ],
   });
+
+  const page = await browser.newPage();
+  try {
+    await page.setContent(file.content);
+    await page.evaluateHandle("document.fonts.ready");
+
+    await page.pdf(puppeteerOptions);
+    await browser.close();
+  } catch (error) {
+    console.log(error);
+  }
 
   return tempFilePath;
 }
@@ -282,7 +318,7 @@ export async function createSKillsPDF(
 function createPDFHead(items: { title: string; value: string }[]) {
   return items.reduce((acc, v) => {
     return `${acc}<div>
-    <span>${v.title}</span>
+    <span>${v.title}:</span>
     <span>${v.value}</span>
   </div>`;
   }, "");
@@ -303,14 +339,16 @@ function createPDFTemplate(config: {
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>${config.title}</title>
-  
-
-    </head>
-    <body>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
-      <div style=" padding: 5px 3em;font-family: 'Cairo', sans-serif;">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+</style>
+    </head>
+    <body>
+
+      <div style=" padding: 5px 2em;font-family:'Cairo', Arial,Helvetica; " >
         <div
           style="
             display: flex;
@@ -318,13 +356,14 @@ function createPDFTemplate(config: {
             justify-content: space-between;
           "
         >
-         <div style="width:150px;height:150px;overflow:hidden">
-
-  <img
-      src="${logoImg}"
-      alt="test"
-      style="width:100%;height:100%"
-    />
+        <div style="flex-grow: 1; flex-basis: 0;">
+         <div style=" width:110px;height:110px;overflow:hidden">
+        <img
+            src="${logoImg}"
+            alt="test"
+            style="width:100%;height:100%"
+          />
+         </div>
          </div>
           <div>
             <div style="display: flex; flex-direction: column; align-items:
@@ -333,7 +372,8 @@ function createPDFTemplate(config: {
             <h3>${config.title}</h3>
           </div>
         </div>
-        <div style="text-align: right">
+        <div  style="font-size:0.8rem; flex-grow: 1;
+   flex-basis: 0; text-align: right; font-weight:bold;">
         ${createPDFHead(config.details)}
       </div>
       </div>
@@ -343,7 +383,14 @@ function createPDFTemplate(config: {
           ? createMultiPDFTables(config.head, config.items)
           : createPDFTable(config.head, config.items)
       }
+        <div  style="font-weight:bold; font-size:1.5rem; text-align:right; padding: 1rem 2rem;">
+      <span style="color:blue;">Orsodnour.com</span>
+      <span style="color:brown;">تم انشاء الكشف بواسطه</span>
+
+      <span style="color:green;">ارصد نور</span> 
+      </div>
       </div>  
+    
   </body>
   </html>
   
@@ -353,17 +400,26 @@ function createPDFTemplate(config: {
 
 function createPDFTable(head: string[], items: string[][]) {
   return `
-  <table style="border: 1px solid black;padding: 0px;  width: 100%; direction: rtl; text-align: right;border-collapse: collapse;">
+  <table style="border: 1px solid black;  padding: 0px;  width: 100%; table-layout: fixed; direction: rtl; text-align: right;border-collapse: collapse;">
           
       <thead>
 
 
-          <tr text-rotate="90" style=" text-align:center; background-color: rgb(199, 199, 199); margin: -2px;">
+          <tr style=" text-align:center; background-color: rgb(199, 199, 199); ">
 ${head
   .map(
     (h, i) => `
-<th style="padding: 6px 0;  height:100px; -webkit-transform: rotate(90deg);
-  ${i == 0 ? "text-align:center" : ""}">${h}</th>
+<th style="padding: 0px 0px;
+  height:100px;
+  min-width:40px; 
+  max-width:30px;
+  word-wrap:break-word; 
+ ${head.length > 6 ? " font-size:0.6rem;" : "font-size:1rem;"}
+  ${
+    i == 0
+      ? "text-align:center;  min-width:100px;  -webkit-transform: rotate(0deg); width:100px;  font-size:1rem; "
+      : ""
+  }"> ${h}</th>
 
 `
   )
@@ -382,8 +438,10 @@ ${head
         .map(
           (text, i) => `
       
-      <td style="padding: 3px 0; ${
-        i == 0 ? "padding-right: 3px; text-align: right;" : ""
+      <td style="width:30px; height:30px; padding: 3px 0; ${
+        i == 0
+          ? "font-size:10px; width:100px; min-width:100px height:50px; font-weight:bold; padding: 1px 3px; text-align: right;"
+          : ""
       } border: 1px solid rgb(108, 108, 108);" >${text}</td>
       `
         )
@@ -400,17 +458,14 @@ ${head
 function createMultiPDFTables(head: string[], items: string[][]) {
   const title = head.shift();
 
-  let html = "";
-  const max = 5;
+  //const max = 5;
   const names = items[0];
-  for (let i = 0; i < head.length; i += max) {
-    const slice = head.slice(i, i + max);
-    const page = createPDFTable(
-      [title, ...slice],
-      names.map((i) => [i, ...Array(max).fill("")])
-    );
-    html += page + '<div style="page-break-before: always;"></div>';
-  }
+
+  const html = createPDFTable(
+    [title, ...head],
+    names.map((i) => [i, ...Array(head.length).fill("")])
+  );
+  // html += page + '<div style="page-break-before: always;"></div>';
 
   return html;
 }

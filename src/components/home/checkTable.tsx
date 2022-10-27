@@ -27,8 +27,10 @@ const CheckTable: React.FC<Props> = ({
   const [indeterminate, setIndeterminate] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
+  
+
   useEffect(() => {
-    console.log(selectedItems)
+    console.log(selectedItems);
     onSelecte(selectedItems);
   }, [selectedItems]);
 
@@ -41,29 +43,26 @@ const CheckTable: React.FC<Props> = ({
   }, [selectedItems]);
 
   function toggleAll() {
-
     setSelectedItems(checked || indeterminate ? [] : items.map((e) => e.id));
     setChecked(!checked && !indeterminate);
     setIndeterminate(false);
-
   }
-
   return (
     <div className=" sm:px-6 lg:px-8 font-arabic">
       <div className="mt-8 flex flex-col  w-full">
         <div className="-my-2 max-w-xs sm:max-w-none  overflow-x-auto sm:-mx-6 sm:px-2 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle ">
+          <div className=" min-w-full py-2 align-middle ">
             <div className="relative overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
               <table
                 style={{ direction: "rtl" }}
-                className="min-w-full table-fixed divide-y divide-gray-300"
+                className="overflow-scroll	 table-auto w-full "
               >
                 <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="relative px-1 sm:w-16 sm:px-8">
+                  <tr className="">
+                    <th scope="col" className="">
                       <input
                         type="checkbox"
-                        className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 sm:left-6"
+                        className=" rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 "
                         ref={checkbox as any}
                         checked={checked}
                         onChange={toggleAll}
@@ -76,7 +75,7 @@ const CheckTable: React.FC<Props> = ({
                           <th
                             key={i}
                             scope="col"
-                            className="sm:min-w-[12rem] py-3.5 pr-3 text-right text-sm font-semibold text-gray-900"
+                            className="py-4 text-right text-sm font-semibold text-gray-900"
                           >
                             {th}
                           </th>
@@ -85,7 +84,7 @@ const CheckTable: React.FC<Props> = ({
                         <th
                           key={i}
                           scope="col"
-                          className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900"
+                          className="text-center py-4  text-sm font-semibold text-gray-900"
                         >
                           {th}
                         </th>
@@ -94,27 +93,27 @@ const CheckTable: React.FC<Props> = ({
 
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900"
+                      className="text-right text-sm font-semibold text-gray-900"
                     ></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
+                <tbody className=" divide-gray-200 bg-white">
                   {items.map((item) => (
                     <tr
                       key={item.id}
-                      className={
+                      className={` ${
                         selectedItems.includes(item.id)
                           ? "bg-gray-50"
                           : undefined
-                      }
+                      }`}
                     >
-                      <td className="relative w-12 px-6 sm:w-16 sm:px-8">
+                      <td className="text-center  sm:px-4">
                         {selectedItems.includes(item.id) && (
                           <div className="absolute inset-y-0 left-0 w-0.5 bg-indigo-600" />
                         )}
                         <input
                           type="checkbox"
-                          className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 sm:left-6"
+                          className="text-center mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 "
                           value={item.id}
                           checked={selectedItems.includes(item.id)}
                           onChange={(e) =>
@@ -132,7 +131,7 @@ const CheckTable: React.FC<Props> = ({
                             <td
                               key={i}
                               className={classNames(
-                                "whitespace-nowrap py-4 pr-3 text-sm font-medium",
+                                "py-4 whitespace-nowrap  text-sm font-medium",
                                 selectedItems.includes(item.id)
                                   ? "text-indigo-600"
                                   : "text-gray-900"
@@ -145,14 +144,14 @@ const CheckTable: React.FC<Props> = ({
                           return (
                             <td
                               key={i}
-                              className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                              className="text-center	 py-4 whitespace-nowrap text-sm text-gray-500"
                             >
                               {child}
                             </td>
                           );
                       })}
 
-                      <td className="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <td className="pr-5 pr-2 whitespace-nowrap  text-right text-sm font-medium ">
                         <button
                           onClick={() => onAction(item.id)}
                           className="text-indigo-600 hover:text-indigo-900"

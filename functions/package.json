@@ -19,6 +19,7 @@
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@supercharge/strings": "^1.25.1",
     "@types/cheerio": "^0.22.31",
+    "@types/puppeteer": "^5.4.7",
     "@types/retry": "^0.12.1",
     "axios": "^0.26.1",
     "axios-debug-log": "^0.8.4",
@@ -31,6 +32,7 @@
     "form-data": "^4.0.0",
     "fs": "^0.0.1-security",
     "html-pdf-node": "^1.0.8",
+    "puppeteer": "^14.0.0",
     "querystring": "^0.2.1",
     "retry": "^0.13.1",
     "util": "^0.12.4"
@@ -38,7 +40,7 @@
   "devDependencies": {
     "@types/paypal__checkout-server-sdk": "^1.0.4",
     "firebase-functions-test": "^0.2.0",
-    "typescript": "^4"
+    "typescript": "^4.8.4"
   },
   "private": true
 }

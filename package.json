@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc && vite build && cp logo.png ./public/ && cp presentation.png ./public/",
+    "build": "vite build && cp logo.png ./public/ && cp presentation.png ./public/",
     "preview": "vite preview",
     "deploy": "npm run build && firebase deploy",
     "deploy:hosting": "npm run build &&  firebase deploy --only hosting"
@@ -31,7 +31,7 @@
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",
     "tailwindcss": "^3.0.23",
-    "typescript": "^4.5.4",
+    "typescript": "^4.8.4",
     "vite": "^2.8.0"
   }
 }
