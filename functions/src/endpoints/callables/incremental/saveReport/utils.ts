@@ -283,7 +283,7 @@ export async function createSKillsPDF(
     path: tempFilePath,
     margin: { top: "20px", right: "50px", bottom: "100px", left: "50px" },
     printBackground: true,
-    format: "A3",
+    format: "a3",
   };
   const browser = await puppeteer.launch({
     headless: true,
@@ -383,7 +383,7 @@ function createPDFTemplate(config: {
           ? createMultiPDFTables(config.head, config.items)
           : createPDFTable(config.head, config.items)
       }
-        <div  style="font-weight:bold; font-size:1.5rem; text-align:right; padding: 1rem 2rem;">
+        <div  style="font-weight:bold; font-size:1.5rem; text-align:center; padding: 1rem 0rem;">
       <span style="color:blue;">Orsodnour.com</span>
       <span style="color:brown;">تم انشاء الكشف بواسطه</span>
 
@@ -417,7 +417,7 @@ ${head
  ${head.length > 6 ? " font-size:0.6rem;" : "font-size:1rem;"}
   ${
     i == 0
-      ? "text-align:center;  min-width:100px;  -webkit-transform: rotate(0deg); width:100px;  font-size:1rem; "
+      ? "text-align:center;  min-width:115px;  -webkit-transform: rotate(0deg); width:115px;  font-size:1.1rem; "
       : ""
   }"> ${h}</th>
 
@@ -440,7 +440,7 @@ ${head
       
       <td style="width:30px; height:30px; padding: 3px 0; ${
         i == 0
-          ? "font-size:10px; width:100px; min-width:100px height:50px; font-weight:bold; padding: 1px 3px; text-align: right;"
+          ? "font-size:11px; width:115px; min-width:115px height:50px; font-weight:bold; padding: 1px 3px; text-align: right;"
           : ""
       } border: 1px solid rgb(108, 108, 108);" >${text}</td>
       `
