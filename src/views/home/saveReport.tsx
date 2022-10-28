@@ -40,7 +40,7 @@ function fetchExam(account: string) {
 
 function pageTitle(type: TeacherType, type1: boolean) {
   let title = tabBarTitle(HomeTab.saveReport, type);
-  if (type1) title = title.replace("درجات", "المهارات");
+  if (type1) title = title.replace("درجات", "مهارات");
   return title;
 }
 
@@ -113,7 +113,7 @@ const SaveReport: React.FC<SaveReportProps> = ({ type1 }) => {
   }
 
   const actions = createAction({
-     enable: isAllChosen && loadingIndex != -1,
+    enable: isAllChosen && loadingIndex != -1,
     buttons: [
       {
         label: "انشاء فارغ",
