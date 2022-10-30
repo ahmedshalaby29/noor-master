@@ -36,6 +36,7 @@ export default functions
     //gets the action url from the nav data sent by the frontend
     let { action } = data;
 
+    //recursive function
     await executeVariant(data.inputs, homePage, {
       execute: async (inputs, redirect) => {
         const { cookies, redirected, weirdData } = redirect.send({});

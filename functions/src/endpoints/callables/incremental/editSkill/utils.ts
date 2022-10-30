@@ -52,6 +52,9 @@ export class SkillsForm extends Form {
     const action = this.getFormAction();
 
     const start = Date.now();
+    console.log("payload");
+    console.log(payload["ctl00$PlaceHolderMain$oDistributionUC$ddlSection"]);
+
     redirect
       .fork(
         action,
@@ -198,6 +201,8 @@ export class PrimarySkillForm extends SkillsForm {
     });
 
     const action = this.getFormAction();
+    console.log("payload");
+    console.log(payload["ctl00$PlaceHolderMain$oDistributionUC$ddlSection"]);
 
     const start = Date.now();
     redirect
