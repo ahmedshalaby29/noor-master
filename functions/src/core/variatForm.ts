@@ -1,7 +1,6 @@
 import { clone, randomDelay } from "../utils";
 import { FormInput } from "./form";
 import Redirect from "./redirect";
-const util = require("util");
 
 function createdPath(inputs: FormInput[]) {
   let path = "";
