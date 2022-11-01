@@ -3,9 +3,9 @@ import { firestore } from "firebase-admin";
 import * as functions from "firebase-functions";
 import { stringify as QueryEncode } from "querystring";
 import { auth, db, LOGIN_ENDPOINT } from "../../common";
+
 import { mergeCookies } from "../../utils";
 const cry = require("crypto-js");
-
 
 const iv = cry.enc.Utf8.parse("1052099214050902");
 const key = cry.enc.Utf8.parse("p10zpop213tpDW41");

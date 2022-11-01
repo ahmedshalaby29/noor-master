@@ -1,6 +1,7 @@
 import { clone, randomDelay } from "../utils";
 import { FormInput } from "./form";
 import Redirect from "./redirect";
+const util = require("util");
 
 function createdPath(inputs: FormInput[]) {
   let path = "";
@@ -19,6 +20,118 @@ function createdPath(inputs: FormInput[]) {
 // FIXME antypattern
 
 //BUG racing with WeiredData !
+export async function executeAllPossible(
+  inputsOrg: FormInput[],
+  redirect: Redirect,
+  config: {
+    execute(inputs: FormInput[], redirect: Redirect): Promise<any>;
+    fetchOptions(
+      inputs: FormInput[],
+      name: string,
+      redirect: Redirect
+    ): Promise<FormInput[]>;
+    customSelect: { name: string; value: string }[];
+    walked?: Set<string>;
+    isDone?: boolean;
+  },
+  i: number = 0
+): Promise<any> {
+  const inputs = clone(inputsOrg);
+
+  if (!config.walked) {
+    config.walked = new Set();
+    config.isDone = false;
+  }
+  const last = removeEmpty(inputs[inputs.length - 1].options);
+  /*
+  console.log(
+    util.inspect(inputs, { showHidden: false, depth: null, colors: true })
+  );
+  console.log(i);
+  */
+  if (i + 1 > inputs.length && getSelected(last)) {
+    const path = createdPath(inputs);
+
+    if (!config.walked.has(path)) {
+      // console.log("executing..");
+      config.walked.add(path);
+      return config.execute(inputs, redirect);
+    } else {
+      return;
+    }
+  }
+  const current = inputs[i];
+  const alls: Promise<any>[] = [];
+
+  const options = removeEmpty(current.options);
+
+  if (options.length) {
+    const isTarget = config.customSelect.find((e) => e.name == current.name);
+    if (isTarget) {
+      let left = inputs.slice(0, i);
+      let right = inputs.slice(i + 1);
+      const filled = await config.fetchOptions(
+        [
+          ...left,
+          {
+            ...current,
+            options: selectOpt(options, isTarget.value),
+          },
+          ...right,
+        ],
+        current.name,
+        redirect
+      );
+
+      return await executeAllPossible(filled, redirect, config, i + 1);
+    } else if (containExactOpt(options, "الكل")) {
+      current.options = selectOpt(options, "الكل");
+
+      return await executeAllPossible(inputs, redirect, config, i + 1);
+    } else {
+      for (const option of options) {
+        let left = inputs.slice(0, i);
+        let right = inputs.slice(i + 1);
+        let current = inputs[i];
+        const filled = await config.fetchOptions(
+          [
+            ...left,
+            {
+              ...current,
+              options: selectOpt(options, option.text),
+            },
+            ...right,
+          ],
+          current.name,
+          redirect
+        );
+        left = filled.slice(0, i);
+        right = filled.slice(i + 1);
+        current = filled[i];
+
+        let request = await executeAllPossible(
+          [
+            ...left,
+            {
+              ...current,
+              options: selectOpt(options, option.text),
+            },
+            ...right,
+          ],
+          redirect,
+          config,
+          i + 1
+        );
+        alls.push(request);
+        config.walked.add(option.text);
+      }
+    }
+  }
+  await Promise.allSettled(alls);
+
+  console.log("---------------------");
+}
+
 export async function executeVariant(
   inputsOrg: FormInput[],
   redirect: Redirect,
@@ -113,6 +226,7 @@ export async function executeVariant(
       return;
     }
     const gotNewInputField = filled.length != inputs.length;
+
     return await executeVariant(
       filled,
       redirect,
@@ -130,7 +244,7 @@ export async function executeVariant(
     return await executeVariant(inputs, redirect, config, i + 1);
   } else {
     const alls: Promise<any>[] = [];
-    for (const e of removeEmpty(options)) {
+    for (const e of options) {
       let request = executeVariant(
         [
           ...left,
@@ -161,7 +275,11 @@ function clean(x: string) {
 }
 
 function selectOpt(ops: FormInput["options"], text: string) {
-  return ops.map((e) => ({ ...e, selected: clean(e.text) == clean(text) }));
+  const options = ops.map((e) => ({
+    ...e,
+    selected: clean(e.text) == clean(text),
+  }));
+  return options;
 }
 
 function containExactOpt(ops: FormInput["options"], text: string) {

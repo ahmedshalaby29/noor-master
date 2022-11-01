@@ -1,7 +1,8 @@
 import * as functions from "firebase-functions";
 import { FormInput } from "../../core/form";
 import Redirect from "../../core/redirect";
-import { executeVariant } from "../../core/variatForm";
+//@ts-ignore
+import { executeAllPossible, executeVariant } from "../../core/variatForm";
 import { IncrementalData } from "../../types";
 import { saveSkills } from "../callables/incremental/editSkill/save";
 import { fetchSkills } from "../callables/incremental/editSkill/submit";
@@ -37,7 +38,7 @@ export default functions
     let { action } = data;
 
     //recursive function
-    await executeVariant(data.inputs, homePage, {
+    await executeAllPossible(data.inputs, homePage, {
       execute: async (inputs, redirect) => {
         const { cookies, redirected, weirdData } = redirect.send({});
 
@@ -107,7 +108,6 @@ async function executeSkillEdits(
     skillId: s.skillId.toString(),
     value: data.rate,
   }));
-
   const savedResponse = await saveSkills(
     {
       ...data,

@@ -22,6 +22,7 @@ import Repository from "../../repository";
 import DB from "../../repository/db";
 import { FormInput } from "../../types/communication_types";
 import { teacherTypeArabic, wait } from "../../utils";
+import fs from "fs";
 
 interface SavePeriodProps {}
 
@@ -97,7 +98,7 @@ const SavePeriod: React.FC<SavePeriodProps> = () => {
       isPrimary: teacherType == TeacherType.primary,
       created: new Date(),
     };
-    console.log(`periods: ${task}`);
+    console.log(`periods: ${JSON.stringify(task)}`);
 
     wait(() => DB.instance.createTask(task), setLoading);
   };
