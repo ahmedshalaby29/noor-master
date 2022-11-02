@@ -3,6 +3,9 @@ import CustomButton from "../../components/home/customButton";
 import SlideTransition from "./slideTransition";
 
 export interface ActionButtonsProps {
+  actions: ActionButtonProps[];
+}
+export interface ActionButtonProps {
   buttons: {
     label: string;
     onClick: () => any;
@@ -16,38 +19,37 @@ export interface ActionButtonsProps {
   show?: boolean;
 }
 
-export function createAction(action: ActionButtonsProps) {
+export function createAction(action: ActionButtonProps) {
   return action;
 }
 
-const ActionButtons: React.FC<ActionButtonsProps> = ({
-  buttons,
-  enable = true,
-  loading = false,
-  show = true,
-}) => {
+const ActionButtons: React.FC<ActionButtonsProps> = ({ actions }) => {
   return (
-    <SlideTransition
-      as="ul"
-      show={show}
-      className="mt-4 space-x-4 text-center w-full flex justify-center"
-    >
-      {buttons
-        .filter((e) => e.visible !== false)
-        .map((button) => (
-          <li key={button.label}>
-            <CustomButton
-              onClick={button.onClick}
-              disabled={!enable || loading}
-              loading={loading && button.progress}
-              secondary={button.secondary}
-              icon={!!button.icon}
-            >
-              {button.label}
-            </CustomButton>
-          </li>
-        ))}
-    </SlideTransition>
+    <div className="flex justify-center">
+      {actions.map((action) => (
+        <SlideTransition
+          as="ul"
+          show={action.show!}
+          className="mt-4 mx-7 space-x-3 text-center flex justify-center"
+        >
+          {action.buttons
+            .filter((e) => e.visible !== false)
+            .map((button) => (
+              <li key={button.label}>
+                <CustomButton
+                  onClick={button.onClick}
+                  disabled={!action.enable || action.loading}
+                  loading={action.loading && button.progress}
+                  secondary={button.secondary}
+                  icon={!!button.icon}
+                >
+                  {button.label}
+                </CustomButton>
+              </li>
+            ))}
+        </SlideTransition>
+      ))}
+    </div>
   );
 };
 

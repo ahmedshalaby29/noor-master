@@ -111,23 +111,24 @@ const DidntGet: React.FC<DidntGetProps> = () => {
   const checkSave = async () => {};
   const back = () => setStage(Math.max(stage - 1, 0));
 
-  const actions = [
-    createAction({
-      enable: isAllChosen && !systemMessage,
-      buttons: [
-        {
-          label: "استعراض",
-          onClick: fetchSkills,
-        },
-      ],
-    }),
-  ];
-
+  const actions = {
+    actions: [
+      createAction({
+        enable: isAllChosen && !systemMessage,
+        buttons: [
+          {
+            label: "استعراض",
+            onClick: fetchSkills,
+          },
+        ],
+      }),
+    ],
+  };
   return (
     <Page
       title="طلاب لم يتقنوا المهارات"
       size={stage == 1 ? "md" : "sm"}
-      actions={actions[stage]}
+      actions={actions}
       loading={loadingIndex == -1 || !inputs.length || loading}
     >
       {systemMessage && (

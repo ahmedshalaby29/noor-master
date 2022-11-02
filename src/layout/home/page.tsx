@@ -1,7 +1,10 @@
 import React from "react";
 import Card from "../../components/home/card";
 import PageTitle from "../../components/home/pageTitle";
-import ActionButtons, { ActionButtonsProps } from "./actionBar";
+import ActionButtons, {
+  ActionButtonProps,
+  ActionButtonsProps,
+} from "./actionBar";
 
 interface PageProps {
   title?: string;

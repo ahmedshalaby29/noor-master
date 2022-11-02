@@ -225,66 +225,75 @@ const SaveDegree: React.FC<SaveDegreeProps> = () => {
 
   const isLast = stage - 1 >= degrees.length;
 
-  const actions = [
-    createAction({
-      show: !!inputs.length,
-      enable: isAllChosen && loadingIndex != -1 && !systemMessage,
-      buttons: [
-        {
-          label: "التالي",
-          onClick: next,
-        },
-      ],
-    }),
-    createAction({
-      loading,
-      buttons: [
-        {
-          label: "رجوع",
-          secondary: true,
-          onClick: back,
-        },
-        {
-          label: "رصد",
-          onClick: savelAll,
-          progress: true,
-          icon: true,
-        },
-        {
-          label: "طالب على حدة",
-          onClick: next,
-        },
-      ],
-    }),
-    createAction({
-      show: stage > 1,
-      buttons: [
-        {
-          label: "رجوع",
-          secondary: true,
-          onClick: back,
-        },
-        {
-          label: "الطاب التالي",
-          onClick: next,
-          visible: !isLast,
-        },
-        {
-          label: "رصد",
-          onClick: save,
-          visible: isLast,
-          icon: true,
-        },
-      ],
-    }),
-  ];
+  const actions = {
+    actions: [
+      createAction({
+        show: !!inputs.length && stage == 0,
+        enable: isAllChosen && loadingIndex != -1 && !systemMessage,
+        buttons: [
+          {
+            label: "التالي",
+            onClick: next,
+          },
+        ],
+      }),
 
+      createAction({
+        show: stage === 1,
+        loading,
+        enable: isAllChosen && loadingIndex != -1 && !systemMessage,
+
+        buttons: [
+          {
+            label: "رصد",
+            onClick: savelAll,
+            progress: true,
+            icon: true,
+          },
+          {
+            label: "طالب على حدة",
+            onClick: next,
+          },
+        ],
+      }),
+      createAction({
+        show: stage > 1,
+        enable: isAllChosen && loadingIndex != -1 && !systemMessage,
+
+        buttons: [
+          {
+            label: "الطالب التالي",
+            onClick: next,
+            visible: !isLast,
+          },
+          {
+            label: "رصد",
+            onClick: save,
+            visible: isLast,
+            icon: true,
+          },
+        ],
+      }),
+      createAction({
+        show: stage >= 1,
+        enable: stage >= 1,
+
+        buttons: [
+          {
+            label: "رجوع",
+            secondary: true,
+            onClick: back,
+          },
+        ],
+      }),
+    ],
+  };
   return (
     <Page
       title="رصد درجات فصل"
       size={stage > 0 ? "lg" : "sm"}
       loading={loading || loadingIndex == -1}
-      actions={actions[Math.max(Math.min(stage, 2), 0)]}
+      actions={actions}
     >
       {systemMessage && (
         <SystemMessage

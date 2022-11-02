@@ -106,28 +106,59 @@ const SavePeriod: React.FC<SavePeriodProps> = () => {
   const next = () => {
     setSecondStage(true);
   };
+  const back = () => {
+    setSecondStage(false);
+  };
 
   const title = pageTitle(teacherType!);
-  const actions = createAction({
-    loading: loading,
-    enable:
-      (selected !== undefined && secondStage && !systemMessage) ||
-      (!secondStage && !!period && !systemMessage),
-    buttons: [
-      {
-        label: "التالي",
-        onClick: next,
-        visible: !secondStage,
-      },
-      {
-        label: "رصد",
-        onClick: save,
-        progress: true,
-        icon: true,
-        visible: secondStage,
-      },
+  const actions = {
+    actions: [
+      createAction({
+        loading: loading,
+        show: !secondStage,
+        enable:
+          (selected !== undefined && secondStage && !systemMessage) ||
+          (!secondStage && !!period && !systemMessage),
+        buttons: [
+          {
+            label: "التالي",
+            onClick: next,
+            visible: !secondStage,
+          },
+        ],
+      }),
+      createAction({
+        loading: loading,
+        show: secondStage,
+        enable:
+          (selected !== undefined && secondStage && !systemMessage) ||
+          (!secondStage && !!period && !systemMessage),
+        buttons: [
+          {
+            label: "رصد",
+            onClick: save,
+            progress: true,
+            icon: true,
+            visible: secondStage,
+          },
+        ],
+      }),
+
+      createAction({
+        loading: loading,
+        enable: secondStage,
+        show: secondStage,
+
+        buttons: [
+          {
+            label: "رجوع",
+            onClick: back,
+            visible: secondStage,
+          },
+        ],
+      }),
     ],
-  });
+  };
   console.log(`System Message: ${systemMessage}`);
   console.log(`periods: ${periods}`);
   return (

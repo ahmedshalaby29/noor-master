@@ -3,7 +3,7 @@ import React from "react";
 
 interface SlideTransitionProps {
   className?: string;
-  show: boolean;
+  show?: boolean;
   key?: string | number;
   isRtl?: boolean;
   animation?: "slide" | "fade";
@@ -24,7 +24,7 @@ const anim = (type?: SlideTransitionProps["animation"]) => ({
 const SlideTransition: React.FC<SlideTransitionProps> = ({
   children,
   className = "",
-  show,
+  show = true,
   key,
   isRtl,
   as = "div",

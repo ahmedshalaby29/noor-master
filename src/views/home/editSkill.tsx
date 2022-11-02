@@ -171,27 +171,34 @@ const EditSkill: React.FC<EditSkillProps> = () => {
 
   const title = pageTitle(teacherType!);
 
-  const actions = createAction({
-    enable: isAllChosen && !systemMessage,
-    show: stage == 0 && !!inputs.length,
-    buttons: [
-      {
-        label: "بحث",
-        onClick: () => setStage(1),
-      },
+  const actions = {
+    actions: [
+      createAction({
+        enable: isAllChosen && !systemMessage,
+        show: stage == 0 && !!inputs.length,
+        buttons: [
+          {
+            label: "بحث",
+            onClick: () => setStage(1),
+          },
+        ],
+      }),
     ],
-  });
-
-  const saveAction = createAction({
-    enable: isAllChosen && !systemMessage,
-    show: !!skills.length,
-    buttons: [
-      {
-        label: "رصد التقيم",
-        onClick: saveCustom,
-      },
+  };
+  const saveAction = {
+    actions: [
+      createAction({
+        enable: isAllChosen && !systemMessage,
+        show: !!skills.length,
+        buttons: [
+          {
+            label: "رصد التقيم",
+            onClick: saveCustom,
+          },
+        ],
+      }),
     ],
-  });
+  };
   console.log(systemMessage);
   return (
     <div className="flex flex-1 h-full flex-col">

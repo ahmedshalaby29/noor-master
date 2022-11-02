@@ -90,22 +90,26 @@ const SaveAll: React.FC<SaveAllProps> = () => {
 
   const title = pageTitle(teacherType!);
 
-  const actions = createAction({
-    loading: loading,
-    enable: selected !== undefined,
-    buttons: [
-      {
-        label: "رصد",
-        onClick: save,
-        progress: true,
-        icon: true,
-      },
-      {
-        label: "رجوع",
-        onClick: () => navigate(-1),
-      },
+  const actions = {
+    actions: [
+      createAction({
+        loading: loading,
+        enable: selected !== undefined,
+        buttons: [
+          {
+            label: "رصد",
+            onClick: save,
+            progress: true,
+            icon: true,
+          },
+          {
+            label: "رجوع",
+            onClick: () => navigate(-1),
+          },
+        ],
+      }),
     ],
-  });
+  };
 
   return (
     <Page title={title} actions={actions} loading={loading}>

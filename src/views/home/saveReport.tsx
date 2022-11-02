@@ -112,22 +112,26 @@ const SaveReport: React.FC<SaveReportProps> = ({ type1 }) => {
     navigate("/" + HomeTab.savedReports);
   }
 
-  const actions = createAction({
-    enable: isAllChosen && loadingIndex != -1,
-    buttons: [
-      {
-        label: "انشاء فارغ",
-        onClick: () => save(true),
-        secondary: true,
-        progress: true,
-      },
-      {
-        label: "انشاء مرصود",
-        onClick: () => save(),
-        progress: true,
-      },
+  const actions = {
+    actions: [
+      createAction({
+        enable: isAllChosen && loadingIndex != -1,
+        buttons: [
+          {
+            label: "انشاء مرصود",
+            onClick: () => save(),
+            progress: true,
+          },
+          {
+            label: "انشاء فارغ",
+            onClick: () => save(true),
+            secondary: true,
+            progress: true,
+          },
+        ],
+      }),
     ],
-  });
+  };
 
   const title = pageTitle(teacherType!, type1 ?? false);
 

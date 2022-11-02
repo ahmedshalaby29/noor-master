@@ -4,6 +4,7 @@ import CheckTable from "../../components/home/checkTable";
 import SelectBox from "../../components/home/selectBox";
 import { AppContext } from "../../context/appContext";
 import { HomeContext } from "../../context/homeContext";
+import { createAction } from "../../layout/home/actionBar";
 import Page from "../../layout/home/page";
 import { Report, TeacherType } from "../../models/home_model";
 import DB from "../../repository/db";
@@ -171,20 +172,23 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
   }
 
   const actions = {
-    buttons: [
-      {
-        label: "حذف",
-        onClick: () => remove(),
-        secondary: true,
-      },
-      {
-        label: "تحميل",
-        onClick: () => download(),
-        progress: true,
-      },
+    actions: [
+      createAction({
+        buttons: [
+          {
+            label: "تحميل",
+            onClick: () => download(),
+            progress: true,
+          },
+          {
+            label: "حذف",
+            onClick: () => remove(),
+            secondary: true,
+          },
+        ],
+      }),
     ],
   };
-
   return (
     <Page title="التقارير المحفوظة" size="lg" actions={actions}>
       <div className="mx-auto max-w-sm w-full">

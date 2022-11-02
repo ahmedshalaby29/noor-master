@@ -118,39 +118,41 @@ const SaveCustom: React.FC<SaveCustomProps> = () => {
     setSecondStage(false);
   };
 
-  const actions = [
-    createAction({
-      show: !!inputs.length,
-      enable: isAllChosen && loadingIndex != -1 && !systemMessage,
-      buttons: [
-        {
-          label: "التالي",
-          onClick: next,
-        },
-        {
-          label: "رجوع",
-          onClick: () => navigate(-1),
-        },
-      ],
-    }),
-    createAction({
-      show: secondStage,
-      enable: loadingIndex != -1 && rating !== undefined,
-      loading,
-      buttons: [
-        {
-          label: "رصد",
-          onClick: save,
-          icon: true,
-          progress: true,
-        },
-        {
-          label: "رجوع",
-          onClick: () => setSecondStage(false),
-        },
-      ],
-    }),
-  ];
+  const actions = {
+    actions: [
+      createAction({
+        show: !!inputs.length && !secondStage,
+        enable: isAllChosen && loadingIndex != -1 && !systemMessage,
+        buttons: [
+          {
+            label: "التالي",
+            onClick: next,
+          },
+          {
+            label: "رجوع",
+            onClick: () => navigate(-1),
+          },
+        ],
+      }),
+      createAction({
+        show: secondStage,
+        enable: loadingIndex != -1 && rating !== undefined,
+        loading,
+        buttons: [
+          {
+            label: "رصد",
+            onClick: save,
+            icon: true,
+            progress: true,
+          },
+          {
+            label: "رجوع",
+            onClick: () => setSecondStage(false),
+          },
+        ],
+      }),
+    ],
+  };
 
   const title = pageTitle(teacherType!);
 
@@ -159,7 +161,7 @@ const SaveCustom: React.FC<SaveCustomProps> = () => {
       title={title}
       size={secondStage ? "sm" : "lg"}
       loading={!inputs.length || loadingIndex == -1 || !!isBlocked}
-      actions={actions[secondStage ? 1 : 0]}
+      actions={actions}
     >
       {!!tasks.length ? (
         <Buffering />
