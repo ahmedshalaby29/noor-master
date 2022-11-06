@@ -60,11 +60,16 @@ const HomeProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (teacher) {
-      teacher.role = teacher.role.filter((role) => role.includes("معلم"));
+      teacher.role = teacher.role.filter(
+        (role) => role.includes("معلم") && !role.includes("ثانوي")
+      );
 
-      if (!teacher.currentRole.includes("معلم")) {
-        teacher.currentRole = teacher.role.find((role) =>
-          role.includes("معلم")
+      if (
+        !teacher.currentRole.includes("معلم") ||
+        teacher.currentRole.includes("ثانوي")
+      ) {
+        teacher.currentRole = teacher.role.find(
+          (role) => role.includes("معلم") && !role.includes("ثانوي")
         )!;
       }
 

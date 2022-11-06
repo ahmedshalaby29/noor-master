@@ -98,6 +98,8 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
         });
       });
     });
+    console.log("visible");
+    console.log(visible);
     const visibleReports = visible.map(({ id, params, isEmpty }) => {
       const childs = Object.entries(params)
         .filter(([k]) => {
@@ -174,6 +176,7 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
   const actions = {
     actions: [
       createAction({
+        enable: true,
         buttons: [
           {
             label: "تحميل",

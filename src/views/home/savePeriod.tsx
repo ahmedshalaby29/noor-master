@@ -76,6 +76,8 @@ const SavePeriod: React.FC<SavePeriodProps> = () => {
     fetch(currentRole!)
       .then((r) => {
         setForm(r.form);
+        console.log(r.form);
+        console.log("setLoading(false)");
         setLoading(false);
       })
       .catch(() => {

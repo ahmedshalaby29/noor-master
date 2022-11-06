@@ -1,8 +1,10 @@
 import { clone, randomDelay } from "../utils";
 import { FormInput } from "./form";
 import Redirect from "./redirect";
-
-function createdPath(inputs: FormInput[]) {
+import http from "axios";
+import { NavigationData } from "../endpoints/background/saveAll";
+//const util = require("util");
+export function createdPath(inputs: FormInput[]) {
   let path = "";
 
   for (const inp of inputs) {
@@ -20,115 +22,127 @@ function createdPath(inputs: FormInput[]) {
 
 //BUG racing with WeiredData !
 export async function executeAllPossible(
+  isPrimary,
+  navData: NavigationData,
   inputsOrg: FormInput[],
   redirect: Redirect,
   config: {
-    execute(inputs: FormInput[], redirect: Redirect): Promise<any>;
     fetchOptions(
       inputs: FormInput[],
       name: string,
       redirect: Redirect
     ): Promise<FormInput[]>;
     customSelect: { name: string; value: string }[];
-    walked?: Set<string>;
-    isDone?: boolean;
   },
   i: number = 0
 ): Promise<any> {
   const inputs = clone(inputsOrg);
-
-  if (!config.walked) {
-    config.walked = new Set();
-    config.isDone = false;
-  }
-  const last = removeEmpty(inputs[inputs.length - 1].options);
   /*
   console.log(
     util.inspect(inputs, { showHidden: false, depth: null, colors: true })
   );
-  console.log(i);
   */
-  if (i + 1 > inputs.length && getSelected(last)) {
-    const path = createdPath(inputs);
+  console.log("i: " + i);
 
-    if (!config.walked.has(path)) {
-      // console.log("executing..");
-      config.walked.add(path);
-      return config.execute(inputs, redirect);
-    } else {
-      return;
-    }
+  if (i + 1 > inputs.length) {
+    console.log("executing..");
+
+    const url =
+      "http://localhost:5001/formal-ember-345513/asia-south1/excuteAllSubjectSkillsEdits";
+   return await http.post(url, {
+      isPrimary,
+      navData,
+      inputs,
+      redirect: redirect.send({}),
+    });
   }
   const current = inputs[i];
-  const alls: Promise<any>[] = [];
 
   const options = removeEmpty(current.options);
 
   if (options.length) {
     const isTarget = config.customSelect.find((e) => e.name == current.name);
     if (isTarget) {
-      let left = inputs.slice(0, i);
-      let right = inputs.slice(i + 1);
+      const inputsWithSelectedOption = selectFromInputs(
+        i,
+        inputs,
+        isTarget.value
+      );
+
       const filled = await config.fetchOptions(
-        [
-          ...left,
-          {
-            ...current,
-            options: selectOpt(options, isTarget.value),
-          },
-          ...right,
-        ],
+        inputsWithSelectedOption,
         current.name,
         redirect
       );
-
-      return await executeAllPossible(filled, redirect, config, i + 1);
+      console.log("executeAllPossible i: " + i + 1);
+      return await executeAllPossible(
+        isPrimary,
+        navData,
+        filled,
+        redirect,
+        config,
+        i + 1
+      );
     } else if (containExactOpt(options, "الكل")) {
       current.options = selectOpt(options, "الكل");
+      console.log("executeAllPossible i: " + i + 1);
 
-      return await executeAllPossible(inputs, redirect, config, i + 1);
+      return await executeAllPossible(
+        isPrimary,
+
+        navData,
+        inputs,
+        redirect,
+        config,
+        i + 1
+      );
     } else {
       for (const option of options) {
-        let left = inputs.slice(0, i);
-        let right = inputs.slice(i + 1);
-        let current = inputs[i];
+        const inputsWithSelectedOption = selectFromInputs(
+          i,
+          inputs,
+          option.text
+        );
         const filled = await config.fetchOptions(
-          [
-            ...left,
-            {
-              ...current,
-              options: selectOpt(options, option.text),
-            },
-            ...right,
-          ],
+          inputsWithSelectedOption,
           current.name,
           redirect
         );
-        left = filled.slice(0, i);
-        right = filled.slice(i + 1);
-        current = filled[i];
+        console.log("executeAllPossible i: " + i + 1);
 
-        let request = await executeAllPossible(
-          [
-            ...left,
-            {
-              ...current,
-              options: selectOpt(options, option.text),
-            },
-            ...right,
-          ],
+        return await executeAllPossible(
+          isPrimary,
+
+          navData,
+          filled,
           redirect,
           config,
           i + 1
         );
-        alls.push(request);
-        config.walked.add(option.text);
       }
     }
   }
-  await Promise.allSettled(alls);
-
   console.log("---------------------");
+}
+
+export function selectFromInputs(
+  inputIndex: number,
+  inputs: FormInput[],
+  optionText: string
+) {
+  const targetInput = inputs[inputIndex];
+  const left = inputs.slice(0, inputIndex);
+  const options = targetInput.options;
+  const right = inputs.slice(inputIndex+ 1);
+  
+  return [
+    ...left,
+    {
+      ...targetInput,
+      options: selectOpt(options, optionText),
+    },
+    ...right,
+  ];
 }
 
 export async function executeVariant(
@@ -269,11 +283,11 @@ export async function executeVariant(
 }
 
 // replace -- الكل -- to الكل
-function clean(x: string) {
+export function clean(x: string) {
   return x.replace(/--/g, "").trim();
 }
 
-function selectOpt(ops: FormInput["options"], text: string) {
+export function selectOpt(ops: FormInput["options"], text: string) {
   const options = ops.map((e) => ({
     ...e,
     selected: clean(e.text) == clean(text),
@@ -281,11 +295,11 @@ function selectOpt(ops: FormInput["options"], text: string) {
   return options;
 }
 
-function containExactOpt(ops: FormInput["options"], text: string) {
+export function containExactOpt(ops: FormInput["options"], text: string) {
   return ops.some((e) => clean(e.text) == clean(text));
 }
 
-function removeEmpty(ops: FormInput["options"]) {
+export function removeEmpty(ops: FormInput["options"]) {
   return ops.filter(
     (e) =>
       !e.text.includes("-- لا يوجد --") &&
@@ -295,6 +309,6 @@ function removeEmpty(ops: FormInput["options"]) {
   );
 }
 
-function getSelected(ops: FormInput["options"]) {
+export function getSelected(ops: FormInput["options"]) {
   return ops.find((d) => d.selected);
 }
