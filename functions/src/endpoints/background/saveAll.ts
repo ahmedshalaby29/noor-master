@@ -7,9 +7,8 @@ import { IncrementalData } from "../../types";
 import { saveSkills } from "../callables/incremental/editSkill/save";
 import { fetchSkills } from "../callables/incremental/editSkill/submit";
 import { fetchOptions } from "../callables/incremental/formOptions";
-const util = require("util");
 
-export interface NavigationData extends IncrementalData {
+interface NavigationData extends IncrementalData {
   action: string;
   inputs: FormInput[];
 
@@ -21,7 +20,7 @@ export default functions
   .region("asia-south1")
   .runWith({
     timeoutSeconds: 60 * 9,
-    memory: "1GB",
+    memory: "512MB",
   })
   .firestore.document("tasks/{taskId}")
   .onCreate(async (snapshot) => {
@@ -39,7 +38,25 @@ export default functions
     let { action } = data;
 
     //recursive function
-    await executeAllPossible(isPrimary, data, data.inputs, homePage, {
+    await executeAllPossible(data.inputs, homePage, {
+      execute: async (inputs, redirect) => {
+        const { cookies, redirected, weirdData } = redirect.send({});
+
+        const config = {
+          ...data,
+          inputs,
+          action,
+          cookies,
+          from: redirected,
+          weirdData,
+          isPrimary,
+        };
+        const response = await executeSkillEdits(config, isPrimary, redirect);
+
+        action = response.action; // CHECK this is might be the cause of paralism not working
+        redirect.setWeiredData(response.weirdData);
+      },
+
       fetchOptions: async (inputs, name, redirect) => {
         const { cookies, redirected, weirdData } = redirect.send({});
         const response = await fetchOptions(
@@ -77,7 +94,7 @@ export default functions
     console.log("############################################");
   });
 
-export async function executeSkillEdits(
+async function executeSkillEdits(
   data: NavigationData,
   isPrimary: boolean,
   homePage: Redirect
@@ -85,10 +102,6 @@ export async function executeSkillEdits(
   const response = await fetchSkills(data, isPrimary, homePage);
   // get all the skills with thier ids
   let { action, skills, inputs } = response.toJson();
-  console.log("response");
-  console.log(
-    util.inspect(response, { showHidden: false, depth: null, colors: true })
-  );
   // submit
   let editedSkill = skills.map((s) => ({
     id: s.id,

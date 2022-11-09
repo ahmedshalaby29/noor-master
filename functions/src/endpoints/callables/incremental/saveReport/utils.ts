@@ -247,10 +247,6 @@ export async function createSKillsPDF(
         title: "الفترة",
         value: formInputValue(inputs, "ctl00$PlaceHolderMain$ddlPeriod"),
       },
-      {
-        title: "عدد المهارات",
-        value: items.length,
-      },
     ];
   }
 

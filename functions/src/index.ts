@@ -15,12 +15,10 @@ import price from "./endpoints/callables/price";
 import paypalCreateOrder from "./endpoints/callables/paypalCreateOrder";
 import paypalHandleOrder from "./endpoints/callables/paypalHandleOrder";
 import addProToUser from "./endpoints/callables/addProToUser";
-import changeUserPassword from "./endpoints/callables/changeUserPassword";
+import changeUserPassword from './endpoints/callables/changeUserPassword'
 import failedRequests from "./endpoints/background/failedRequests";
-import excuteAllSubjectSkillsEdits from "./endpoints/callables/incremental/editSkill/excuteAllSubjectSkillsEdits";
 
 export {
-  excuteAllSubjectSkillsEdits,
   failedRequests,
   signForm,
   postSignForm,
@@ -38,5 +36,5 @@ export {
   paypalCreateOrder,
   paypalHandleOrder,
   addProToUser,
-  changeUserPassword,
+  changeUserPassword
 };

@@ -5,7 +5,7 @@ import Redirect from "../../../../core/redirect";
 import { IncrementalData } from "../../../../types";
 import { PrimarySkillForm, SkillsForm } from "./utils";
 
-export interface NavigationData extends IncrementalData {
+interface NavigationData extends IncrementalData {
   action: string;
   inputs: FormInput[];
   skills: {
@@ -48,7 +48,7 @@ export async function saveSkills(data: NavigationData, homePage: Redirect) {
       ...homePage.send({}),
     });
   }
-  console.log(data.skills);
+
   await form.save(data.skills, homePage.clone());
   // if (response) form.updateFromSubmission(response);
 
