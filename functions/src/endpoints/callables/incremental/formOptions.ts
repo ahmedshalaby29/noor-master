@@ -3,6 +3,8 @@ import { isBlocked } from "../../../common";
 import Form, { FormInput } from "../../../core/form";
 import Redirect from "../../../core/redirect";
 import { IncrementalData } from "../../../types";
+import { Request, Response } from "express";
+import * as express from "express";
 
 interface NavigationData extends IncrementalData {
   action: string;
@@ -11,26 +13,26 @@ interface NavigationData extends IncrementalData {
   name: string;
   systemMessage?: string;
 }
+const router = express.Router();
+router.post("/", async (req: Request, res: Response) => {
+  const data: NavigationData = req.body;
+  if (await isBlocked(context)) return null;
 
-export default functions
-  .region("asia-south1")
-  .https.onCall(async (data: NavigationData, context) => {
-    if (await isBlocked(context)) return null;
-    console.log("running formOptions...");
-    const homePage = await Redirect.load({
-      isPrimary: data.isPrimary,
-      cookies: data.cookies,
-      weirdData: data.weirdData,
-      from:
-        data.from ??
-        "https://noor.moe.gov.sa/Noor/EduWavek12Portal/HomePage.aspx",
-    });
-
-    const form = await fetchOptions(data, homePage);
-
-    // todo include the cookies and redirected;
-    return homePage.sendForm(form);
+  console.log("running formOptions...");
+  const homePage = await Redirect.load({
+    isPrimary: data.isPrimary,
+    cookies: data.cookies,
+    weirdData: data.weirdData,
+    from:
+      data.from ??
+      "https://noor.moe.gov.sa/Noor/EduWavek12Portal/HomePage.aspx",
   });
+
+  const form = await fetchOptions(data, homePage);
+
+  // todo include the cookies and redirected;
+  res.json(homePage.sendForm(form)).status(200);
+});
 
 export async function fetchOptions(data: NavigationData, homePage: Redirect) {
   const form = Form.fromJson({

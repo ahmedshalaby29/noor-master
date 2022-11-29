@@ -1,40 +1,35 @@
 import newAccount from "./endpoints/background/newAccount";
 import saveAll from "./endpoints/background/saveAll";
-import skillSave from "./endpoints/callables/incremental/editSkill/save";
-import skillSubmit from "./endpoints/callables/incremental/editSkill/submit";
-import formOption from "./endpoints/callables/incremental/formOptions";
-import navigation from "./endpoints/callables/incremental/navigation";
-import degreeSave from "./endpoints/callables/incremental/saveDegree/save";
-import degreeSubmit from "./endpoints/callables/incremental/saveDegree/submit";
-import newExamReport from "./endpoints/callables/incremental/saveReport/exmaReport";
-import newSkillReport from "./endpoints/callables/incremental/saveReport/skillReport";
-import postSignForm from "./endpoints/callables/postSignForm";
-import signForm from "./endpoints/callables/signForm";
 
+import postSignForm from "./endpoints/callables/postSignForm";
 import price from "./endpoints/callables/price";
 import paypalCreateOrder from "./endpoints/callables/paypalCreateOrder";
 import paypalHandleOrder from "./endpoints/callables/paypalHandleOrder";
-import addProToUser from "./endpoints/callables/addProToUser";
-import changeUserPassword from './endpoints/callables/changeUserPassword'
+import changeUserPassword from "./endpoints/callables/changeUserPassword";
 import failedRequests from "./endpoints/background/failedRequests";
+
+import { Request, Response, Express } from "express";
+import * as express from "express";
+
+const app: Express = express();
+
+const port = 5000;
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Express + TypeScript Server");
+});
+
+app.listen(port, () => {
+  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+});
 
 export {
   failedRequests,
-  signForm,
   postSignForm,
   newAccount,
-  navigation,
-  formOption,
-  skillSave,
-  skillSubmit,
-  newSkillReport,
-  degreeSubmit,
-  degreeSave,
-  newExamReport,
   saveAll,
   price,
   paypalCreateOrder,
   paypalHandleOrder,
-  addProToUser,
-  changeUserPassword
+  changeUserPassword,
 };

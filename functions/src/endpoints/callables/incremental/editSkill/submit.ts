@@ -1,9 +1,10 @@
-import * as functions from "firebase-functions";
-import { isBlocked } from "../../../../common";
 import { FormInput } from "../../../../core/form";
 import Redirect from "../../../../core/redirect";
 import { IncrementalData } from "../../../../types";
 import { PrimarySkillForm, SkillsForm } from "./utils";
+import { Request, Response } from "express";
+
+import * as express from "express";
 
 interface NavigationData extends IncrementalData {
   action: string;
@@ -11,17 +12,17 @@ interface NavigationData extends IncrementalData {
   actionButton?: FormInput;
 }
 
-export default functions
-  .region("asia-south1")
-  .https.onCall(async (data: NavigationData, context) => {
-    if (await isBlocked(context)) return null;
+const router = express.Router();
 
-    const homePage = Redirect.load(data);
+router.post("/", async (req: Request, res: Response) => {
+  const data: NavigationData = req.body;
 
-    const form = await fetchSkills(data, data.isPrimary, homePage);
+  const homePage = Redirect.load(data);
 
-    return homePage.sendForm(form);
-  });
+  const form = await fetchSkills(data, data.isPrimary, homePage);
+
+  res.json(homePage.sendForm(form)).status(200);
+});
 
 export async function fetchSkills(
   data: NavigationData,

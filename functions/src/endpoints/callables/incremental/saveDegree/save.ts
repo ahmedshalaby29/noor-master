@@ -1,9 +1,9 @@
-import * as functions from "firebase-functions";
-import { isBlocked } from "../../../../common";
 import Form, { FormInput } from "../../../../core/form";
 import Redirect from "../../../../core/redirect";
 import { IncrementalData } from "../../../../types";
 import { Degrees, DegreesForm } from "./utils";
+import { Request, Response } from "express";
+import * as express from "express";
 
 interface NavigationData extends IncrementalData {
   action: string;
@@ -11,31 +11,31 @@ interface NavigationData extends IncrementalData {
   degrees: Degrees[];
 }
 
-export default functions
-  .region("asia-south1")
-  .https.onCall(async (data: NavigationData, context) => {
-    if (await isBlocked(context)) return null;
+const router = express.Router();
 
-    const homePage = await Redirect.load(data);
+router.post("/", async (req: Request, res: Response) => {
+  const data: NavigationData = req.body;
 
-    const form = new DegreesForm(
-      Form.fromJson({
-        action: data.action,
-        weirdData: data.weirdData,
-        inputs: data.inputs,
-        actionButtons: [],
-      }).html
-    );
+  const homePage = await Redirect.load(data);
 
-    const courseId = data.inputs
-      .find((i) => i.name.includes("rMain$ddlCours"))
-      .options.find((s) => s.selected).value;
+  const form = new DegreesForm(
+    Form.fromJson({
+      action: data.action,
+      weirdData: data.weirdData,
+      inputs: data.inputs,
+      actionButtons: [],
+    }).html
+  );
 
-    const period = data.inputs
-      .find((i) => i.name.includes("ddlPeriodEnter"))
-      .options.find((s) => s.selected).value;
+  const courseId = data.inputs
+    .find((i) => i.name.includes("rMain$ddlCours"))
+    .options.find((s) => s.selected).value;
 
-    await form.save(data.degrees, { courseId, period }, homePage);
+  const period = data.inputs
+    .find((i) => i.name.includes("ddlPeriodEnter"))
+    .options.find((s) => s.selected).value;
 
-    return homePage.send({});
-  });
+  await form.save(data.degrees, { courseId, period }, homePage);
+
+  res.send(homePage.send({})).status(200);
+});

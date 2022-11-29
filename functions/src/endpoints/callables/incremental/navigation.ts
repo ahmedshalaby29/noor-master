@@ -1,5 +1,4 @@
 import { load } from "cheerio";
-import * as functions from "firebase-functions";
 import { isBlocked } from "../../../common";
 import Form from "../../../core/form";
 import Redirect from "../../../core/redirect";
@@ -7,29 +6,30 @@ import { extractHomeData } from "../../../helpers";
 import { IncrementalData } from "../../../types";
 import { extractRoleIds } from "../../../utils";
 import util = require("util");
+import { Request, Response } from "express";
+import * as express from "express";
 
 interface NavigationData extends IncrementalData {
   account: string;
   nav1: string;
   nav2: string;
 }
-
-export default functions
-  .region("asia-south1")
-  .https.onCall(async (data: NavigationData, context) => {
-    if (await isBlocked(context)) return null;
-    //returns Redirect data instance
-    const homePage = await Redirect.start({
-      from:
-        data.from ??
-        "https://noor.moe.gov.sa/Noor/EduWavek12Portal/HomePage.aspx",
-      cookies: data.cookies,
-    });
-
-    const { secondNav, form } = await navigateToForm(homePage, data);
-
-    return secondNav.sendForm(form);
+const router = express.Router();
+router.post("/", async (req: Request, res: Response) => {
+  const data: NavigationData = req.body;
+  if (await isBlocked(context)) return null;
+  //returns Redirect data instance
+  const homePage = await Redirect.start({
+    from:
+      data.from ??
+      "https://noor.moe.gov.sa/Noor/EduWavek12Portal/HomePage.aspx",
+    cookies: data.cookies,
   });
+
+  const { secondNav, form } = await navigateToForm(homePage, data);
+
+  res.json(secondNav.sendForm(form)).status(200);
+});
 
 export async function navigateToForm(homePage: Redirect, data: NavigationData) {
   const checkAccount = await homePage.nextIf(
