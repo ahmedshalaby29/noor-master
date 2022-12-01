@@ -20,7 +20,7 @@ import { FirebaseError } from "@firebase/util";
 
 export const AppContext = createContext<IAppProvider>(null!);
 
-let auth: Auth;
+export let auth: Auth;
 
 const AppProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(appAction, AppStateInit);
@@ -133,6 +133,7 @@ const AppProvider: React.FC = ({ children }) => {
     loadLoginParams,
     logout,
     refrechToken,
+  
   };
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;

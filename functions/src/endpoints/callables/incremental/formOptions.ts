@@ -1,10 +1,10 @@
-import * as functions from "firebase-functions";
 import { isBlocked } from "../../../common";
 import Form, { FormInput } from "../../../core/form";
 import Redirect from "../../../core/redirect";
 import { IncrementalData } from "../../../types";
 import { Request, Response } from "express";
 import * as express from "express";
+import { User } from "firebase/auth";
 
 interface NavigationData extends IncrementalData {
   action: string;
@@ -15,9 +15,10 @@ interface NavigationData extends IncrementalData {
 }
 const router = express.Router();
 router.post("/", async (req: Request, res: Response) => {
-  const data: NavigationData = req.body;
-  if (await isBlocked(context)) return null;
+  const data: NavigationData = req.body.data;
+  const user: User = req.body.user;
 
+  if (await isBlocked(user)) return null;
   console.log("running formOptions...");
   const homePage = await Redirect.load({
     isPrimary: data.isPrimary,

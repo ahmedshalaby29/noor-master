@@ -1,4 +1,4 @@
-import { db, isBlocked, storage } from "../../../../common";
+import { db, storage } from "../../../../common";
 import Form, { FormInput } from "../../../../core/form";
 import Redirect from "../../../../core/redirect";
 import { IncrementalData } from "../../../../types";
@@ -8,6 +8,7 @@ import { createDegreesPDF, createParmsFromInputs } from "./utils";
 import path = require("path");
 import { Request, Response } from "express";
 import * as express from "express";
+import { User } from "firebase/auth";
 
 interface NavigationData extends IncrementalData {
   action: string;
@@ -19,6 +20,7 @@ const router = express.Router();
 
 router.post("/", async (req: Request, res: Response) => {
   const data: NavigationData = req.body;
+     const user: User = req.body.user;
 
   const homePage = await Redirect.load(data);
 
@@ -55,7 +57,7 @@ router.post("/", async (req: Request, res: Response) => {
   const config = (filePath: string) => ({
     metadata: {
       metadata: {
-        userId: context.auth.uid,
+        userId: user.uid,
         from: "saveReport/newExamReport",
       },
     },
@@ -67,7 +69,7 @@ router.post("/", async (req: Request, res: Response) => {
   const params = createParmsFromInputs(data.inputs);
 
   await db.collection("reports").add({
-    user: context.auth.uid,
+    user: user.uid,
     files: {
       pdf: onlinePDF.name,
     },

@@ -11,6 +11,7 @@ import { Request, Response } from "express";
 import * as express from "express";
 
 import path = require("path");
+import { User } from "firebase/auth";
 
 interface NavigationData extends IncrementalData {
   action: string;
@@ -22,7 +23,9 @@ const router = express.Router();
 
 router.post("/", async (req: Request, res: Response) => {
   const data: NavigationData = req.body;
-  if (await isBlocked(context)) return null;
+      const user: User = req.body.user;
+
+  if (await isBlocked(user)) return null;
 
   const homePage = await Redirect.load(data);
 
@@ -96,7 +99,7 @@ router.post("/", async (req: Request, res: Response) => {
   const fileName = randomString();
 
   const userData = (
-    await db.collection("users").doc(context.auth.uid).get()
+    await db.collection("users").doc(user.uid).get()
   ).data();
 
   console.log("Userdata: " + userData);
@@ -116,7 +119,7 @@ router.post("/", async (req: Request, res: Response) => {
   const config = (filePath: string) => ({
     metadata: {
       metadata: {
-        userId: context.auth.uid,
+        userId: user.uid,
         from: "saveReport/newSkillReport",
       },
     },
@@ -128,7 +131,7 @@ router.post("/", async (req: Request, res: Response) => {
   const params = createParmsFromInputs(data.inputs);
 
   await db.collection("reports").add({
-    user: context.auth.uid,
+    user: user.uid,
     files: {
       pdf: onlinePDF.name,
     },

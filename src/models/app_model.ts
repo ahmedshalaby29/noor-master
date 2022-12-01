@@ -1,4 +1,4 @@
-import { User } from "firebase/auth";
+import { Auth, User } from "firebase/auth";
 import { LoginCredential, LoginFormParams } from "../types/login_types";
 
 export type AppActions =
@@ -36,6 +36,5 @@ export interface IAppProvider extends AppState {
   loadLoginParams(): Promise<void>;
 
   logout(): Promise<void>;
-
   refrechToken(tryPeriod?: number): Promise<void>;
 }

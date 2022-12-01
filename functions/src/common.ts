@@ -1,7 +1,7 @@
 import * as admin from "firebase-admin";
-import { https } from "firebase-functions";
 
 import { PubSub } from "@google-cloud/pubsub";
+import { User } from "firebase/auth";
 
 const pubsub = new PubSub();
 
@@ -21,20 +21,20 @@ export const auth = app.auth();
 export const LOGIN_ENDPOINT = "https://noor.moe.gov.sa/Noor/login.aspx";
 
 export async function isBlocked(
-  context: https.CallableContext,
+  user: User,
   isFree = false
 ) {
-  if (!context.auth) return true;
+  if (!user) return true;
   if (isFree) return false;
 
-  const user = await auth.getUser(context.auth.uid);
+  const userData = await auth.getUser(user.uid);
 
-  const tryPeriod = parseInt(user.customClaims.try);
+  const tryPeriod = parseInt(userData.customClaims.try);
 
   if (tryPeriod > Date.now()) {
     return false;
   } else {
-    console.warn("unauthorised request from " + context.auth.uid);
+    console.warn("unauthorised request from " + user.uid);
     console.warn("user tryPeriod: " + tryPeriod);
 
     return true;

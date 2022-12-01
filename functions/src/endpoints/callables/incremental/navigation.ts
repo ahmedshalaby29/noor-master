@@ -8,6 +8,7 @@ import { extractRoleIds } from "../../../utils";
 import util = require("util");
 import { Request, Response } from "express";
 import * as express from "express";
+import { User } from "firebase/auth";
 
 interface NavigationData extends IncrementalData {
   account: string;
@@ -17,7 +18,9 @@ interface NavigationData extends IncrementalData {
 const router = express.Router();
 router.post("/", async (req: Request, res: Response) => {
   const data: NavigationData = req.body;
-  if (await isBlocked(context)) return null;
+    const user: User = req.body.context;
+
+  if (await isBlocked(user)) return null;
   //returns Redirect data instance
   const homePage = await Redirect.start({
     from:

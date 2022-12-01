@@ -21,6 +21,8 @@ import {
   ChangeUserPasswordResponse,
 } from "../types/login_types";
 import { mergeCookies } from "../utils";
+import axios from "axios";
+import { auth } from "../context/appContext";
 
 export default class Repository {
   private functions: Functions;
@@ -63,12 +65,21 @@ export default class Repository {
     }
   }
 
-  private call<R>(name: string, data?: any) {
+  private async callFunction<R>(name: string, data?: any) {
     return httpsCallable<typeof data, R>(this.functions, name)(data);
+  }
+  private async callApi<R>(name: string, data?: any) {
+    const requestData = {
+      data,
+      user: auth.currentUser,
+    };
+    const response = await axios.post(`localhost:5000\\${name}`, requestData);
+
+    return response.data;
   }
 
   async getLoginFormParams() {
-    const response = await this.call<LoginFormParams>("signForm");
+    const response = await this.callApi<LoginFormParams>("signForm");
 
     return response.data;
   }
@@ -77,10 +88,13 @@ export default class Repository {
     params: LoginFormParams,
     info: { name: string; password: string; captcha: number }
   ) {
-    const response = await this.call<LoginSubmissionResponse>("postSignForm", {
-      ...params,
-      ...info,
-    });
+    const response = await this.callApi<LoginSubmissionResponse>(
+      "postSignForm",
+      {
+        ...params,
+        ...info,
+      }
+    );
 
     if (response.data.operation == "success") {
       this.updateBouncingData({ cookies: response.data.data });
@@ -89,7 +103,7 @@ export default class Repository {
   }
 
   async changeUserPassword(info: { email: string; password: string }) {
-    const response = await this.call<ChangeUserPasswordResponse>(
+    const response = await this.callFunction<ChangeUserPasswordResponse>(
       "changeUserPassword",
       { ...info }
     );
@@ -97,7 +111,7 @@ export default class Repository {
   }
 
   async navigateTo(config: NavigateTo) {
-    const response = await this.call<FormNavigateResponse>("navigation", {
+    const response = await this.callApi<FormNavigateResponse>("navigation", {
       ...config,
       ...(this.bouncingData ?? {}),
     });
@@ -112,7 +126,7 @@ export default class Repository {
 
   async formFetchOption(config: FormOptions) {
     console.log("formFetchOption");
-    const response = await this.call<FormNavigateResponse>("formOption", {
+    const response = await this.callApi<FormNavigateResponse>("formOption", {
       ...config,
       ...(this.bouncingData ?? {}),
     });
@@ -146,7 +160,7 @@ export default class Repository {
   }
 
   async editSkillSave(config: EditSkillSubmit) {
-    const response = await this.call<FormNavigateResponse>("skillSave", {
+    const response = await this.callApi<FormNavigateResponse>("skillSave", {
       ...config,
       ...(this.bouncingData ?? {}),
     });
@@ -161,7 +175,7 @@ export default class Repository {
   }
 
   async saveDegree(config: DegreeSave) {
-    const response = await this.call<FormNavigateResponse>("degreeSave", {
+    const response = await this.callApi<FormNavigateResponse>("degreeSave", {
       ...config,
       ...(this.bouncingData ?? {}),
     });
@@ -176,17 +190,19 @@ export default class Repository {
   }
 
   async getPrice() {
-    const response = await this.call<Prices>("price");
+    const response = await this.callFunction<Prices>("price");
     return response.data;
   }
 
   async createPaypalOrder(price: number) {
-    const response = await this.call<any>("paypalCreateOrder", { price });
+    const response = await this.callFunction<any>("paypalCreateOrder", {
+      price,
+    });
     return response.data;
   }
 
   async paypalHandleOrder(orderId: any, price: number) {
-    const response = await this.call<any>("paypalHandleOrder", {
+    const response = await this.callFunction<any>("paypalHandleOrder", {
       orderId,
       price,
     });
