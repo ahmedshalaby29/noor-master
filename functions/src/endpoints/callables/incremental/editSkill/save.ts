@@ -15,9 +15,9 @@ interface NavigationData extends IncrementalData {
   }[];
 }
 
-const router = express.Router();
+export const router = express.Router();
 
-router.post("/", async (req: Request, res: Response) => {
+router.post("/saveSkill", async (req: Request, res: Response) => {
   const data: NavigationData = req.body;
   const homePage = await Redirect.load(data);
 

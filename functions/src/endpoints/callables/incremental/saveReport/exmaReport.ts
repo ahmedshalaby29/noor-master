@@ -16,7 +16,7 @@ interface NavigationData extends IncrementalData {
   actionButton: FormInput;
   isEmpty: boolean;
 }
-const router = express.Router();
+export const router = express.Router();
 
 router.post("/", async (req: Request, res: Response) => {
   const data: NavigationData = req.body;

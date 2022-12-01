@@ -4,9 +4,9 @@ import { LOGIN_ENDPOINT } from "../../common";
 import { hiddenInputs } from "../../utils";
 import { Request, Response } from "express";
 import * as express from "express";
-const router = express.Router();
+export const router = express.Router();
 
-router.get("/", async (req: Request, res: Response) => {
+router.post("/signForm", async (req: Request, res: Response) => {
   const response = await http.get(LOGIN_ENDPOINT, {
     headers: {
       "user-agent":

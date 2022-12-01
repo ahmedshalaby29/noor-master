@@ -73,7 +73,7 @@ export default class Repository {
       data,
       user: auth.currentUser,
     };
-    const response = await axios.post(`localhost:5000\\${name}`, requestData);
+    const response = await axios.post('http://localhost:5000/'+ name, requestData);
 
     return response.data;
   }
@@ -81,7 +81,7 @@ export default class Repository {
   async getLoginFormParams() {
     const response = await this.callApi<LoginFormParams>("signForm");
 
-    return response.data;
+    return response;
   }
 
   async checkLoginInformation(
@@ -95,11 +95,11 @@ export default class Repository {
         ...info,
       }
     );
-
-    if (response.data.operation == "success") {
+     console.log(response)
+    if (response.operation == "success") {
       this.updateBouncingData({ cookies: response.data.data });
     }
-    return response.data;
+    return response;
   }
 
   async changeUserPassword(info: { email: string; password: string }) {

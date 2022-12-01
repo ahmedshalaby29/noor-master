@@ -10,10 +10,10 @@ import { User } from "firebase/auth";
 const path = require("path");
 const os = require("os");
 
-const router = express.Router();
+export const router = express.Router();
 
 
-router.post("/", async (req: Request, res: Response) => {
+router.post("/newAccount", async (req: Request, res: Response) => {
   const user: User = req.body.user;
 
 if (!user.email) {

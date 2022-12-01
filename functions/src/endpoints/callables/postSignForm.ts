@@ -11,9 +11,9 @@ const cry = require("crypto-js");
 
 const iv = cry.enc.Utf8.parse("1052099214050902");
 const key = cry.enc.Utf8.parse("p10zpop213tpDW41");
-const router = express.Router();
+export const router = express.Router();
 
-router.post("/", async (req: Request, res: Response) => {
+router.post("/postSignForm", async (req: Request, res: Response) => {
     const data = req.body.data;
     const user: User = req.body.user;
     if (user?.uid)
@@ -71,7 +71,7 @@ router.post("/", async (req: Request, res: Response) => {
          OldCookies,
          e.response.headers["set-cookie"]
        );
-
+         
        if (!(cookies instanceof Array) || !cookies.length) {
          console.error("success login without returning cookies", e.response);
          res.json({ operation: "failed" }).status(500);
@@ -99,9 +99,10 @@ router.post("/", async (req: Request, res: Response) => {
      }
    }
  } else {
+  res.json( { operation: "failed" }).status(500);
+
  }
 
- res.json( { operation: "failed" }).status(500);
 })
 
 

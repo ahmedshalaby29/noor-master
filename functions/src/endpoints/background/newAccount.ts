@@ -11,5 +11,5 @@ export default functions
       console.error("new user without email", user);
       return;
     }
-   await http.post('',user); 
+   await http.post('http://localhost:5000/newAccount',user); 
   });

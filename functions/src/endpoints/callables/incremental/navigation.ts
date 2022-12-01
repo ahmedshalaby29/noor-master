@@ -15,8 +15,8 @@ interface NavigationData extends IncrementalData {
   nav1: string;
   nav2: string;
 }
-const router = express.Router();
-router.post("/", async (req: Request, res: Response) => {
+export const router = express.Router();
+router.post("/navigation", async (req: Request, res: Response) => {
   const data: NavigationData = req.body;
     const user: User = req.body.context;
 

@@ -58,7 +58,7 @@ const AppProvider: React.FC = ({ children }) => {
       state.loginFormParams!,
       credential
     );
-
+    console.log(operation,data)
     // const operation = "success";
     if (operation == "success") {
       try {
@@ -107,13 +107,12 @@ const AppProvider: React.FC = ({ children }) => {
 
   async function loadLoginParams() {
     const params = await Repository.instance.getLoginFormParams();
-
     dispatch({ type: "loginFormParams", payload: params });
   }
 
   async function logout() {
     localStorage.removeItem("bouncing");
-
+   
     await auth.signOut();
 
     dispatch({ type: "logout" });

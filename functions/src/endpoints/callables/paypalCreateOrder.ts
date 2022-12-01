@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 
 import * as Paypal from "@paypal/checkout-server-sdk";
-import { db, isBlocked } from "../../common";
+import { db } from "../../common";
 import { Config } from "../../types";
 
 const clientId =
@@ -15,7 +15,6 @@ const client = new Paypal.core.PayPalHttpClient(env);
 export default functions
   .region("asia-south1")
   .https.onCall(async (data, context) => {
-    if (await isBlocked(context, true)) return;
 
     let request = new Paypal.orders.OrdersCreateRequest();
     const config = (await db.doc("config/default").get()).data() as Config;
