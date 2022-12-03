@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import "./style/index.css";
 import { getPerformance } from "firebase/performance";
 
-export const emulator = process.env.NODE_ENV == "development" && true;
+export const emulator = false;
 
 export const firebaseApp = initializeApp({
   apiKey: "AIzaSyAJv-Cjmz_nzv5KUtRjnJiO5h0imIbSZFw",

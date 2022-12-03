@@ -58,7 +58,6 @@ const AppProvider: React.FC = ({ children }) => {
       state.loginFormParams!,
       credential
     );
-    console.log(operation,data)
     // const operation = "success";
     if (operation == "success") {
       try {
@@ -89,11 +88,12 @@ const AppProvider: React.FC = ({ children }) => {
             );
             return true;
           }
-          return createUserWithEmailAndPassword(
-            auth,
-            credential.name + "@noor.com",
-            credential.password
-          );
+          await Repository.instance.callApi('newAccount',
+          {
+            email: credential.name + "@noor.com",
+            password:credential.password
+          });
+         
         })
         .catch((e) => {
             // todo catch this error

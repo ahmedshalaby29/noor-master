@@ -68,7 +68,7 @@ export default class Repository {
   private async callFunction<R>(name: string, data?: any) {
     return httpsCallable<typeof data, R>(this.functions, name)(data);
   }
-  private async callApi<R>(name: string, data?: any) {
+  public async callApi<R>(name: string, data?: any) {
     const requestData = {
       data,
       user: auth.currentUser,
@@ -97,7 +97,7 @@ export default class Repository {
     );
      console.log(response)
     if (response.operation == "success") {
-      this.updateBouncingData({ cookies: response.data.data });
+      this.updateBouncingData({ cookies: response.data });
     }
     return response;
   }
@@ -115,13 +115,14 @@ export default class Repository {
       ...config,
       ...(this.bouncingData ?? {}),
     });
+
     this.updateBouncingData({
-      cookies: response.data.cookies,
-      from: response.data.redirected || response.data.from,
-      weirdData: response.data.weirdData,
+      cookies: response.cookies,
+      from: response.redirected || response.from,
+      weirdData: response.weirdData,
     });
     console.log("navigate to:::::");
-    return response.data.payload;
+    return response.payload;
   }
 
   async formFetchOption(config: FormOptions) {

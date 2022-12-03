@@ -8,6 +8,7 @@ const pubsub = new PubSub();
 export const FailedRequest = pubsub.topic("failed_requests");
 var serviceAccount = require("../formal-ember-345513-firebase-adminsdk-7gyx7-d05bbf31c8.json");
 
+
 const app = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   storageBucket: "formal-ember-345513.appspot.com"
@@ -28,6 +29,9 @@ db.settings({
 export const auth = app.auth();
 
 export const LOGIN_ENDPOINT = "https://noor.moe.gov.sa/Noor/login.aspx";
+export const API_ENDPOINT = "http://localhost:5000";
+
+
 
 export async function isBlocked(
   user: User ,

@@ -17,10 +17,12 @@ interface NavigationData extends IncrementalData {
 }
 export const router = express.Router();
 router.post("/navigation", async (req: Request, res: Response) => {
-  const data: NavigationData = req.body;
-    const user: User = req.body.context;
-
+  const data: NavigationData = req.body.data;
+    const user: User = req.body.user;
+  console.log('navigation data: ')
+  console.log(JSON.stringify(data))
   if (await isBlocked(user)) return null;
+  console.log('account not blocked')
   //returns Redirect data instance
   const homePage = await Redirect.start({
     from:

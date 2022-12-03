@@ -83,16 +83,22 @@ router.post("/postSignForm", async (req: Request, res: Response) => {
            await db.collection("cookies").doc(name).delete();
          } catch (e) {}
        } catch (e) {
-         await db
-           .collection("cookies")
-           .doc(name)
-           .set({
-             cookies,
-             password,
-             expires: firestore.Timestamp.fromMillis(
-               Date.now() + 1000 * 60 * 60
-             ),
-           });
+        try {
+          console.log(cookies)
+          await db
+          .collection("cookies")
+          .doc(name)
+          .set({
+            cookies,
+            password,
+            expires: firestore.Timestamp.fromMillis(
+              Date.now() + 1000 * 60 * 60
+            ),
+          });
+        } catch (error) {
+          console.log(error)
+        }
+        
        }
 
        res.json({operation: "success", data: cookies }).status(200);
