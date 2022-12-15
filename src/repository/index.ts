@@ -73,7 +73,7 @@ export default class Repository {
       data,
       user: auth.currentUser,
     };
-    const response = await axios.post('http://localhost:5000/'+ name, requestData);
+    const response = await axios.post('https://141.147.135.243/'+ name, requestData);
 
     return response.data;
   }
@@ -127,37 +127,37 @@ export default class Repository {
 
   async formFetchOption(config: FormOptions) {
     console.log("formFetchOption");
-    const response = await this.callApi<FormNavigateResponse>("formOption", {
+    const response = await this.callApi<FormNavigateResponse>("formOptions", {
       ...config,
       ...(this.bouncingData ?? {}),
     });
 
     this.updateBouncingData({
-      cookies: response.data.cookies,
-      from: response.data.redirected || response.data.from,
-      weirdData: response.data.weirdData,
+      cookies: response.cookies,
+      from: response.redirected || response.from,
+      weirdData: response.weirdData,
     });
 
-    return response.data.payload;
+    return response.payload;
   }
 
   async submitForm<
     T extends FormSubmitLookup["type"],
     B extends Omit<FormSubmitLookup & { type: T }, "type">
   >(type: T, config: {}) {
-    // @ts-ignore
-    const response = await this.call<B["response"]>(type, {
+    //@ts-ignore
+    const response = await this.callApi<B["response"]>(type, {
       ...(config as {}),
       ...(this.bouncingData ?? {}),
     });
 
     this.updateBouncingData({
-      cookies: response.data.cookies,
-      from: response.data.redirected || response.data.from,
-      weirdData: response.data.weirdData,
+      cookies: response.cookies,
+      from: response.redirected || response.from,
+      weirdData: response.weirdData,
     });
 
-    return response.data.payload;
+    return response.payload;
   }
 
   async editSkillSave(config: EditSkillSubmit) {
@@ -167,12 +167,12 @@ export default class Repository {
     });
 
     this.updateBouncingData({
-      cookies: response.data.cookies,
-      from: response.data.redirected || response.data.from,
-      weirdData: response.data.weirdData,
+      cookies: response.cookies,
+      from: response.redirected || response.from,
+      weirdData: response.weirdData,
     });
 
-    return response.data.payload;
+    return response.payload;
   }
 
   async saveDegree(config: DegreeSave) {
@@ -182,12 +182,12 @@ export default class Repository {
     });
 
     this.updateBouncingData({
-      cookies: response.data.cookies,
-      from: response.data.redirected || response.data.from,
-      weirdData: response.data.weirdData,
+      cookies: response.cookies,
+      from: response.redirected || response.from,
+      weirdData: response.weirdData,
     });
 
-    return response.data.payload;
+    return response.payload;
   }
 
   async getPrice() {

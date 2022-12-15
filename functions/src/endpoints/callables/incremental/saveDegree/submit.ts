@@ -11,8 +11,10 @@ interface NavigationData extends IncrementalData {
   systemMessage: string;
 }
 export const router = express.Router();
-router.post("/", async (req: Request, res: Response) => {
-  const data: NavigationData = req.body;
+router.post("/degreeSubmit", async (req: Request, res: Response) => {
+  try {
+    const data: NavigationData = req.body.data;
+  console.log(JSON.stringify(data))
   const homePage = await Redirect.load(data);
 
   data.actionButton = {
@@ -46,5 +48,11 @@ router.post("/", async (req: Request, res: Response) => {
       .status(200);
   }
   res.send(homePage.send({})).status(200);
+  } catch (error) {
+    console.log(error)
+
+    res.status(500)
+  }
+  
 });
 // todo gzip the response data;

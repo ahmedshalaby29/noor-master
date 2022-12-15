@@ -21,8 +21,9 @@ interface NavigationData extends IncrementalData {
 }
 export const router = express.Router();
 
-router.post("/", async (req: Request, res: Response) => {
-  const data: NavigationData = req.body;
+router.post("/newSkillReport", async (req: Request, res: Response) => {
+  try {
+    const data: NavigationData = req.body.data;
       const user: User = req.body.user;
 
   if (await isBlocked(user)) return null;
@@ -139,4 +140,9 @@ router.post("/", async (req: Request, res: Response) => {
     isEmpty: data.isEmpty,
   });
   res.json(homePage.send({})).status(200);
+  } catch (error) {
+    console.log(error)
+    res.status(500)
+  }
+  
 });

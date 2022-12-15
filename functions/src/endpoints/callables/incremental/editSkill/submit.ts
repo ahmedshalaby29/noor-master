@@ -14,14 +14,23 @@ interface NavigationData extends IncrementalData {
 
 export const router = express.Router();
 
-router.post("/", async (req: Request, res: Response) => {
-  const data: NavigationData = req.body;
+router.post("/skillSubmit", async (req: Request, res: Response) => {
+  try {
+    const data: NavigationData = req.body.data;
+  console.log(JSON.stringify(data))
 
   const homePage = Redirect.load(data);
 
   const form = await fetchSkills(data, data.isPrimary, homePage);
 
   res.json(homePage.sendForm(form)).status(200);
+  } catch (error) {
+    console.log(error)
+
+    res.status(500);
+
+  }
+  
 });
 
 export async function fetchSkills(

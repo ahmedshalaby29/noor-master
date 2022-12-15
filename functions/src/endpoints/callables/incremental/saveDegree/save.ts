@@ -13,8 +13,9 @@ interface NavigationData extends IncrementalData {
 
 export const router = express.Router();
 
-router.post("/", async (req: Request, res: Response) => {
-  const data: NavigationData = req.body;
+router.post("/degreeSave", async (req: Request, res: Response) => {
+  try {
+    const data: NavigationData = req.body;
 
   const homePage = await Redirect.load(data);
 
@@ -38,4 +39,11 @@ router.post("/", async (req: Request, res: Response) => {
   await form.save(data.degrees, { courseId, period }, homePage);
 
   res.send(homePage.send({})).status(200);
+  } catch (error) {
+    console.log(error)
+
+    res.status(500);
+
+  }
+  
 });

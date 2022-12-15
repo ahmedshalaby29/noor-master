@@ -20,7 +20,6 @@ router.post("/postSignForm", async (req: Request, res: Response) => {
    console.warn(
      `authenicated user ${user?.uid} is using login captcha checking!`
    );
-
  const encr = (x: any) =>
    cry.AES.encrypt(x, key, {
      iv,
@@ -39,6 +38,7 @@ router.post("/postSignForm", async (req: Request, res: Response) => {
  const { name, password, captcha } = data;
 
  if (checkInputs(data)) {
+
    const postData = {
      __LASTFOCUS: "",
      __EVENTTARGET: "",
@@ -55,7 +55,7 @@ router.post("/postSignForm", async (req: Request, res: Response) => {
    };
 
    try {
-     await http.post(LOGIN_ENDPOINT, QueryEncode(postData), {
+    const response = await http.post(LOGIN_ENDPOINT, QueryEncode(postData), {
        headers: {
          "Content-Type": "application/x-www-form-urlencoded",
          Referer: LOGIN_ENDPOINT,
@@ -65,8 +65,12 @@ router.post("/postSignForm", async (req: Request, res: Response) => {
        },
        maxRedirects: 0,
      });
+     console.log(response.status)
+     res.json({ operation: "failed" }).status(500);
+
    } catch (e: any) {
      if (e.response && e.response.status == 302) {
+      console.log(e.response)
        const cookies = mergeCookies(
          OldCookies,
          e.response.headers["set-cookie"]
@@ -102,6 +106,11 @@ router.post("/postSignForm", async (req: Request, res: Response) => {
        }
 
        res.json({operation: "success", data: cookies }).status(200);
+     }else {
+      console.log(e.response)
+
+      res.json( { operation: "failed" }).status(500);
+    
      }
    }
  } else {

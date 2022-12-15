@@ -15,9 +15,10 @@ interface NavigationData extends IncrementalData {
 }
 export const router = express.Router();
 router.post("/formOptions", async (req: Request, res: Response) => {
-  const data: NavigationData = req.body.data;
+  try {
+    const data: NavigationData = req.body.data;
   const user: User = req.body.user;
-
+  
   if (await isBlocked(user)) return null;
   console.log("running formOptions...");
   const homePage = await Redirect.load({
@@ -33,6 +34,13 @@ router.post("/formOptions", async (req: Request, res: Response) => {
 
   // todo include the cookies and redirected;
   res.json(homePage.sendForm(form)).status(200);
+  } catch (error) {
+    console.log(error)
+
+    res.status(500);
+
+  }
+  
 });
 
 export async function fetchOptions(data: NavigationData, homePage: Redirect) {

@@ -17,7 +17,8 @@ interface NavigationData extends IncrementalData {
 }
 export const router = express.Router();
 router.post("/navigation", async (req: Request, res: Response) => {
-  const data: NavigationData = req.body.data;
+  try {
+    const data: NavigationData = req.body.data;
     const user: User = req.body.user;
   console.log('navigation data: ')
   console.log(JSON.stringify(data))
@@ -34,6 +35,11 @@ router.post("/navigation", async (req: Request, res: Response) => {
   const { secondNav, form } = await navigateToForm(homePage, data);
 
   res.json(secondNav.sendForm(form)).status(200);
+  } catch (error) {
+    console.log(error)
+res.status(500)
+  }
+  
 });
 
 export async function navigateToForm(homePage: Redirect, data: NavigationData) {

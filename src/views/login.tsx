@@ -39,9 +39,11 @@ const Login: React.FC = ({}) => {
       name: username,
       password,
     }).then((result) => {
+      console.log(result)
+
       if (result) {
         setSuccess(true);
-      } else {
+      } else {    
         setError(true);
         setLoading(true);
         loadLoginParams();

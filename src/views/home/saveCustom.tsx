@@ -114,8 +114,11 @@ const SaveCustom: React.FC<SaveCustomProps> = () => {
       created: new Date(),
     };
 
-    wait(() => DB.instance.createTask(task), setLoading);
-    setSecondStage(false);
+    wait( () => DB.instance.createTask(task).then(async taskRef => {
+      await Repository.instance.callApi('saveAll',taskRef?.id)
+
+    }), setLoading);
+        setSecondStage(false);
   };
 
   const actions = {

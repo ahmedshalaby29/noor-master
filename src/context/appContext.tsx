@@ -59,6 +59,7 @@ const AppProvider: React.FC = ({ children }) => {
       credential
     );
     // const operation = "success";
+    console.log(operation)
     if (operation == "success") {
       try {
         traceLogin.current.stop();
@@ -88,18 +89,24 @@ const AppProvider: React.FC = ({ children }) => {
             );
             return true;
           }
-          await Repository.instance.callApi('newAccount',
+          const response = await Repository.instance.callApi('newAccount',
           {
             email: credential.name + "@noor.com",
             password:credential.password
           });
-         
+          signInWithEmailAndPassword(auth, credential.name + "@noor.com",
+           credential.password).catch(
+            (e: FirebaseError) => {
+              console.log(e.code);
+            }
+          );
+          return true;
+
         })
         .catch((e) => {
             // todo catch this error
           console.log("final catch " + e.message);
         });
-      return true;
     }
     localStorage.removeItem("bouncing");
     return false;

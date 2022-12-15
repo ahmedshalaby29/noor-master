@@ -19,7 +19,7 @@ import axiosRetry from "axios-retry";
 
 axiosRetry(http);
 
-import { FailedRequest } from "../common"; // todo anti-pattern
+import { excuteFailedRequest } from "../endpoints/background/failedRequests";
 type RedirectionType =
   | "MenuItemRedirect"
   | "OperationOnMenu"
@@ -233,9 +233,7 @@ export default class Redirect {
         },
       };
 
-      FailedRequest.publishMessage({
-        json: failedRequest,
-      });
+      excuteFailedRequest(failedRequest);
     }
   }
 

@@ -28,9 +28,8 @@ export default class DB {
   constructor() {
     this.firestore = getFirestore(firebaseApp);
 
-    if (emulator) {
-      connectFirestoreEmulator(this.firestore, "localhost", 8080);
-    }
+
+
   }
 
   subscribeToTeacher(id: string, listener: (teacher: Teacher) => void) {
@@ -73,14 +72,14 @@ export default class DB {
   async createTask(task: BackgroundTask<any>) {
     try {
        const tasks = collection(this.firestore, "tasks");
-       await addDoc(tasks, {
+       return await addDoc(tasks, {
          ...task,
          created: Timestamp.fromDate(task.created),
        });
     } catch (error) {
       console.log(error);
     }
-   
+     
   }
 
   async getReports(userId: string) {
@@ -98,5 +97,8 @@ export default class DB {
   async deleteReport(id: string) {
     const report = doc(this.firestore, `reports/${id}`);
     await deleteDoc(report);
+
   }
+
+
 }

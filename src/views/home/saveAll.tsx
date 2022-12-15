@@ -1,3 +1,4 @@
+import { DocumentData, DocumentReference } from "firebase/firestore";
 import { trace } from "firebase/performance";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -84,8 +85,10 @@ const SaveAll: React.FC<SaveAllProps> = () => {
       isPrimary: teacherType == TeacherType.primary,
       created: new Date(),
     };
+    wait( () => DB.instance.createTask(task).then(async taskRef => {
+      await Repository.instance.callApi('saveAll',taskRef?.id)
 
-    wait(() => DB.instance.createTask(task), setLoading);
+    }), setLoading);
   };
 
   const title = pageTitle(teacherType!);
