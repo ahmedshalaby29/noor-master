@@ -107,9 +107,12 @@ const AppProvider: React.FC = ({ children }) => {
             // todo catch this error
           console.log("final catch " + e.message);
         });
+        return true;
+    }else{
+      localStorage.removeItem("bouncing");
+      return false;
     }
-    localStorage.removeItem("bouncing");
-    return false;
+
   }
 
   async function loadLoginParams() {

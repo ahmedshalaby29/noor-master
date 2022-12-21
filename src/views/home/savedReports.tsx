@@ -16,7 +16,7 @@ interface SavedReportsProps {}
 function getTableHeader(type: TeacherType) {
   if (type == TeacherType.kindergarten) return ["المستوى", "الوحدة", "النوع"];
   if (type == TeacherType.primary)
-    return ["الصف", "الفصل", "الماده", "الفتره", "النوع"];
+    return ["الصف", "الفصل", "الماده", "الفتره", "النوع" ];
 
   return [];
 }
@@ -43,6 +43,8 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
 
   const tableHead = getTableHeader(teacherType!);
   const navIds = [
+    "date",
+
     "ctl00$PlaceHolderMain$oDistributionUC$ddlClass",
     "ctl00$PlaceHolderMain$oDistributionUC$ddlSection",
     "ctl00$PlaceHolderMain$ddlClass",
@@ -64,11 +66,7 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
         });
       });
     });
-    console.log("reports");
-    console.log(reports);
-    console.log("navs");
-    console.log(navs);
-
+   
     const all = {
       value: "",
       text: "الكل",
@@ -98,7 +96,11 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
         });
       });
     });
-    const visibleReports = visible.map(({ id, params, isEmpty }) => {
+    console.log('visible')
+
+    console.log(visible)
+
+    const visibleReports = visible.map(({ id, params, isEmpty , date }) => {
       const childs = Object.entries(params)
         .filter(([k]) => {
           return selection.some((s) => k.includes(s.id));
@@ -110,15 +112,17 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
           else return 0;
         })
         .map(([_, v]) => v.text);
+
       console.log("childs");
 
       console.log(childs);
-      return { id, childs: [...childs, isEmpty ? "فارغ" : "مرصود"] };
+      return { id, childs: [...childs, isEmpty ? "فارغ" : "مرصود"  ], date };
     });
 
     console.log("visibleReports");
     console.log(visibleReports);
-
+     visibleReports.sort((x,y) =>  { return x.date < y.date ? 1 : -1} 
+     )
     setVisibleReports(visibleReports);
   }
 
@@ -174,6 +178,7 @@ const SavedReports: React.FC<SavedReportsProps> = () => {
   const actions = {
     actions: [
       createAction({
+        enable:selected.length > 0,
         buttons: [
           {
             label: "تحميل",

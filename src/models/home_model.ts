@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 import {
   BouncingNavigation,
   FormInput,
@@ -63,6 +64,7 @@ export type Report = {
   };
   params: { [key: string]: FormInput["options"][0] };
   isEmpty: boolean;
+  date:Timestamp;
 };
 
 export interface SaveAllTask extends BackgroundTask<SaveAllSubmit> {

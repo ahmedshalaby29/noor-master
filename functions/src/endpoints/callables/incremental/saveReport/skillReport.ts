@@ -136,8 +136,10 @@ router.post("/newSkillReport", async (req: Request, res: Response) => {
     files: {
       pdf: onlinePDF.name,
     },
-    params,
+    params ,
     isEmpty: data.isEmpty,
+    date : new Date().toJSON()
+
   });
   res.json(homePage.send({})).status(200);
   } catch (error) {

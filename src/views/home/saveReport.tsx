@@ -95,6 +95,7 @@ const SaveReport: React.FC<SaveReportProps> = ({ type1 }) => {
       );
     }
   }, [type1]);
+  
   useEffect(() => {
     fetch(teacherType!, currentRole!, type1)
       .then((r) => setForm(r.form))

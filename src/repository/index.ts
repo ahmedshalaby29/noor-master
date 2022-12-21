@@ -137,7 +137,6 @@ export default class Repository {
       from: response.redirected || response.from,
       weirdData: response.weirdData,
     });
-
     return response.payload;
   }
 

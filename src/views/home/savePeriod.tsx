@@ -75,8 +75,9 @@ const SavePeriod: React.FC<SavePeriodProps> = () => {
     setLoading(true);
     fetch(currentRole!)
       .then((r) => {
-        setForm(r.form);
         setLoading(false);
+        setForm(r.form);
+        console.log(r.form)
       })
       .catch(() => {
         console.log("Logged Out because of failed current role fetch request");
@@ -98,9 +99,11 @@ const SavePeriod: React.FC<SavePeriodProps> = () => {
       isPrimary: teacherType == TeacherType.primary,
       created: new Date(),
     };
-    console.log(`periods: ${JSON.stringify(task)}`);
 
-    wait(() => DB.instance.createTask(task), setLoading);
+    wait( () => DB.instance.createTask(task).then(async taskRef => {
+      await Repository.instance.callApi('saveAll',taskRef?.id)
+
+    }), setLoading);
   };
 
   const next = () => {
@@ -159,8 +162,8 @@ const SavePeriod: React.FC<SavePeriodProps> = () => {
       }),
     ],
   };
-  console.log(`System Message: ${systemMessage}`);
-  console.log(`periods: ${periods}`);
+  console.log("tasks: " + tasks)
+ 
   return (
     <Page title={title} actions={actions} loading={!inputs.length}>
       {!!tasks.length ? (

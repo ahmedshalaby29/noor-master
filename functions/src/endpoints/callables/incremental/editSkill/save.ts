@@ -19,7 +19,7 @@ export const router = express.Router();
 
 router.post("/skillSave", async (req: Request, res: Response) => {
   try {
-    const data: NavigationData = req.body;
+    const data: NavigationData = req.body.data;
     const homePage = await Redirect.load(data);
   
     const form = await saveSkills(data, homePage);

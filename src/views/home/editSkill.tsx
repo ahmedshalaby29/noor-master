@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import RadioList from "../../components/home/radioList";
+import RadioList, { RadioListItem } from "../../components/home/radioList";
 import SelectBox from "../../components/home/selectBox";
 import { AppContext } from "../../context/appContext";
 import { HomeContext } from "../../context/homeContext";
@@ -14,6 +14,7 @@ import rates, {
   PrimaryRating,
   RateById,
   RateByName,
+  Rating,
 } from "../../models/rating";
 import Repository from "../../repository";
 import { teacherTypeArabic, wait } from "../../utils";
@@ -102,14 +103,19 @@ const EditSkill: React.FC<EditSkillProps> = () => {
 
   const [skills, setSkills] = useState<Skill[]>([]);
 
-  useEffect(() => {
+ 
+   
+  function setAllSkills(allOneSkill : RadioListItem) {
+    console.log('setting setAllSkills')
+    console.log(allOneSkill)
     setSkills((s) =>
       s.map((a) => ({
         ...a,
-        value: allOneSkill.name,
+        value: allOneSkill.id.toString(),
       }))
     );
-  }, [allOneSkill]);
+  }
+  let studentChanged = useRef(false);
 
   function setSkillsById(skillId: number, ratingId: number) {
     setSkills((skills) =>
@@ -123,41 +129,44 @@ const EditSkill: React.FC<EditSkillProps> = () => {
       })
     );
   }
+  useEffect(() => {
+    console.log(studentChanged)
+    if(studentChanged.current){
+      fetchSkills();
+      studentChanged.current = false;
+  
+    }
+
+  },[inputs])
 
   useIfIffect(() => {
     const name = inputs
       .find((i) => i.id.includes("PanelStudent"))
       ?.options.find((e) => e.selected)?.text;
-
     fetchSkills();
   }, [stage == 1]);
 
   function fetchSkills() {
     wait(async () => {
       const skillValue = teacherType == TeacherType.primary ? "id" : "name";
-
+      console.log(inputs)
       const response = await submit("skillSubmit", {});
-
+  
       setSkills(
-        response.skills.map((e) => ({
-          ...e,
-          value: RateByName(ratingSystem, e.value)[skillValue] as string,
-        }))
+           response.skills
       );
+
+
     }, setLoading);
   }
 
   const saveCustom = () =>
     wait(async () => {
-      const editedSkills = skills.map((s) => ({
-        ...s,
-        value: RateByName(ratingSystem, s.value).id,
-      }));
-
+       console.log(skills)
       const data = await Repository.instance.editSkillSave({
         action: formAction!,
         inputs,
-        skills: editedSkills,
+        skills,
         isPrimary: teacherType == TeacherType.primary,
       });
 
@@ -175,11 +184,17 @@ const EditSkill: React.FC<EditSkillProps> = () => {
     actions: [
       createAction({
         enable: isAllChosen && !systemMessage,
-        show: stage == 0 && !!inputs.length,
+        show:  !!inputs.length,
         buttons: [
           {
             label: "بحث",
-            onClick: () => setStage(1),
+            onClick: () => {
+              if(stage === 0 ){
+                setStage(1)
+              }else {
+                fetchSkills();
+              }
+            },
           },
         ],
       }),
@@ -222,7 +237,14 @@ const EditSkill: React.FC<EditSkillProps> = () => {
               <div key={input.id}>
                 <SelectBox
                   loading={i > loadingIndex}
-                  select={(e) => updateInputs(input.name!, e)}
+                  select={(e) => {
+                    if(stage != 0 && input.name?.trim() === 'ctl00$PlaceHolderMain$ddlStudent'){
+                      studentChanged.current = true;
+                      console.log('changed studentCHanged to: ' + studentChanged)
+                    }
+                    updateInputs(input.name!, e);
+                 
+                  }}
                   label={input.title}
                   options={input.options.map((e) => ({
                     id: e.value,
@@ -240,7 +262,9 @@ const EditSkill: React.FC<EditSkillProps> = () => {
               <div className="border-t-2 border-gray-200 mt-2 py-2 my-2">
                 <SelectBox
                   select={(e) => {
-                    setAllOneSkill(ratingSystem.find((i) => i.id == e)!);
+                    console.log('select fired')
+                    setAllSkills(ratingSystem.find((i) => i.id == e)!);
+                    setAllOneSkill(ratingSystem.find((i) => i.id == e)!)
                   }}
                   options={rates(teacherType!).map((r) => ({
                     description: "dsd",
@@ -253,18 +277,21 @@ const EditSkill: React.FC<EditSkillProps> = () => {
               </div>
 
               <div className="border-t-2 border-gray-200 mt-2 py-2 space-y-2">
-                {skills.map((s) => (
-                  <SelectBox
-                    label={s.title}
-                    select={(e: any) => setSkillsById(s.skillId, e as any)}
-                    options={rates(teacherType!).map((r) => ({
-                      description: "dsd",
-                      id: r.id.toString(),
-                      name: r.name,
-                      selected: r.name == s.value,
-                    }))}
-                  />
-                ))}
+                {skills.map((s) => {
+       
+                        return <SelectBox
+                        label={s.title}
+                        select={(e: any) => setSkillsById(s.skillId, e as any)}
+                        options={rates(teacherType!).map((r) => ({
+                          description: "dsd",
+                          id: r.id.toString(),
+                          name: r.name,
+                          selected: r.id.toString() === s.value,
+                        }))}
+                      />
+                } 
+                  
+                )}
               </div>
               <ActionButtons {...saveAction} />
             </>

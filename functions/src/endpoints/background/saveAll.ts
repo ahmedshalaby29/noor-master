@@ -45,8 +45,9 @@ router.post("/saveAll", async (req: Request, res: Response) => {
    console.log("saveAll function started..");
    //gets the action url from the nav data sent by the frontend
    let { action } = data;
-
+  
    if(docData.type === 'saveCustom'){
+    res.status(200).end();
 
     await executeVariant(data.inputs, homePage, {
       execute: async (inputs, redirect) => {
@@ -101,6 +102,7 @@ router.post("/saveAll", async (req: Request, res: Response) => {
 
    } 
    else{
+    res.status(200).end();
 
    //recursive function
    await executeAllPossible(data.inputs, homePage, {
@@ -161,7 +163,6 @@ router.post("/saveAll", async (req: Request, res: Response) => {
    console.log("############################################");
   } catch (error) {
     console.log(error)
-    res.status(500)
   }
   
 })

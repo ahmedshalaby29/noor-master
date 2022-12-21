@@ -5,7 +5,6 @@ import Redirect from "../../../core/redirect";
 import { extractHomeData } from "../../../helpers";
 import { IncrementalData } from "../../../types";
 import { extractRoleIds } from "../../../utils";
-import util = require("util");
 import { Request, Response } from "express";
 import * as express from "express";
 import { User } from "firebase/auth";
@@ -20,10 +19,7 @@ router.post("/navigation", async (req: Request, res: Response) => {
   try {
     const data: NavigationData = req.body.data;
     const user: User = req.body.user;
-  console.log('navigation data: ')
-  console.log(JSON.stringify(data))
   if (await isBlocked(user)) return null;
-  console.log('account not blocked')
   //returns Redirect data instance
   const homePage = await Redirect.start({
     from:
@@ -36,7 +32,7 @@ router.post("/navigation", async (req: Request, res: Response) => {
 
   res.json(secondNav.sendForm(form)).status(200);
   } catch (error) {
-    console.log(error)
+    console.log(error.error)
 res.status(500)
   }
   
@@ -47,34 +43,12 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
     async (config) => {
       if (!data.account) return false;
       const home = await extractHomeData(config.html);
-      //#region logs
-      console.log("home.currentAccount: " + home.currentAccount);
-      console.log("home.allAccounts: " + home.allAccounts);
-      console.log("data.account " + data.account);
-      console.log(
-        "!home.currentAccount.includes(data.account): " +
-          home.currentAccount.includes(data.account)
-      );
-      //#endregion
+    
       return !home.currentAccount.includes(data.account);
     },
     async (config) => {
       const home = await extractHomeData(config.html);
-      //#region logs
-      console.log(
-        "49 data.account " +
-          data.account +
-          "home.allAccounts " +
-          home.allAccounts
-      );
-      console.log(
-        util.inspect(home.allAccounts, {
-          showHidden: false,
-          depth: null,
-          colors: true,
-        })
-      );
-      //#endregion
+     
       const accountId = home.allAccounts.find(
         (e) => e.text == data.account
       )!.id;
@@ -90,34 +64,12 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
     async (config) => {
       if (!data.account) return false;
       const home = await extractHomeData(config.html);
-      //#region logs
-      console.log("home.currentAccount: " + home.currentAccount);
-      console.log("home.allAccounts: " + home.allAccounts);
-      console.log("data.account " + data.account);
-      console.log(
-        "!home.currentAccount.includes(data.account): " +
-          home.currentAccount.includes(data.account)
-      );
-      //#endregion
+  
       return !home.currentAccount.includes(data.account);
     },
     async (config) => {
       const home = await extractHomeData(config.html);
-      console.log("Ensuring check account!");
-      //#region logs
-      console.log(
-        "49 data.account " +
-          data.account +
-          "home.allAccounts " +
-          home.allAccounts
-      );
-      console.log(
-        util.inspect(home.allAccounts, {
-          showHidden: false,
-          depth: null,
-          colors: true,
-        })
-      );
+      
       //#endregion
       const accountId = home.allAccounts.find(
         (e) => e.text == data.account
@@ -133,20 +85,7 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
 
   const firstNav = await ensurecheckAccount.next(async (config) => {
     const home = await extractHomeData(config.html);
-    //#region logs
-
-    console.log(
-      "77 data.nav1 " + data.nav1 + "home.navigation " + home.navigation
-    );
-    console.log(
-      util.inspect(home.navigation, {
-        showHidden: false,
-        depth: null,
-        colors: true,
-      })
-    );
-    //#endregion
-
+  
     const nav1Id = home.navigation.find((e) => e.text == data.nav1)
       ? home.navigation.find((e) => e.text == data.nav1).id
       : "";
