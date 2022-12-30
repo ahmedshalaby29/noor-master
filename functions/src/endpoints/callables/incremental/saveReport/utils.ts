@@ -283,7 +283,7 @@ export async function createSKillsPDF(
     path: tempFilePath,
     margin: { top: "20px", right: "50px", bottom: "100px", left: "50px" },
     printBackground: true,
-    format: "a3",
+    format: "A3",
   };
   const browser = await puppeteer.launch({
     headless: true,

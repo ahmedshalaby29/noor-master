@@ -40,7 +40,6 @@
     "html-pdf-node": "^1.0.8",
     "https": "^1.0.0",
     "nodemon": "^2.0.20",
-    "puppeteer": "^14.0.0",
     "querystring": "^0.2.1",
     "retry": "^0.13.1",
     "util": "^0.12.4"
@@ -48,7 +47,7 @@
   "devDependencies": {
     "@types/paypal__checkout-server-sdk": "^1.0.4",
     "firebase-functions-test": "^0.2.0",
-    "typescript": "^4.9.3"
+    "typescript": "^4.8.0-dev.20220715"
   },
   "private": true
 }

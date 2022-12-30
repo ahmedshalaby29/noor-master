@@ -7,7 +7,7 @@ import { IncrementalData } from "../../../types";
 import { extractRoleIds } from "../../../utils";
 import { Request, Response } from "express";
 import * as express from "express";
-import { User } from "firebase/auth";
+import { User } from "firebase-auth";
 
 interface NavigationData extends IncrementalData {
   account: string;
@@ -19,23 +19,22 @@ router.post("/navigation", async (req: Request, res: Response) => {
   try {
     const data: NavigationData = req.body.data;
     const user: User = req.body.user;
-  if (await isBlocked(user)) return null;
-  //returns Redirect data instance
-  const homePage = await Redirect.start({
-    from:
-      data.from ??
-      "https://noor.moe.gov.sa/Noor/EduWavek12Portal/HomePage.aspx",
-    cookies: data.cookies,
-  });
+    if (await isBlocked(user)) return null;
+    //returns Redirect data instance
+    const homePage = await Redirect.start({
+      from:
+        data.from ??
+        "https://noor.moe.gov.sa/Noor/EduWavek12Portal/HomePage.aspx",
+      cookies: data.cookies,
+    });
 
-  const { secondNav, form } = await navigateToForm(homePage, data);
+    const { secondNav, form } = await navigateToForm(homePage, data);
 
-  res.json(secondNav.sendForm(form)).status(200);
+    res.json(secondNav.sendForm(form)).status(200);
   } catch (error) {
-    console.log(error.error)
-res.status(500)
+    console.log(error.error);
+    res.status(500);
   }
-  
 });
 
 export async function navigateToForm(homePage: Redirect, data: NavigationData) {
@@ -43,12 +42,12 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
     async (config) => {
       if (!data.account) return false;
       const home = await extractHomeData(config.html);
-    
+
       return !home.currentAccount.includes(data.account);
     },
     async (config) => {
       const home = await extractHomeData(config.html);
-     
+
       const accountId = home.allAccounts.find(
         (e) => e.text == data.account
       )!.id;
@@ -64,12 +63,12 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
     async (config) => {
       if (!data.account) return false;
       const home = await extractHomeData(config.html);
-  
+
       return !home.currentAccount.includes(data.account);
     },
     async (config) => {
       const home = await extractHomeData(config.html);
-      
+
       //#endregion
       const accountId = home.allAccounts.find(
         (e) => e.text == data.account
@@ -85,7 +84,7 @@ export async function navigateToForm(homePage: Redirect, data: NavigationData) {
 
   const firstNav = await ensurecheckAccount.next(async (config) => {
     const home = await extractHomeData(config.html);
-  
+
     const nav1Id = home.navigation.find((e) => e.text == data.nav1)
       ? home.navigation.find((e) => e.text == data.nav1).id
       : "";
