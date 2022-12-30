@@ -40,6 +40,7 @@
     "html-pdf-node": "^1.0.8",
     "https": "^1.0.0",
     "nodemon": "^2.0.20",
+    "puppeteer": "^19.4.1",
     "querystring": "^0.2.1",
     "retry": "^0.13.1",
     "util": "^0.12.4"
