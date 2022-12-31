@@ -7,7 +7,6 @@ const fs = require("fs");
 const html_to_pdf = require("html-pdf-node");
 const table_1 = require("../../../../core/table");
 const logoImg_1 = require("./logoImg");
-const puppeteer = require("puppeteer");
 class SaveReportExamTable extends table_1.default {
     filter(tr) {
         return this.$("img", tr).length != 0;
@@ -102,9 +101,14 @@ async function createDegreesPDF(degrees, fileName, inputs, isEmpty = false) {
     let file = { content: template };
     const tempFilePath = path.join(os.tmpdir(), fileName + ".pdf");
     await new Promise((res) => {
-        html_to_pdf.generatePdf(file, options).then((pdfBuffer) => {
-            fs.writeFileSync(tempFilePath, pdfBuffer);
-            res();
+        html_to_pdf.generatePdf(file, options, (error, pdfBuffer) => {
+            if (pdfBuffer) {
+                fs.writeFileSync(tempFilePath, pdfBuffer);
+                res();
+            }
+            else {
+                console.log(error);
+            }
         });
     });
     return tempFilePath;
@@ -225,38 +229,24 @@ async function createSKillsPDF(items, teacherName, fileName, inputs, isEmpty = f
   */
     let file = { content: template };
     const tempFilePath = path.join(os.tmpdir(), fileName + ".pdf");
-    let puppeteerOptions = {
+    let pdfOptions = {
         landscape: true,
         path: tempFilePath,
         margin: { top: "20px", right: "50px", bottom: "100px", left: "50px" },
         printBackground: true,
         format: "A3",
     };
-    const browser = await puppeteer.launch({
-        headless: true,
-        timeout: 20000,
-        ignoreHTTPSErrors: true,
-        slowMo: 0,
-        args: [
-            "--disable-gpu",
-            "--disable-dev-shm-usage",
-            "--disable-setuid-sandbox",
-            "--no-first-run",
-            "--no-sandbox",
-            "--no-zygote",
-            "--window-size=1280,720",
-        ],
+    await new Promise((res) => {
+        html_to_pdf.generatePdf(file, pdfOptions, (error, pdfBuffer) => {
+            if (pdfBuffer) {
+                fs.writeFileSync(tempFilePath, pdfBuffer);
+                res();
+            }
+            else {
+                console.log(error);
+            }
+        });
     });
-    const page = await browser.newPage();
-    try {
-        await page.setContent(file.content);
-        await page.evaluateHandle("document.fonts.ready");
-        await page.pdf(puppeteerOptions);
-        await browser.close();
-    }
-    catch (error) {
-        console.log(error);
-    }
     return tempFilePath;
 }
 exports.createSKillsPDF = createSKillsPDF;

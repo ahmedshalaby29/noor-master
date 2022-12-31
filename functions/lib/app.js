@@ -22,29 +22,26 @@ const port = 5000;
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app
-  .use(save_1.router)
-  .use(signForm_1.router)
-  .use(postSignForm_1.router)
-  .use(newAccount_1.router)
-  .use(navigation_1.router)
-  .use(formOptions_1.router)
-  .use(submit_1.router)
-  .use(save_2.router)
-  .use(submit_2.router)
-  .use(examReport_1.router)
-  .use(skillReport_1.router)
-  .use(saveAll_1.router);
+    .use(save_1.router)
+    .use(signForm_1.router)
+    .use(postSignForm_1.router)
+    .use(newAccount_1.router)
+    .use(navigation_1.router)
+    .use(formOptions_1.router)
+    .use(submit_1.router)
+    .use(save_2.router)
+    .use(submit_2.router)
+    .use(examReport_1.router)
+    .use(skillReport_1.router)
+    .use(saveAll_1.router);
 app.get("/", (req, res) => {
-  res.send("Express + TypeScript Server");
+    res.send("Express + TypeScript Server");
 });
-const sslServer = https.createServer(
-  {
+const sslServer = https.createServer({
     key: fs.readFileSync(path.join(`${__dirname}`, "cert", "private.pem")),
     cert: fs.readFileSync(path.join(`${__dirname}`, "cert", "certificate.pem")),
-  },
-  app
-);
+}, app);
 sslServer.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+    console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
 });
 //# sourceMappingURL=app.js.map
