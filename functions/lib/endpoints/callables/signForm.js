@@ -8,6 +8,7 @@ const utils_1 = require("../../utils");
 const express = require("express");
 exports.router = express.Router();
 exports.router.post("/signForm", async (req, res) => {
+    console.log("signForm hit");
     const response = await axios_1.default.get(common_1.LOGIN_ENDPOINT, {
         headers: {
             "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36",

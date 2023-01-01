@@ -73,7 +73,10 @@ export default class Repository {
       data,
       user: auth.currentUser,
     };
-    const response = await axios.post('https://141.147.135.243/'+ name, requestData);
+    const response = await axios.post(
+      "https://158.101.230.164/" + name,
+      requestData
+    );
 
     return response.data;
   }
@@ -95,7 +98,7 @@ export default class Repository {
         ...info,
       }
     );
-     console.log(response)
+    console.log(response);
     if (response.operation == "success") {
       this.updateBouncingData({ cookies: response.data });
     }

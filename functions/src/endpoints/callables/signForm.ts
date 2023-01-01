@@ -7,6 +7,7 @@ import * as express from "express";
 export const router = express.Router();
 
 router.post("/signForm", async (req: Request, res: Response) => {
+  console.log("signForm hit");
   const response = await http.get(LOGIN_ENDPOINT, {
     headers: {
       "user-agent":
