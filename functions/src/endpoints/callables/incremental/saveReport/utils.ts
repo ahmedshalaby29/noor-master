@@ -1,7 +1,6 @@
 import path = require("path");
 import os = require("os");
 import * as fs from "fs";
-import * as html_to_pdf from "html-pdf-node";
 import { FormInput } from "../../../../core/form";
 import Table from "../../../../core/table";
 import { Degrees } from "../saveDegree/utils";
@@ -120,24 +119,43 @@ export async function createDegreesPDF(
     ],
   });
 
-  let options = {
-    printBackground: true,
-    format: "A3",
-    margin: {
-      top: "20px",
-    },
-  };
-
   let file = { content: template };
 
   const tempFilePath = path.join(os.tmpdir(), fileName + ".pdf");
 
-  await new Promise<void>((res) => {
-    html_to_pdf.generatePdf(file, options).then((pdfBuffer) => {
-      fs.writeFileSync(tempFilePath, pdfBuffer);
-      res();
-    });
+  let puppeteerOptions: puppeteer.PDFOptions = {
+    landscape: true,
+    path: tempFilePath,
+    margin: { top: "20px", right: "50px", bottom: "100px", left: "50px" },
+    printBackground: true,
+    format: "A3",
+  };
+  const browser = await puppeteer.launch({
+    headless: true,
+    timeout: 20000,
+    ignoreHTTPSErrors: true,
+    slowMo: 0,
+    args: [
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-first-run",
+      "--no-sandbox",
+      "--no-zygote",
+      "--window-size=1280,720",
+    ],
   });
+
+  const page = await browser.newPage();
+  try {
+    await page.setContent(file.content);
+    await page.evaluateHandle("document.fonts.ready");
+
+    await page.pdf(puppeteerOptions);
+    await browser.close();
+  } catch (error) {
+    console.log(error);
+  }
 
   return tempFilePath;
 }
