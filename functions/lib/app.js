@@ -42,6 +42,6 @@ const sslServer = https.createServer({
     cert: fs.readFileSync(path.join(`${__dirname}`, "cert", "certificate.pem")),
 }, app);
 sslServer.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+    console.log(`⚡️[server]: Server is running at port ${port}`);
 });
 //# sourceMappingURL=app.js.map
