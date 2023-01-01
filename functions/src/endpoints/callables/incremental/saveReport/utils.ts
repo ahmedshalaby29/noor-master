@@ -6,6 +6,7 @@ import { FormInput } from "../../../../core/form";
 import Table from "../../../../core/table";
 import { Degrees } from "../saveDegree/utils";
 import logoImg from "./logoImg";
+import puppeteer = require("puppeteer");
 
 export type skill = {
   id: string;
@@ -132,13 +133,9 @@ export async function createDegreesPDF(
   const tempFilePath = path.join(os.tmpdir(), fileName + ".pdf");
 
   await new Promise<void>((res) => {
-    html_to_pdf.generatePdf(file, options, (error, pdfBuffer) => {
-      if (pdfBuffer) {
-        fs.writeFileSync(tempFilePath, pdfBuffer);
-        res();
-      } else {
-        console.log(error);
-      }
+    html_to_pdf.generatePdf(file, options).then((pdfBuffer) => {
+      fs.writeFileSync(tempFilePath, pdfBuffer);
+      res();
     });
   });
 
@@ -281,24 +278,39 @@ export async function createSKillsPDF(
 
   const tempFilePath = path.join(os.tmpdir(), fileName + ".pdf");
 
-  let pdfOptions = {
+  let puppeteerOptions: puppeteer.PDFOptions = {
     landscape: true,
     path: tempFilePath,
     margin: { top: "20px", right: "50px", bottom: "100px", left: "50px" },
     printBackground: true,
     format: "A3",
   };
-
-  await new Promise<void>((res) => {
-    html_to_pdf.generatePdf(file, pdfOptions, (error, pdfBuffer) => {
-      if (pdfBuffer) {
-        fs.writeFileSync(tempFilePath, pdfBuffer);
-        res();
-      } else {
-        console.log(error);
-      }
-    });
+  const browser = await puppeteer.launch({
+    headless: true,
+    timeout: 20000,
+    ignoreHTTPSErrors: true,
+    slowMo: 0,
+    args: [
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-first-run",
+      "--no-sandbox",
+      "--no-zygote",
+      "--window-size=1280,720",
+    ],
   });
+
+  const page = await browser.newPage();
+  try {
+    await page.setContent(file.content);
+    await page.evaluateHandle("document.fonts.ready");
+
+    await page.pdf(puppeteerOptions);
+    await browser.close();
+  } catch (error) {
+    console.log(error);
+  }
 
   return tempFilePath;
 }
