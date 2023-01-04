@@ -38,10 +38,10 @@ app.get("/", (req, res) => {
     res.send("Express + TypeScript Server");
 });
 const sslServer = https.createServer({
-    key: fs.readFileSync(path.join(`${__dirname}`, "cert", "private.pem")),
-    cert: fs.readFileSync(path.join(`${__dirname}`, "cert", "certificate.pem")),
+    key: fs.readFileSync(path.join(`${__dirname}`, "cert", "private.key")),
+    cert: fs.readFileSync(path.join(`${__dirname}`, "cert", "certificate.crt")),
 }, app);
 sslServer.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at port ${port}`);
+    console.log(`⚡️[server]: Server is running at port ${port} with new cert`);
 });
 //# sourceMappingURL=app.js.map
