@@ -10,18 +10,6 @@ const axios_retry_1 = require("axios-retry");
 (0, axios_retry_1.default)(axios_1.default);
 const failedRequests_1 = require("../endpoints/background/failedRequests");
 class Redirect {
-    constructor(config) {
-        console.log("new Instance ~~~~~~~~~~~~~~~~~~~~~~~~~~éé");
-        this.from = config.from;
-        this.cookies = config.cookies;
-        this.target = config.target;
-        this.to = config.to;
-        this.weirdData = config.weirdData;
-        this.html = config.html;
-        this.redirected = config.redirected;
-        this.prevCookies = config.prevCookies;
-        this.id = Math.floor(Math.random() * 1000);
-    }
     create(config) {
         const instance = new Redirect(Object.assign(Object.assign({}, this), config));
         return instance;
@@ -67,6 +55,18 @@ class Redirect {
             redirected: "",
             prevCookies: [],
         });
+    }
+    constructor(config) {
+        console.log("new Instance ~~~~~~~~~~~~~~~~~~~~~~~~~~éé");
+        this.from = config.from;
+        this.cookies = config.cookies;
+        this.target = config.target;
+        this.to = config.to;
+        this.weirdData = config.weirdData;
+        this.html = config.html;
+        this.redirected = config.redirected;
+        this.prevCookies = config.prevCookies;
+        this.id = Math.floor(Math.random() * 1000);
     }
     async nextIf(condition, treat) {
         const response = {

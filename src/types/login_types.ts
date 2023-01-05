@@ -3,6 +3,7 @@ export type LoginCredential = {
   name: string;
   password: string;
   captcha: number;
+  key:string | undefined;
 };
 
 export type ChangeUserPasswordResponse = {
@@ -19,6 +20,7 @@ export type LoginFormParamsResponse = {
 };
 export interface LoginFormParams extends LoginFormParamsResponse {
   captcha: string;
+  key:string;
 }
 
 export type LoginSubmissionResponse = {

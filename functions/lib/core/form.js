@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cheerio_1 = require("cheerio");
 const utils_1 = require("../utils");
 class Form {
+    $(selector, context) {
+        return this.root(selector, context || this.form);
+    }
     constructor(html) {
         this.getActionButtons = () => {
             const buttons = this.$("input[type='submit']");
@@ -20,9 +23,6 @@ class Form {
         };
         this.root = (0, cheerio_1.load)(html);
         this.form = this.root("body > form").first();
-    }
-    $(selector, context) {
-        return this.root(selector, context || this.form);
     }
     get html() {
         return this.root.html();

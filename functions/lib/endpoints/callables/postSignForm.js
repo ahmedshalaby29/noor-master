@@ -8,14 +8,14 @@ const common_1 = require("../../common");
 const express = require("express");
 const utils_1 = require("../../utils");
 const cry = require("crypto-js");
-const iv = cry.enc.Utf8.parse("1052099214050902");
-const key = cry.enc.Utf8.parse("p10zpop213tpDW41");
 exports.router = express.Router();
 exports.router.post("/postSignForm", async (req, res) => {
     const data = req.body.data;
     const user = req.body.user;
     if (user === null || user === void 0 ? void 0 : user.uid)
         console.warn(`authenicated user ${user === null || user === void 0 ? void 0 : user.uid} is using login captcha checking!`);
+    const iv = cry.enc.Utf8.parse(data.key);
+    const key = cry.enc.Utf8.parse(data.key);
     const encr = (x) => cry.AES.encrypt(x, key, {
         iv,
         keySize: 16,
@@ -40,6 +40,7 @@ exports.router.post("/postSignForm", async (req, res) => {
             tMbPAG1: captcha,
         };
         try {
+            //xqm3L/tCcM2cQ8Jl31Jkcg==
             const response = await axios_1.default.post(common_1.LOGIN_ENDPOINT, (0, querystring_1.stringify)(postData), {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",

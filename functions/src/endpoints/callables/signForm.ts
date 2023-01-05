@@ -7,7 +7,6 @@ import * as express from "express";
 export const router = express.Router();
 
 router.post("/signForm", async (req: Request, res: Response) => {
-  console.log("signForm hit");
   const response = await http.get(LOGIN_ENDPOINT, {
     headers: {
       "user-agent":
@@ -21,7 +20,7 @@ router.post("/signForm", async (req: Request, res: Response) => {
   const html = response.data;
 
   const $ = loadHtml(html);
-
+  const key = $('#bMtSMB1').attr("onclick").split('\'')[11];
   const captachUrl =
     "https://noor.moe.gov.sa/Noor/" + $("#img_Captcha").attr("src");
 
@@ -43,5 +42,6 @@ router.post("/signForm", async (req: Request, res: Response) => {
     captcha,
     ...params,
     cookies,
+    key
   });
 });

@@ -38,6 +38,7 @@ const Login: React.FC = ({}) => {
       captcha: captchCode as number,
       name: username,
       password,
+      key:loginFormParams?.key
     }).then((result) => {
       console.log(result)
 

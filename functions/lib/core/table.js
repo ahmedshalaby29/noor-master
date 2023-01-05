@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const cheerio_1 = require("cheerio");
 class Table {
+    $(selector, context) {
+        return this.root(selector, context || this.table);
+    }
     constructor(html, id) {
         this.root = (0, cheerio_1.load)(html);
         if (id) {
@@ -10,9 +13,6 @@ class Table {
         else {
             this.table = this.root("table");
         }
-    }
-    $(selector, context) {
-        return this.root(selector, context || this.table);
     }
     lines() {
         const lines = [];

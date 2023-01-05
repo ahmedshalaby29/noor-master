@@ -8,7 +8,6 @@ const utils_1 = require("../../utils");
 const express = require("express");
 exports.router = express.Router();
 exports.router.post("/signForm", async (req, res) => {
-    console.log("signForm hit");
     const response = await axios_1.default.get(common_1.LOGIN_ENDPOINT, {
         headers: {
             "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36",
@@ -19,6 +18,7 @@ exports.router.post("/signForm", async (req, res) => {
     const cookies = response.headers["set-cookie"] || [];
     const html = response.data;
     const $ = (0, cheerio_1.load)(html);
+    const key = $('#bMtSMB1').attr("onclick").split('\'')[11];
     const captachUrl = "https://noor.moe.gov.sa/Noor/" + $("#img_Captcha").attr("src");
     const { data } = await axios_1.default.get(captachUrl, {
         headers: {
@@ -30,6 +30,7 @@ exports.router.post("/signForm", async (req, res) => {
     });
     const captcha = Buffer.from(data, "binary").toString("base64");
     const params = (0, utils_1.hiddenInputs)($);
-    res.json(Object.assign(Object.assign({ captcha }, params), { cookies }));
+    res.json(Object.assign(Object.assign({ captcha }, params), { cookies,
+        key }));
 });
 //# sourceMappingURL=signForm.js.map

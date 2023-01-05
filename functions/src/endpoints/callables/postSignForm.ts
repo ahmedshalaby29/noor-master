@@ -9,8 +9,6 @@ import { Request, Response } from "express";
 import { mergeCookies } from "../../utils";
 const cry = require("crypto-js");
 
-const iv = cry.enc.Utf8.parse("1052099214050902");
-const key = cry.enc.Utf8.parse("p10zpop213tpDW41");
 export const router = express.Router();
 
 router.post("/postSignForm", async (req: Request, res: Response) => {
@@ -20,6 +18,9 @@ router.post("/postSignForm", async (req: Request, res: Response) => {
     console.warn(
       `authenicated user ${user?.uid} is using login captcha checking!`
     );
+    
+  const iv = cry.enc.Utf8.parse(data.key);
+  const key = cry.enc.Utf8.parse(data.key);
   const encr = (x: any) =>
     cry.AES.encrypt(x, key, {
       iv,
@@ -54,6 +55,8 @@ router.post("/postSignForm", async (req: Request, res: Response) => {
     };
 
     try {
+      //xqm3L/tCcM2cQ8Jl31Jkcg==
+
       const response = await http.post(LOGIN_ENDPOINT, QueryEncode(postData), {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

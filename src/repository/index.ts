@@ -74,7 +74,7 @@ export default class Repository {
       user: auth.currentUser,
     };
     const response = await axios.post(
-      "https://158.101.230.164:5000/" + name,
+      "https://localhost:5000/" + name,
       requestData
     );
 
@@ -89,7 +89,7 @@ export default class Repository {
 
   async checkLoginInformation(
     params: LoginFormParams,
-    info: { name: string; password: string; captcha: number }
+    info: { name: string; password: string; captcha: number , key:string | undefined }
   ) {
     const response = await this.callApi<LoginSubmissionResponse>(
       "postSignForm",
